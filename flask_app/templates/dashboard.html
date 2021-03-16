@@ -1,0 +1,262 @@
+{% extends "base.html" %}
+
+{% block content %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<body>
+<div class="p-1" align="middle">
+
+    <h2 style="color:green">{% block title %} Automatisiertes Gewächshaus {% endblock %}</h2>
+        <h3> Dashboard </h3>
+         <p  style="font-family:verdana">
+        Satellit auswählen:
+        <SELECT name="satellite" style="font-family:verdana">
+        {% for i in list %}
+          <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
+        {% endfor %}
+        </SELECT>
+        &nbsp;&nbsp;
+        Programm auswählen:
+        <SELECT name="programm" style="font-family:verdana">
+        {% for i in listP %}
+          <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
+        {% endfor %}
+        </SELECT>
+        &nbsp;&nbsp;
+        Zeitraum auswählen:
+        <SELECT name="date" style="font-family:verdana">
+        {% for i in listD %}
+          <OPTION value={{i[1]}}>{{i[0]}}</OPTION>
+        {% endfor %}
+        </SELECT>
+        </p>
+</div>
+</body>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col">
+         <canvas id="chart" width="500" height="200"></canvas>
+
+   <script>
+
+      Chart.defaults.global.animationSteps = 20;
+      Chart.defaults.global.tooltipYPadding = 10;
+      Chart.defaults.global.tooltipCornerRadius = 0;
+      Chart.defaults.global.tooltipTitleFontStyle = "normal";
+      Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
+      Chart.defaults.global.animationEasing = "easeOutBounce";
+      Chart.defaults.global.responsive = false;
+      Chart.defaults.global.scaleLineColor = "black";
+      Chart.defaults.global.scaleFontSize = 10;
+
+      // get bar chart canvas
+
+      steps = 4
+      max = {{ max }}
+
+      // draw bar chart
+      new Chart(document.getElementById("chart"), {
+        type: 'line',
+        data: {
+                lables : [
+                  {% for item in id_date %}
+                  "{{ item }}",
+ {% endfor %}
+                ],
+
+        datasets : [{
+        fillColor: "rgba(151,187,205,0.2)",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(151,187,205,1)",
+          bezierCurve : false,
+          data : [
+            {% for item in id_list %}
+            {{ item }},
+            {% endfor %}]
+
+             }
+
+        ]
+        }
+        }
+);
+
+   </script>
+</div>
+
+<div class="col">
+ <canvas id="chart1" width="500" height="200"></canvas>
+
+   <script>
+
+      Chart.defaults.global.animationSteps = 20;
+      Chart.defaults.global.tooltipYPadding = 10;
+      Chart.defaults.global.tooltipCornerRadius = 0;
+      Chart.defaults.global.tooltipTitleFontStyle = "normal";
+      Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
+      Chart.defaults.global.animationEasing = "easeOutBounce";
+      Chart.defaults.global.responsive = false;
+      Chart.defaults.global.scaleLineColor = "black";
+      Chart.defaults.global.scaleFontSize = 10;
+
+      // get bar chart canvas
+
+      steps = 4
+      max = {{ max }}
+
+      // draw bar chart
+
+new Chart(document.getElementById("chart1"), {
+        type: 'line',
+        data: {
+                lables : [
+                  {% for item in id_date %}
+                  "{{ item }}",
+ {% endfor %}
+                ],
+
+        datasets : [{
+        fillColor: "rgba(151,187,205,0.2)",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(151,187,205,1)",
+          bezierCurve : false,
+          data : [
+            {% for item in id_list %}
+            {{ item }},
+
+
+ {% endfor %}]
+
+             }
+
+        ]
+        }
+        }
+);
+
+   </script>
+</div>
+</div>
+<div class="row">
+    <div class="col">
+ <canvas id="chart3" width="500" height="200"></canvas>
+
+   <script>
+
+      Chart.defaults.global.animationSteps = 20;
+      Chart.defaults.global.tooltipYPadding = 10;
+      Chart.defaults.global.tooltipCornerRadius = 0;
+      Chart.defaults.global.tooltipTitleFontStyle = "normal";
+      Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
+      Chart.defaults.global.animationEasing = "easeOutBounce";
+      Chart.defaults.global.responsive = false;
+      Chart.defaults.global.scaleLineColor = "black";
+      Chart.defaults.global.scaleFontSize = 10;
+
+      // get bar chart canvas
+
+      steps = 4
+      max = {{ max }}
+
+      // draw bar chart
+
+new Chart(document.getElementById("chart3"), {
+        type: 'line',
+        data: {
+                lables : [
+                  {% for item in id_date %}
+                  "{{ item }}",
+ {% endfor %}
+                ],
+
+        datasets : [{
+        fillColor: "rgba(151,187,205,0.2)",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(151,187,205,1)",
+          bezierCurve : false,
+          data : [
+            {% for item in id_list %}
+            {{ item }},
+
+
+ {% endfor %}]
+
+             }
+
+        ]
+        }
+        }
+);
+
+   </script>
+</div>
+    <div class="col">
+ <canvas id="chart4" width="500" height="200"></canvas>
+
+   <script>
+
+      Chart.defaults.global.animationSteps = 20;
+      Chart.defaults.global.tooltipYPadding = 10;
+      Chart.defaults.global.tooltipCornerRadius = 0;
+      Chart.defaults.global.tooltipTitleFontStyle = "normal";
+      Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
+      Chart.defaults.global.animationEasing = "easeOutBounce";
+      Chart.defaults.global.responsive = false;
+      Chart.defaults.global.scaleLineColor = "black";
+      Chart.defaults.global.scaleFontSize = 10;
+
+      // get bar chart canvas
+
+      steps = 4
+      max = {{ max }}
+
+      // draw bar chart
+
+new Chart(document.getElementById("chart4"), {
+        type: 'line',
+        data: {
+                lables : [
+                  {% for item in id_date %}
+                  "{{ item }}",
+ {% endfor %}
+                ],
+
+        datasets : [{
+        fillColor: "rgba(151,187,205,0.2)",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(151,187,205,1)",
+          bezierCurve : false,
+          data : [
+            {% for item in id_list %}
+            {{ item }},
+
+
+ {% endfor %}]
+
+             }
+
+        ]
+        }
+        }
+);
+
+   </script>
+</div>
+</div>
+</div>
+</body>
+{% endblock %}
+

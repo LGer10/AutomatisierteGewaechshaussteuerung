@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+        <body>
+        <div class="p-3" align="middle">
+        <h1 style="color:green" >{% block title %} Automatisiertes Gewächshaus {% endblock %}</h2>
+        </br>
+        </br>
+        <h2> Willkommen!</h2>
+        </br>
+        </br>
+        <img src="{{url_for('static', filename='Bild1.jpg')}}" align="middle" />
+        </div>
+{% endblock %}
+

@@ -1,0 +1,145 @@
+<mxfile host="app.diagrams.net" modified="2021-03-11T19:33:54.882Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.72 Safari/537.36 Edg/89.0.774.45" etag="J3aZaUCLW5mCPS982js3" version="14.4.6" type="github">
+  <diagram id="Dfz4kN2o1dQDcq9vH77G" name="Page-1">
+    <mxGraphModel dx="1609" dy="446" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="S_pbX378z1dfnm8fTKww-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="S_pbX378z1dfnm8fTKww-1" target="S_pbX378z1dfnm8fTKww-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-1" value="def control_temperature(float temperature)" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="80" width="240" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="S_pbX378z1dfnm8fTKww-2" target="S_pbX378z1dfnm8fTKww-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-2" value="def get_temperature()" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
+          <mxGeometry x="125" y="420" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="S_pbX378z1dfnm8fTKww-4" target="S_pbX378z1dfnm8fTKww-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-4" value="Klassen importieren" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="220" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="S_pbX378z1dfnm8fTKww-5" target="S_pbX378z1dfnm8fTKww-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-5" value="Variablen deklarieren" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="310" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="S_pbX378z1dfnm8fTKww-10" target="S_pbX378z1dfnm8fTKww-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-33" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="S_pbX378z1dfnm8fTKww-10" target="S_pbX378z1dfnm8fTKww-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-10" value="def get_temperature &amp;lt; temperature" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="527" width="240" height="115" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-37" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="S_pbX378z1dfnm8fTKww-42" target="S_pbX378z1dfnm8fTKww-36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-14" value="def_control(pin, on)" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="920" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-23" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="S_pbX378z1dfnm8fTKww-17" target="S_pbX378z1dfnm8fTKww-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-17" value="&lt;span lang=&quot;DE&quot; style=&quot;font-size: 9.0pt ; font-family: &amp;#34;arial&amp;#34; , sans-serif&quot;&gt;RS Pro Steel tubular heater 45W starten&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="820" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="S_pbX378z1dfnm8fTKww-18" target="S_pbX378z1dfnm8fTKww-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-18" value="&lt;span lang=&quot;DE&quot; style=&quot;font-size: 9.0pt ; font-family: &amp;#34;arial&amp;#34; , sans-serif&quot;&gt;Reely Mini-Servo Analog-Servo Getriebe schliessen&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="620" width="140" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="S_pbX378z1dfnm8fTKww-19" target="S_pbX378z1dfnm8fTKww-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-19" value="def_control(pin, off)" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="720" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-24" value="def_control(pin, off)" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
+          <mxGeometry x="-70" y="920" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-25" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="S_pbX378z1dfnm8fTKww-26" target="S_pbX378z1dfnm8fTKww-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-26" value="&lt;span lang=&quot;DE&quot; style=&quot;font-size: 9.0pt ; font-family: &amp;#34;arial&amp;#34; , sans-serif&quot;&gt;RS Pro Steel tubular heater 45W stoppen&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-60" y="820" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-27" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="S_pbX378z1dfnm8fTKww-28" target="S_pbX378z1dfnm8fTKww-30">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-28" value="&lt;span lang=&quot;DE&quot; style=&quot;font-size: 9.0pt ; font-family: &amp;#34;arial&amp;#34; , sans-serif&quot;&gt;Reely Mini-Servo Analog-Servo Getriebe öffnen&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-70" y="620" width="140" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-29" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="S_pbX378z1dfnm8fTKww-30" target="S_pbX378z1dfnm8fTKww-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-30" value="def_control(pin, on)" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
+          <mxGeometry x="-70" y="720" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-31" value="Yes" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="350" y="560" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-32" value="No" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="20" y="560" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-36" value="Ende" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="1080" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-39" value="" style="endArrow=none;html=1;endFill=0;" edge="1" parent="1" target="S_pbX378z1dfnm8fTKww-42">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="210" y="1000" as="sourcePoint" />
+            <mxPoint x="560" y="1000" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-40" value="" style="endArrow=none;html=1;endFill=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="560" y="1000" as="sourcePoint" />
+            <mxPoint x="560" y="510" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-41" value="" style="endArrow=none;html=1;endFill=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="560" y="510" as="sourcePoint" />
+            <mxPoint x="210" y="510" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-42" value="Sleep 60" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="980" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-43" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" edge="1" parent="1" target="S_pbX378z1dfnm8fTKww-42">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="560" y="1000" as="sourcePoint" />
+            <mxPoint x="210" y="1080" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="560" y="1010" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-44" value="" style="endArrow=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="S_pbX378z1dfnm8fTKww-14">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="210" y="950" as="sourcePoint" />
+            <mxPoint x="290" y="960" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-45" value="" style="endArrow=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="S_pbX378z1dfnm8fTKww-24">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="240" y="1080" as="sourcePoint" />
+            <mxPoint x="210" y="950" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S_pbX378z1dfnm8fTKww-46" value="" style="endArrow=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" target="S_pbX378z1dfnm8fTKww-42">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="210" y="950" as="sourcePoint" />
+            <mxPoint x="290" y="1030" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
