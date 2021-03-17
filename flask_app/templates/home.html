@@ -13,3 +13,13 @@
                         <img src="{{url_for('static', filename='Bild1.jpg')}}" align="middle" />
         </div>
         {% endblock %}
+
+        { % block footer % }
+      
+        <div class="container">
+           <div id="footer">
+                <p>Your footer stuff goes here</p>
+          </div>
+       </div>
+     
+        { %- endblock % }

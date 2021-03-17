@@ -47,30 +47,60 @@ def admin():
                         return render_template('admin.html')
 
 
-@app.route('/dashboard')
+@app.route('/dashboard', methods=['GET','POST'])
 def dashboard():
-        cur = mysql.connection.cursor()
-        cur.execute('SELECT id, name FROM satellites')
-        list = cur.fetchall()
-        cur.execute('SELECT id, name FROM programm')
-        listP = cur.fetchall()
-        cur.execute('SELECT distinct DATE_FORMAT(date, "%M %d %Y"), id from sensordata where date > curdate() - interval 7 day')
-        listD = cur.fetchall()
-        cur = mysql.connection.cursor()
-        cur.execute('SELECT temp FROM sensordata where id_satellite = 1 and id_programm = 1')
-        list = cur.fetchall()
-        id_list = []
-        for index in range(len(list)):
-                id_list.append(list[index][0])
+        if request.method =='GET':
+                cur = mysql.connection.cursor()
+                cur.execute('SELECT id, name FROM satellites')
+                satellite_list = cur.fetchall()
 
-        cur.execute('SELECT date from sensordata where id_satellite = 1 and id_programm = 1')
-        date= cur.fetchall()
-        id_date = []
-        for index in range(len(date)):
-                id_date.append(date[index][0])
-        cur.close()
-        return render_template('dashboard.html', list=list, listP=listP, listD=listD, id_list=id_list, id_date=id_date)
+                cur.execute('SELECT id, name FROM programms')
+                programm_list = cur.fetchall()
 
+                cur.execute('SELECT distinct id, date from sensordata where date > curdate() - interval 7 day')
+                date_list = cur.fetchall()
+
+        if request.method =='GET' and request.form['AnzeigenButton'] == 'Anzeigen':
+                satellite_name= request.args.get(['satellite_name'])
+                programme_name= request.args.get(['programm_name'])
+                date_span = request.args.get(['date_span'])
+                cur = mysql.connection.cursor()
+                cur.execute('''SELECT temperature FROM sensordata where date >= (%s) and id_satellite_programm in (select id from satellite_programm where id_satellite in 
+                (select id from satellites where name = "(%s)") and id_programm in (select id from programms where name = "(%s))''',date_span, satellite_name, programm_name))
+                temperature = cur.fetchall()
+                temperature_list = []
+                for index in range(len(temperature)):
+                        temperature_list.append(temperature[index][0])
+
+                cur.execute('SELECT date from sensordata where id_satellite = 1 and id_programm = 1')
+                dates = cur.fetchall()
+                dates_list = []
+                for index in range(len(dates)):
+                        dates_list.append(dates[index][0])
+
+                cur.execute('SELECT brightness from sensordata where id_satellite = 1 and id_programm = 1')
+                brightness = cur.fetchall()
+                brightness_list = []
+                for index in range(len(brightness)):
+                        brightness_list.append(brightness[index][0])
+
+                cur.execute('SELECT airhumidity from sensordata where id_satellite = 1 and id_programm = 1')
+                airhumidity = cur.fetchall()
+                airhumidity_list = []
+                for index in range(len(airhumidity)):
+                        airhumidity_list.append(airhumidity[index][0])
+
+                cur.execute('SELECT soilhumidity from sensordata where id_satellite = 1 and id_programm = 1')
+                soilhumidity = cur.fetchall()
+                soilhumidity_list = []
+                for index in range(len(soilhumidity)):
+                        asoilhumidity_list.append(soilhumidity[index][0])
+
+                cur.close()
+                
+                return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_list=date_list, temperature_list=temperature_list, dates_list=dates_list, brightness_list=brightness_list, airhumidity_list=airhumidity_list, solihumidity_list=soilhumidity_list)
+
+        return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_list=date_list)
 
 
 

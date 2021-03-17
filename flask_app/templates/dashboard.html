@@ -12,22 +12,22 @@
     <p style="font-family:verdana">
       Satellit auswählen:
       <SELECT name="satellite" style="font-family:verdana">
-        {% for i in list %}
+        {% for i in _satellite_list %}
         <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
         {% endfor %}
       </SELECT>
       &nbsp;&nbsp;
       Programm auswählen:
       <SELECT name="programm" style="font-family:verdana">
-        {% for i in listP %}
+        {% for i in programm_list %}
         <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
         {% endfor %}
       </SELECT>
       &nbsp;&nbsp;
       Zeitraum auswählen:
       <SELECT name="date" style="font-family:verdana">
-        {% for i in listD %}
-        <OPTION value={{i[1]}}>{{i[0]}}</OPTION>
+        {% for i in dates_list %}
+        <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
         {% endfor %}
       </SELECT>
     </p>
@@ -62,7 +62,7 @@
             type: 'line',
             data: {
               lables: [
-                {% for item in id_date %}
+                {% for item in dates_list %}
                   "{{ item }}",
  {% endfor %}
                 ],
@@ -76,7 +76,7 @@
               pointHighlightStroke: "rgba(151,187,205,1)",
               bezierCurve: false,
               data: [
-                {% for item in id_list %}
+                {% for item in temperature_list %}
             {{ item }},
             {% endfor %}]
 
@@ -86,17 +86,17 @@
 ]
 },
 
-options: {
-scales: {
-yAxes: [{
-    ticks: {
-        beginAtZero: true
-    }
-}]
+            options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }]
+            }
+          }
 }
-}
-}
-);
+          );
 
 
         </script>
@@ -128,7 +128,7 @@ yAxes: [{
             type: 'line',
             data: {
               lables: [
-                {% for item in id_date %}
+                {% for item in dates_list %}
                   "{{ item }}",
  {% endfor %}
                 ],
@@ -154,17 +154,17 @@ yAxes: [{
 ]
 },
 
-options: {
-scales: {
-yAxes: [{
-    ticks: {
-        beginAtZero: true
-    }
-}]
+            options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }]
+            }
+          }
 }
-}
-}
-);
+          );
 
 
         </script>
@@ -222,17 +222,17 @@ yAxes: [{
 ]
 },
 
-options: {
-scales: {
-yAxes: [{
-    ticks: {
-        beginAtZero: true
-    }
-}]
+            options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }]
+            }
+          }
 }
-}
-}
-);
+          );
 
 
         </script>
@@ -289,17 +289,17 @@ yAxes: [{
 ]
 },
 
-options: {
-scales: {
-yAxes: [{
-    ticks: {
-        beginAtZero: true
-    }
-}]
+            options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }]
+            }
+          }
 }
-}
-}
-);
+          );
 
 
         </script>
