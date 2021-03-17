@@ -1,13 +1,14 @@
-from flask import Flask, session, render_template, request,make_response,redirect,flash, Markup
 from flask_mysqldb import MySQL
 
+from flask import Flask, session, render_template, request,make_response,redirect,flash, Markup
+from flask import Flask
 app = Flask(__name__)
 mysql = MySQL(app)
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'sml12345'
-app.config['MYSQL_DB'] = 'AutoGewaechshaus'
+app.config['MYSQL_PASSWORD'] = 'AGdb'
+app.config['MYSQL_DB'] = 'AGdb'
 
 
 @app.route('/')
@@ -42,7 +43,7 @@ def admin():
                         l_feu = request.form['l_feu']
                         b_feu = request.form['b_feu']
                         cur= mysql.connection.cursor()
-                        cur.execute('insert into programm (id, name, temp, brightness, airhumidity, soilhumidity) values (%s, %s, %s, %s, %s, %s)', [id_p, name_p, temp, hell, l_feu, b_feu])
+                        cur.execute('insert into programm (id, name, date_created) values (%s, %s, current_timestamp())', [id_p, name_p])
                         mysql.connection.commit()
                         return render_template('admin.html')
 
@@ -52,12 +53,13 @@ def dashboard():
         cur = mysql.connection.cursor()
         cur.execute('SELECT id, name FROM satellites')
         list = cur.fetchall()
-        cur.execute('SELECT id, name FROM programm')
+        cur.execute('SELECT id, name FROM programms')
         listP = cur.fetchall()
-        cur.execute('SELECT distinct DATE_FORMAT(date, "%M %d %Y"), id from sensordata where date > curdate() - interval 7 day')
+        cur.execute('SELECT distinct id, date from sensordata where date > curdate() - interval 7 day')
         listD = cur.fetchall()
+
         cur = mysql.connection.cursor()
-        cur.execute('SELECT temp FROM sensordata where id_satellite = 1 and id_programm = 1')
+        cur.execute('SELECT temperature FROM sensordata where id_satellite = 1 and id_programm = 1')
         list = cur.fetchall()
         id_list = []
         for index in range(len(list)):
