@@ -28,7 +28,6 @@ def index(req, resp):
 def index(req, resp):
 
     temperature = functions.get_temperature()
-    time.sleep(2)
     air_humidity = functions.get_air_humidity()
 
     jsonData = {"temperature": temperature, "air_humidity": air_humidity}

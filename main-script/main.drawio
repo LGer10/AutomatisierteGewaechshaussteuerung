@@ -1,0 +1,36 @@
+<mxfile host="app.diagrams.net" modified="2021-03-10T20:28:39.976Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.72 Safari/537.36 Edg/89.0.774.45" etag="IXsXy0qpbbeapTLIQg3V" version="14.4.6" type="github">
+  <diagram id="Rjk518nDsKSukwp-1H1s" name="Page-1">
+    <mxGraphModel dx="1026" dy="1131" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="LfDmVUvy6gMoqXlgFycZ-1" value="Main" style="shape=mxgraph.flowchart.terminator;strokeWidth=2;gradientColor=none;gradientDirection=north;fontStyle=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="30" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LfDmVUvy6gMoqXlgFycZ-2" style="fontStyle=1;strokeColor=#003366;strokeWidth=1;html=1;" edge="1" parent="1" source="LfDmVUvy6gMoqXlgFycZ-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="120" y="100" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LfDmVUvy6gMoqXlgFycZ-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="LfDmVUvy6gMoqXlgFycZ-4" target="LfDmVUvy6gMoqXlgFycZ-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LfDmVUvy6gMoqXlgFycZ-4" value="Klassen importieren" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="LfDmVUvy6gMoqXlgFycZ-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="LfDmVUvy6gMoqXlgFycZ-6" target="LfDmVUvy6gMoqXlgFycZ-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LfDmVUvy6gMoqXlgFycZ-6" value="Variablen deklarieren" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="190" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="LfDmVUvy6gMoqXlgFycZ-7" value="Quell-Datei deklarieren" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="280" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="LfDmVUvy6gMoqXlgFycZ-8" value="Definition &quot;Licht&quot;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="370" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
