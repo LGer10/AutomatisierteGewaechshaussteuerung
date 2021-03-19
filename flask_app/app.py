@@ -1,53 +1,25 @@
 # automatisiertes gewächshaus | main-script flask_app | version 0.1
 
+#Libraries
 from flask import Flask, session, render_template, request,make_response,redirect,flash, Markup
 from flask_mysqldb import MySQL
 
+#Flask App Instanz erstellen
 app = Flask(__name__)
+#MySQL Instanz für die App erstellen
 mysql = MySQL(app)
 
+#MySQL Datenbank Verbindung herstellen
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'sml12345'
 app.config['MYSQL_DB'] = 'AutoGewaechshaus'
 
-
+#Startseite
+#ohne Methodendeklaration ist nur die default Methode 'GET' möglich
 @app.route('/')
 def home():
         return render_template('home.html')
-
-@app.route('/admin', methods=['GET','POST'])
-def admin():
-        if request.method=='GET':
-                cur= mysql.connection.cursor()
-                cur.execute('SELECT id, name FROM satellites')
-                list = cur.fetchall()
-                cur.execute('SELECT id, name FROM programm')
-                listP = cur.fetchall()
-                return render_template('admin.html', list=list, listP=listP)
-
-        if request.method=='POST':
-                if request.form['addButton'] == 'Add Satellite':
-                        id= request.form['id']
-                        name= request.form['name']
-                        ip_addr = request.form['ip_addr']
-                        cur= mysql.connection.cursor()
-                        cur.execute('insert into satellites (id, name, ip_addr) values (%s, %s, %s)', [id, name, ip_addr])
-                        mysql.connection.commit()
-                        return render_template('admin.html')
-
-                if request.form['addButton'] == 'Add Programm':
-                        id_p = request.form['id_p']
-                        name_p= request.form['name_p']
-                        temp= request.form['temp']
-                        hell = request.form['hell']
-                        l_feu = request.form['l_feu']
-                        b_feu = request.form['b_feu']
-                        cur= mysql.connection.cursor()
-                        cur.execute('insert into programm (id, name, temp, brightness, airhumidity, soilhumidity) values (%s, %s, %s, %s, %s, %s)', [id_p, name_p, temp, hell, l_feu, b_feu])
-                        mysql.connection.commit()
-                        return render_template('admin.html')
-
 
 @app.route('/dashboard', methods=['GET','POST'])
 def dashboard():
@@ -66,43 +38,104 @@ def dashboard():
                 satellite_name= request.args.get(['satellite_name'])
                 programme_name= request.args.get(['programm_name'])
                 date_span = request.args.get(['date_span'])
+               
+                cur.execute('''SELECT date, time FROM sensordata where date >= (%s) and id_satellite_programm in (select id from satellite_programm where id_satellite in 
+                (select id from satellites where name = "(%s)" and id_programm in (select id from programms where name = "(%s)")))''', date_span, satellite_name, programm_name)
+                dates = cur.fetchall()
+                dates_list = []
+                for index in range(len(dates)):
+                        dates_list.append(dates[index][0])
+               
                 cur = mysql.connection.cursor()
                 cur.execute('''SELECT temperature FROM sensordata where date >= (%s) and id_satellite_programm in (select id from satellite_programm where id_satellite in 
-                (select id from satellites where name = "(%s)") and id_programm in (select id from programms where name = "(%s))''',date_span, satellite_name, programm_name))
+                (select id from satellites where name = "(%s)" and id_programm in (select id from programms where name = "(%s))))''', date_span, satellite_name, programm_name)
                 temperature = cur.fetchall()
                 temperature_list = []
                 for index in range(len(temperature)):
                         temperature_list.append(temperature[index][0])
 
-                cur.execute('SELECT date from sensordata where id_satellite = 1 and id_programm = 1')
-                dates = cur.fetchall()
-                dates_list = []
-                for index in range(len(dates)):
-                        dates_list.append(dates[index][0])
 
-                cur.execute('SELECT brightness from sensordata where id_satellite = 1 and id_programm = 1')
+                cur.execute('''SELECT brightness FROM sensordata where date >= (%s) and id_satellite_programm in (select id from satellite_programm where id_satellite in 
+                (select id from satellites where name = "(%s)" and id_programm in (select id from programms where name = "(%s))))''', date_span, satellite_name, programm_name)
                 brightness = cur.fetchall()
                 brightness_list = []
                 for index in range(len(brightness)):
                         brightness_list.append(brightness[index][0])
 
-                cur.execute('SELECT airhumidity from sensordata where id_satellite = 1 and id_programm = 1')
+                cur.execute('''SELECT airhumidity FROM sensordata where date >= (%s) and id_satellite_programm in (select id from satellite_programm where id_satellite in 
+                (select id from satellites where name = "(%s)" and id_programm in (select id from programms where name = "(%s))))''', date_span, satellite_name, programm_name)
                 airhumidity = cur.fetchall()
                 airhumidity_list = []
                 for index in range(len(airhumidity)):
                         airhumidity_list.append(airhumidity[index][0])
 
-                cur.execute('SELECT soilhumidity from sensordata where id_satellite = 1 and id_programm = 1')
+                cur.execute('''SELECT soilhumidity FROM sensordata where date >= (%s) and id_satellite_programm in (select id from satellite_programm where id_satellite in 
+                (select id from satellites where name = "(%s)" and id_programm in (select id from programms where name = "(%s))))''', date_span, satellite_name, programm_name)
                 soilhumidity = cur.fetchall()
                 soilhumidity_list = []
                 for index in range(len(soilhumidity)):
-                        asoilhumidity_list.append(soilhumidity[index][0])
+                        soilhumidity_list.append(soilhumidity[index][0])
 
                 cur.close()
                 
                 return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_list=date_list, temperature_list=temperature_list, dates_list=dates_list, brightness_list=brightness_list, airhumidity_list=airhumidity_list, solihumidity_list=soilhumidity_list)
 
         return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_list=date_list)
+
+
+#Adminseite
+#Methoden 'GET' und 'POST' in dieser Route erlaubt
+@app.route('/admin', methods=['GET','POST'])
+def admin():
+        if request.method=='GET':
+                cur= mysql.connection.cursor()
+                cur.execute('SELECT id, name FROM satellites')
+                satellite_list = cur.fetchall()
+                cur.execute('SELECT id, name FROM programm')
+                programm_list = cur.fetchall()
+                              
+                if request.form['loadProgrammButton'] == 'Programm laden':
+                        satellite_name= request.args.get(['satellite_name'])
+                        programme_name= request.args.get(['programm_name'])
+                        cur= mysql.connection.cursor()
+                        cur.execute('''select p.name, pp.value from parameter p
+                        join programm_parameter pp on p.id = pp.id_parameter
+                        join programms pr on pr.id = pp.id_programm where pr.name = (%s)''', programme_name)
+
+        return render_template('admin.html', satellite_list=satellite_list, programm_list=programm_list)
+
+        if request.method=='POST':
+                if request.form['AddSatelliteButton'] == 'Satellit hinzufügen':
+                        satellite_name= request.form['satellite_name']
+                        ip_addr = request.form['ip_addr']
+                        cur= mysql.connection.cursor()
+                        cur.execute('insert into satellites (name, ip_addr) values (%s, %s)', [name, ip_addr])
+                        cur.execute('select id from satellites where name = (%s)', satellite_name)
+
+                        for programm in programm_list:
+                                programm_id = cur.execute('select id from programms where name = (%s)', programm)
+                                cur.execute('insert into satellite_programm (id_satellite, id_programm) select id from satellites where satellite_name = (%s)', satellite_name )
+                                mysql.connection.commit()
+                        return render_template('admin.html')
+
+                if request.form['addProgrammButton'] == 'Programm hinzufügen':
+                        programm_name= request.form['programm_name']
+                        temperatur= request.form['temperatur']
+                        helligkeit = request.form['helligkeit']
+                        luftfeuchtigkeit = request.form['luftfeuchtigkeit']
+                        bodenfeuchtigkeit = request.form['bodenfeuchtigkeit']
+                        
+                        cur= mysql.connection.cursor()
+                        cur.execute('insert into programm (name, temperature, brightness, airhumidity, soilhumidity) values (%s, %s, %s, %s, %s)', [programm_name, temperatur, helligkeit, luftfeuchtigkeit, bodenfeuchtigkeit])
+                        mysql.connection.commit()
+                        return render_template('admin.html')
+
+                if request.form['loadProgrammButton'] == 'Programm laden':
+                        cur= mysql.connection.cursor()
+                        cur.execute('SELECT id, name FROM programm')
+                        programm_list = cur.fetchall()
+
+
 
 
 
