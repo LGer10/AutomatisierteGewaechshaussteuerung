@@ -1,3 +1,5 @@
+# automatisiertes gewächshaus | main-script flask_app | version 0.1
+
 from flask import Flask, session, render_template, request,make_response,redirect,flash, Markup
 from flask_mysqldb import MySQL
 

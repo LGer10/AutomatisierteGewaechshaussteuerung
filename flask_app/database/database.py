@@ -1,5 +1,4 @@
-#Projekt Automatisiertes Gewächshaus
-#Datenbank
+# automatisiertes gewächshaus | script - create database | version 0.1
 
 
 #Library für MySQL Verbindung

@@ -1,5 +1,5 @@
-#Projekt Automatisiertes Gewächshaus
-#Datenbank Tabellen
+# automatisiertes gewächshaus | script - create tables | version 0.1
+
 
 
 #Library für MySQL Verbindung
@@ -19,7 +19,7 @@ cursor = db.cursor()
 
 #SQL Befehle
 #Tabelle "satellites" erstellen
-cursor.execute("CREATE TABLE satellites (id int NOT NULL AUTO_INCREMENT  PRIMARY KEY, name varchar(20), ip_addr varchar(36))")
+cursor.execute("CREATE TABLE satellites (id int NOT NULL AUTO_INCREMENT  PRIMARY KEY, name varchar(20), ip_addr varchar(36), current_programm int(2))")
 
 #Tabelle "programms" erstellen
 cursor.execute("CREATE TABLE programms (id int NOT NULL AUTO_INCREMENT PRIMARY KEY , name varchar(20), date_created timestamp)")
