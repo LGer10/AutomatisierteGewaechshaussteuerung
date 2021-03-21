@@ -94,15 +94,14 @@ def admin():
                 cur.execute('SELECT id, name FROM programms')
                 programm_list = cur.fetchall()
                               
-
         if request.method=='POST':
-                if request.form['loadProgrammButton'] == 'Programm laden':
+                if request.form['LoadProgrammButton'] == 'Programm laden':
                         satellite_name= request.form['satellite_name']
                         programme_name= request.form['programm_name']
                         cur= mysql.connection.cursor()
-                        cur.execute('''select p.name, pp.value from parameter p
+                        cur.execute('''select p.name, pp.value from parameters p
                         join programm_parameter pp on p.id = pp.id_parameter
-                        join programms pr on pr.id = pp.id_programm where pr.name = (%s)''', programme_name)
+                        join programms pr on pr.id = pp.id_programm where pr.name = ("%s")''', programme_name)
                    
                 if request.form['AddSatelliteButton'] == 'Satellit hinzufügen':
                         satellite_name= request.form['satellite_name']
@@ -110,13 +109,15 @@ def admin():
                         cur= mysql.connection.cursor()
                         cur.execute('insert into satellites (name, ip_addr) values (%s, %s)', [name, ip_addr])
                         cur.execute('select id from satellites where name = (%s)', satellite_name)
+                        cur.execute('SELECT id, name FROM programms')
+                        programm_list = cur.fetchall()
 
                         for programm in programm_list:
-                                programm_id = cur.execute('select id from programms where name = (%s)', programm)
-                                cur.execute('insert into satellite_programm (id_satellite, id_programm) select id from satellites where satellite_name = (%s)', satellite_name )
+                                programm_id = cur.execute('select id from programms where name = ("%s")', programm)
+                                cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (select id from satellites where satellite_name = ("%s")), ("%s")', satellite_name, programm_id)
                                 mysql.connection.commit()
 
-                if request.form['addProgrammButton'] == 'Programm hinzufügen':
+                if request.form['AddProgrammButton'] == 'Programm hinzufügen':
                         programm_name= request.form['programm_name']
                         temperatur= request.form['temperatur']
                         helligkeit = request.form['helligkeit']
