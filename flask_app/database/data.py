@@ -31,6 +31,10 @@ VALUES ((select id from programms where name = "Testprogramm"), (select id from 
 cursor.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
 VALUES ((select id from programms where name = "Testprogramm"), (select id from parameters where name = "Bodenfeuchtigkeit"), 50)''')
 
+cursor.execute('INSERT INTO satellites (name, ip_addr) VALUES ("Testsatellit, 192.168.1.100")')
+cursor.execute('''INSERT INTO satellite_programm(id_satellite, id_programm) 
+VALUES ((select id from programms where name = "Testprogramm"), (select id from satellites where name = "Testsatellit"))''') 
+
 
 db.commit()
 cursor.close()
