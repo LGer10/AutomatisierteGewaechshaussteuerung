@@ -114,7 +114,7 @@ def admin():
                         programm_id_list = cur.fetchall()
 
                         for row in programm_id_list:
-                                programm_id = cur.execute('select id from programms where name = (%s)', [row[0]])
+                                programm_id = cur.execute('select id from programms where id = (%s)', [row[0]])
                                 cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES ((%s), (%s))', [satellite_id, programm_id])
                                 mysql.connection.commit()
                                 
