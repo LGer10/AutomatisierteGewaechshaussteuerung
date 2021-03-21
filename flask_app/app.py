@@ -98,7 +98,8 @@ def admin():
                 if request.form['Button'] == 'Programm laden':
                         satellite_name= request.form['satellite_name']
                         programm_name= request.form['programm_name']
-			cur = mysql.connection.cursor()
+                        
+                        cur= mysql.connection.cursor()
 			cur.execute('SELECT id from programms where name = (%s)', [programm_name])
 			programm_id = cur.fetchone()
 			cur.execute('UPDATE satellites set current_programm = (%s) where name = (%s)', [programm_id, satellite_name])
