@@ -87,12 +87,11 @@ def dashboard():
 #Methoden 'GET' und 'POST' in dieser Route erlaubt
 @app.route('/admin', methods=['GET','POST'])
 def admin():
-        if request.method =='GET':
-                cur= mysql.connection.cursor()
-                cur.execute('SELECT id, name FROM satellites')
-                satellite_list = cur.fetchall()
-                cur.execute('SELECT id, name FROM programms')
-                programm_list = cur.fetchall()
+	cur= mysql.connection.cursor()
+	cur.execute('SELECT id, name FROM satellites')
+	satellite_list = cur.fetchall()
+	cur.execute('SELECT id, name FROM programms')
+	programm_list = cur.fetchall()
                               
         if request.method =='POST':
                 if request.form['Button'] == 'Programm laden':
@@ -109,8 +108,8 @@ def admin():
                         cur= mysql.connection.cursor()
                         cur.execute('insert into satellites (name, ip_addr) values (%s, %s)', [satellite_name, ip_addr])
                         mysql.connection.commit()
-                        cur.execute('select id from satellites where name = (%s)', [satellite_name])
-                        satellite_id = cur.fetchall()
+                        satellite_id = cur.execute('select id from satellites where name = (%s)', satellite_name)
+                        
                         
                         cur.execute('SELECT name FROM programms')
                         programm_list = cur.fetchall()
@@ -118,7 +117,7 @@ def admin():
                         for programm in programm_list:
                                 programm_id = cur.execute('select id from programms where name = (%s)', [programm])
 
-                                cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES ((%s), (%s))', [satellite_id, programm_id])
+                                cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (%s, %s)', [satellite_id, programm_id])
                                 mysql.connection.commit()
                                 
 
@@ -128,12 +127,11 @@ def admin():
                         helligkeit = request.form['helligkeit']
                         luftfeuchtigkeit = request.form['luftfeuchtigkeit']
                         bodenfeuchtigkeit = request.form['bodenfeuchtigkeit']
-                        
                         cur= mysql.connection.cursor()
                         cur.execute('insert into programms (name, temperature, brightness, airhumidity, soilhumidity) values (%s, %s, %s, %s, %s)', [programm_name, temperatur, helligkeit, luftfeuchtigkeit, bodenfeuchtigkeit])
                         mysql.connection.commit()
-                        
-        return render_template('admin.html', satellite_list=satellite_list, programm_list=programm_list)
+
+	return render_template('admin.html', satellite_list=satellite_list, programm_list=programm_list)
 
 
 @app.route('/test')
