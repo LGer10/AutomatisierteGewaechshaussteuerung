@@ -98,6 +98,7 @@ def admin():
                         satellite_name= request.form['satellite_name']
                         programm_name= request.form['programm_name']
                         cur= mysql.connection.cursor()
+                        cur.execute('UPDATE TABLE satellites set current_programm = (%s) where name = (%s)')
                         cur.execute('''select p.name, pp.value from parameters p
                         join programm_parameter pp on p.id = pp.id_parameter
                         join programms pr on pr.id = pp.id_programm where pr.name = (%s)''', [programm_name])
@@ -115,8 +116,9 @@ def admin():
 
                         for programm_id in programm_id_list:
                                 cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (%s, %s)', [satellite_id, programm_id])
-                                mysql.connection.commit()
-
+                
+                        mysql.connection.commit()
+                        
                         return redirect(url_for('admin'))
                                 
 
@@ -127,8 +129,7 @@ def admin():
                         luftfeuchtigkeit = request.form['luftfeuchtigkeit']
                         bodenfeuchtigkeit = request.form['bodenfeuchtigkeit']
                         cur= mysql.connection.cursor()
-                        cur.execute('insert into programms (name, temperature, brightness, airhumidity, soilhumidity) values (%s, %s, %s, %s, %s)', [programm_name, temperatur, helligkeit, luftfeuchtigkeit, bodenfeuchtigkeit])
-                        mysql.connection.commit()
+                        cur.execute('insert into programms (name, date_created) values (%s, current_timestamp())', [programm_name])
 
                         cur.execute('select id from programms where name = (%s)', [programm_name])
                         programm_id = cur.fetchone()
@@ -138,7 +139,25 @@ def admin():
 
                         for satellite_id in satellite_id_list:
                                 cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (%s, %s)', [satellite_id, programm_id])
-                                mysql.connection.commit()
+                        
+
+                        cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
+                        VALUES (%s, 
+                        (select id from parameters where name = "Temperatur"), %s)''', [programm_id, temperatur])
+
+                        cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
+                        VALUES (%s, 
+                        (select id from parameters where name = "Helligkeit"), %s)''', [programm_id, helligkeit])
+
+                        cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
+                        VALUES (%s, 
+                        (select id from parameters where name = "Luftfeuchtigkeit"), %s)''', [programm_id, luftfeuchtigkeit])
+
+                        cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
+                        VALUES (%s, 
+                        (select id from parameters where name = "Bodenfeuchtigkeit"), %s)''', [programm_id, bodenfeuchtigkeit])
+
+                        mysql.connection.commit()
 
                         return redirect(url_for('admin'))
 
