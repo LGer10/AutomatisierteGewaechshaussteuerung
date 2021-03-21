@@ -78,7 +78,7 @@ def dashboard():
 
                         cur.close()
                         
-                return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_list=date_list, temperature_list=temperature_list, dates_list=dates_list, brightness_list=brightness_list, airhumidity_list=airhumidity_list, solihumidity_list=soilhumidity_list)
+                        return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_list=date_list, temperature_list=temperature_list, dates_list=dates_list, brightness_list=brightness_list, airhumidity_list=airhumidity_list, solihumidity_list=soilhumidity_list)
 
         return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_list=date_list)
 
