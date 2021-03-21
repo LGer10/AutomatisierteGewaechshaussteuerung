@@ -171,7 +171,7 @@ def admin():
 
             return redirect(url_for('admin'))
 
-    return render_template('admin.html', satellite_list=satellite_list, programm_list=programm_list, p_id=p_id, s_id=s_id)
+    return render_template('admin.html', satellite_list=satellite_list, programm_list=programm_list)
 
 
 @app.route('/test')
