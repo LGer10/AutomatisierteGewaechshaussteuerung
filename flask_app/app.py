@@ -110,14 +110,14 @@ def admin():
                         cur.execute('select id from satellites where name = (%s)', [satellite_name])
                         satellite_id = cur.fetchone()
 
-                        cur.execute('SELECT name FROM programms')
-                        programm_list = cur.fetchall()
+                        cur.execute('SELECT id FROM programms')
+                        programm_id_list = cur.fetchall()
 
-                        for programm in programm_list:
-                                programm_id = cur.execute('select id from programms where name = (%s)', [programm])
-
+                        for programm_id in programm_id_list:
                                 cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (%s, %s)', [satellite_id, programm_id])
                                 mysql.connection.commit()
+
+                        return redirect(url_for('admin'))
                                 
 
                 if request.form['Button'] == 'Programm hinzufügen':
