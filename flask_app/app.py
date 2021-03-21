@@ -113,7 +113,7 @@ def admin():
                         cur.execute('SELECT id FROM programms')
                         programm_id_list = cur.fetchall()
 
-                        for row in programm_id_list
+                        for row in programm_id_list:
                                 programm_id = cur.execute('select id from programms where name = (%s)', [row[0]])
                                 cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (select id from satellites where id = (%s)), (%s)', [satellite_id, programm_id])
                                 mysql.connection.commit()
