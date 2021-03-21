@@ -34,7 +34,7 @@ def dashboard():
                 cur.execute('SELECT distinct id, date from sensordata where date >= curdate() - interval 7 day')
                 date_list = cur.fetchall()
 
-        if request.method =='POST'and request.form['loadButton'] == 'Laden':
+        if request.method == 'POST'and request.form['loadButton'] == 'Laden':
                 satellite_name= request.form['satellite_name']
                 programme_name= request.form['programm_name']
                 date_span = request.form['date_span']
@@ -87,14 +87,14 @@ def dashboard():
 #Methoden 'GET' und 'POST' in dieser Route erlaubt
 @app.route('/admin', methods=['GET','POST'])
 def admin():
-        if request.method=='GET':
+        if request.method =='GET':
                 cur= mysql.connection.cursor()
                 cur.execute('SELECT id, name FROM satellites')
                 satellite_list = cur.fetchall()
                 cur.execute('SELECT id, name FROM programms')
                 programm_list = cur.fetchall()
                               
-        if request.method=='POST':
+        if request.method =='POST':
                 if request.form['LoadProgrammButton'] == 'Programm laden':
                         satellite_name= request.form['satellite_name']
                         programme_name= request.form['programm_name']
@@ -127,6 +127,8 @@ def admin():
                         cur= mysql.connection.cursor()
                         cur.execute('insert into programm (name, temperature, brightness, airhumidity, soilhumidity) values (%s, %s, %s, %s, %s)', [programm_name, temperatur, helligkeit, luftfeuchtigkeit, bodenfeuchtigkeit])
                         mysql.connection.commit()
+                        
+                return render_template('admin.html', satellite_list=satellite_list, programm_list=programm_list)
 
         return render_template('admin.html', satellite_list=satellite_list, programm_list=programm_list)
 
