@@ -159,24 +159,20 @@ def admin():
                         
 
                         cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
-                        VALUES (%s, 
-                        (select id from parameters where name = "Temperatur"), %s)''', [programm_id, temperatur])
+                        VALUES (%s, (select id from parameters where name = "Temperatur"), %s)''', [programm_id, temperatur])
 
                         cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
-                        VALUES (%s, 
-                        (select id from parameters where name = "Helligkeit"), %s)''', [programm_id, helligkeit])
+                        VALUES (%s, (select id from parameters where name = "Helligkeit"), %s)''', [programm_id, helligkeit])
 
                         cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
-                        VALUES (%s, 
-                        (select id from parameters where name = "Luftfeuchtigkeit"), %s)''', [programm_id, luftfeuchtigkeit])
+                        VALUES (%s, (select id from parameters where name = "Luftfeuchtigkeit"), %s)''', [programm_id, luftfeuchtigkeit])
 
                         cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
-                        VALUES (%s, 
-                        (select id from parameters where name = "Bodenfeuchtigkeit"), %s)''', [programm_id, bodenfeuchtigkeit])
+                        VALUES (%s, (select id from parameters where name = "Bodenfeuchtigkeit"), %s)''', [programm_id, bodenfeuchtigkeit])
 
                         mysql.connection.commit()
                         cur.close()
-                        
+
                         return redirect(url_for('admin'))
 
         return render_template('admin.html', satellite_list=satellite_list, programm_list=programm_list)
