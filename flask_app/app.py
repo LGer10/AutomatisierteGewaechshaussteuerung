@@ -1,7 +1,7 @@
 # automatisiertes gewächshaus | main-script flask_app | version 0.1
 
 #Libraries
-from flask import Flask, session, render_template, request,make_response,redirect,flash, Markup
+from flask import Flask, session, render_template, request, make_response, redirect, flash, Markup, url_for
 from flask_mysqldb import MySQL
 
 #Flask App Instanz erstellen
@@ -96,11 +96,11 @@ def admin():
         if request.method =='POST':
                 if request.form['Button'] == 'Programm laden':
                         satellite_name= request.form['satellite_name']
-                        programme_name= request.form['programm_name']
+                        programm_name= request.form['programm_name']
                         cur= mysql.connection.cursor()
                         cur.execute('''select p.name, pp.value from parameters p
                         join programm_parameter pp on p.id = pp.id_parameter
-                        join programms pr on pr.id = pp.id_programm where pr.name = (%s)''', [programme_name])
+                        join programms pr on pr.id = pp.id_programm where pr.name = (%s)''', [programm_name])
                    
                 if request.form['Button'] == 'Satellit hinzufügen':
                         satellite_name = request.form['satellite_name']
@@ -129,6 +129,18 @@ def admin():
                         cur= mysql.connection.cursor()
                         cur.execute('insert into programms (name, temperature, brightness, airhumidity, soilhumidity) values (%s, %s, %s, %s, %s)', [programm_name, temperatur, helligkeit, luftfeuchtigkeit, bodenfeuchtigkeit])
                         mysql.connection.commit()
+
+                        cur.execute('select id from programms where name = (%s)', [programm_name])
+                        programm_id = cur.fetchone()
+
+                        cur.execute('SELECT id FROM satellites')
+                        satellite_id_list = cur.fetchall()
+
+                        for satellite_id in satellite_id_list:
+                                cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (%s, %s)', [satellite_id, programm_id])
+                                mysql.connection.commit()
+
+                        return redirect(url_for('/admin'))
 
         return render_template('admin.html', satellite_list=satellite_list, programm_list=programm_list)
 
