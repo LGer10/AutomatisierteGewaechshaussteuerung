@@ -114,7 +114,7 @@ def admin():
 
                         for programm in programm_list:
                                 programm_id = cur.execute('select id from programms where name = (%s)', [programm])
-                                cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (select id from satellites where satellite_name = (%s)), (%s)', [s]atellite_name, programm_id])
+                                cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (select id from satellites where satellite_name = (%s)), (%s)', [satellite_name, programm_id])
                                 mysql.connection.commit()
 
                 if request.form['Button'] == 'Programm hinzufügen':
