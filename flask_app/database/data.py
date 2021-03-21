@@ -22,40 +22,13 @@ cursor.execute('INSERT INTO parameters (name, unit) VALUES ("Helligkeit", "Stund
 cursor.execute('INSERT INTO parameters (name, unit) VALUES ("Luftfeuchtigkeit", "°C")')
 cursor.execute('INSERT INTO parameters (name, unit) VALUES ("Bodenfeuchtigkeit", "°C")')
 
-cursor.execute('''INSERT INTO programm_parameter(id_programm, id_parameter) 
-SELECT pr.id = pa.id 
-FROM programms pr 
-JOIN parameters pa 
-ON programm_parameter.id_programm = pr.id where pa.name = 'Temperatur' 
-JOIN programms_parameter.id_parameter = pa.id 
-  ''')
 
-cursor.execute('''INSERT INTO programm_parameter(id_programm, id_parameter) 
-SELECT pr.id = pa.id 
-FROM programms pr 
-JOIN parameters pa 
-ON programm_parameter.id_programm = pr.id where pa.name = 'Helligkeit' 
-JOIN programms_parameter.id_parameter = pa.id 
-  ''')
-cursor.execute('''INSERT INTO programm_parameter(id_programm, id_parameter) 
-SELECT pr.id = pa.id 
-FROM programms pr 
-JOIN parameters pa 
-ON programm_parameter.id_programm = pr.id where pa.name = 'Luftfeuchtigkeit' 
-JOIN programms_parameter.id_parameter = pa.id 
-  ''')
-  cursor.execute('''INSERT INTO programm_parameter(id_programm, id_parameter) 
-SELECT pr.id = pa.id 
-FROM programms pr 
-JOIN parameters pa 
-ON programm_parameter.id_programm = pr.id where pa.name = 'Bodenfeuchtigkeit' 
-JOIN programms_parameter.id_parameter = pa.id 
-  ''')  
+cursor.execute('INSERT INTO programm_parameter(id_programm, id_parameter, value) VALUES ((select id from programms where name = "Testprogramm"), (select id from parameters where name = "Temperatur"), 25) '
+cursor.execute('INSERT INTO programm_parameter(id_programm, id_parameter, value) VALUES ((select id from programms where name = "Testprogramm"), (select id from parameters where name = "Helligkeit"), 8) '
+cursor.execute('INSERT INTO programm_parameter(id_programm, id_parameter, value) VALUES ((select id from programms where name = "Testprogramm"), (select id from parameters where name = "Luftfeuchtigkeit"), 60) '
+cursor.execute('INSERT INTO programm_parameter(id_programm, id_parameter, value) VALUES ((select id from programms where name = "Testprogramm"), (select id from parameters where name = "Bodenfeuchtigkeit"), 50) '
 
-cursor.execute('update table programm_parameter set value = 25 where id_parameter in (select id from parameters where name ="Temperature") ')
-cursor.execute('update table programm_parameter set value = 8 where id_parameter in (select id from parameters where name ="Helligkeit") ')
-cursor.execute('update table programm_parameter set value = 60 where id_parameter in (select id from parameters where name ="Luftfeuchtigkeit") ')
-cursor.execute('update table programm_parameter set value = 50 where id_parameter in (select id from parameters where name ="Bodenfeuchtigkeit") ')
+
 
 db.commit()
 cursor.close()
