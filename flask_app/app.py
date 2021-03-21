@@ -87,15 +87,12 @@ def dashboard():
 #Methoden 'GET' und 'POST' in dieser Route erlaubt
 @app.route('/admin', methods=['GET','POST'])
 def admin():
-	if request.method == 'GET':
-                cur= mysql.connection.cursor()
-                cur.execute('SELECT id, name FROM satellites')
-                satellite_list = cur.fetchall()
-                cur.execute('SELECT id, name FROM programms')
-                programm_list = cur.fetchall()
-        
-        return render_template('admin.html', satellite_list=satellite_list, programm_list=programm_list)
-        
+        cur= mysql.connection.cursor()
+        cur.execute('SELECT id, name FROM satellites')
+        satellite_list = cur.fetchall()
+        cur.execute('SELECT id, name FROM programms')
+        programm_list = cur.fetchall()
+                
         if request.method =='POST':
                 if request.form['Button'] == 'Programm laden':
                         satellite_name= request.form['satellite_name']
@@ -134,7 +131,7 @@ def admin():
                         cur.execute('insert into programms (name, temperature, brightness, airhumidity, soilhumidity) values (%s, %s, %s, %s, %s)', [programm_name, temperatur, helligkeit, luftfeuchtigkeit, bodenfeuchtigkeit])
                         mysql.connection.commit()
 
-        return render_template('admin.html')
+        return render_template('admin.html', satellite_list=satellite_list, programm_list=programm_list)
 
 
 @app.route('/test')
