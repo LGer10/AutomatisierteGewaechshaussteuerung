@@ -130,8 +130,6 @@ def admin():
                         cur.execute('insert into programms (name, temperature, brightness, airhumidity, soilhumidity) values (%s, %s, %s, %s, %s)', [programm_name, temperatur, helligkeit, luftfeuchtigkeit, bodenfeuchtigkeit])
                         mysql.connection.commit()
                         
-                return render_template('admin.html', satellite_list=satellite_list, programm_list=programm_list)
-
         return render_template('admin.html', satellite_list=satellite_list, programm_list=programm_list)
 
 
