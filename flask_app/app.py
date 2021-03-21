@@ -34,7 +34,7 @@ def dashboard():
                 cur.execute('SELECT distinct id, date from sensordata where date >= curdate() - interval 7 day')
                 date_list = cur.fetchall()
 
-                if request.form['AnzeigenButton'] == 'Anzeigen':
+                if request.form['loadButton'] == 'Laden':
                         satellite_name= request.args.get(['satellite_name'])
                         programme_name= request.args.get(['programm_name'])
                         date_span = request.args.get(['date_span'])
