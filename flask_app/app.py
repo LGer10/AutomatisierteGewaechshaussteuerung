@@ -99,25 +99,25 @@ def admin():
 
     if request.method == 'POST':
         if request.form['Button'] == 'Programm laden':
-            satellite_name = request.form['satellite_name']
-            programm_name = request.form['programm_name']
+            satellite = request.form['satellite']
+            programm = request.form['programm']
             cur = mysql.connection.cursor()
             cur.execute('SELECT id from programms where name = (%s)', [
-                        programm_name])
+                        programm])
             programm_id = cur.fetchone()
             cur.execute('UPDATE satellites set current_programm = (%s) where name = (%s)', [
-                        programm_id, satellite_name])
+                        programm_id, satellite])
             cur.execute('''select p.name, pp.value from parameters p
 			join programm_parameter pp on p.id = pp.id_parameter
-			join programms pr on pr.id = pp.id_programm where pr.name = (%s)''', [programm_name])
+			join programms pr on pr.id = pp.id_programm where pr.name = (%s)''', [programm])
             cur.execute('SELECT id from programms where name = (%s)', [
-                        programm_name])
+                        programm])
             programm_id = cur.fetchone()
             cur.execute('UPDATE satellites set current_programm = (%s) where name = (%s)', [
-                        programm_id, satellite_name])
+                        programm_id, satellite])
             cur.execute('''select p.name, pp.value from parameters p
                         join programm_parameter pp on p.id = pp.id_parameter
-                        join programms pr on pr.id = pp.id_programm where pr.name = (%s)''', [programm_name])
+                        join programms pr on pr.id = pp.id_programm where pr.name = (%s)''', [programm])
             cur.close()
 
         if request.form['Button'] == 'Satellit hinzufügen':
