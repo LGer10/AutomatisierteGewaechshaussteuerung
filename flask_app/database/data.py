@@ -22,7 +22,6 @@ cursor.execute('INSERT INTO parameters (name, unit) VALUES ("Helligkeit", "h")')
 cursor.execute('INSERT INTO parameters (name, unit) VALUES ("Luftfeuchtigkeit", "°C")')
 cursor.execute('INSERT INTO parameters (name, unit) VALUES ("Bodenfeuchtigkeit", "°C")')
 
-
 cursor.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
 VALUES ((select id from programms where name = "Testprogramm"), (select id from parameters where name = "Temperatur"), 25)''') 
 cursor.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
@@ -31,7 +30,6 @@ cursor.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, valu
 VALUES ((select id from programms where name = "Testprogramm"), (select id from parameters where name = "Luftfeuchtigkeit"), 60)''')
 cursor.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
 VALUES ((select id from programms where name = "Testprogramm"), (select id from parameters where name = "Bodenfeuchtigkeit"), 50)''')
-
 
 
 db.commit()

@@ -12,6 +12,7 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="http://cdn.pydata.org/bokeh/release/bokeh-1.2.0.min.css" rel="stylesheet">
     <link href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-1.2.0.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/style.css">
     <title style="color:green">{% block title %}Automatisiertes Gewächshaus {% endblock %}</title>
 </head>
 
@@ -32,7 +33,7 @@
                 </li>
             </ul>
         </div>
-        <img src="{{url_for('static', filename='logo.jpg')}}" width="50" height="50" class="d-inline-block align-top"
+        <img src="static/logo.jpg" width="50" height="50" class="d-inline-block align-top"
             alt="" align="right" />
 
 
@@ -46,8 +47,8 @@
 
     </div>
 
-    <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
-        <div class="container text-center">
+    <footer class="py-4 bg-dark text-white-50">
+        <div class="footer navbar-fixed-bottom">
           <small>Automatisiertes Gewächshaut by Lars & Kilian</small>
         </div>
       </footer>
