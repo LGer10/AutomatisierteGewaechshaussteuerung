@@ -108,14 +108,16 @@ def admin():
                         ip_addr = request.form['ip_addr']
                         cur= mysql.connection.cursor()
                         cur.execute('insert into satellites (name, ip_addr) values (%s, %s)', [satellite_name, ip_addr])
-                        cur.execute('select id from satellites where name = (%s)', [satellite_name])
-                        cur.execute('SELECT id, name FROM programms')
-                        programm_list = cur.fetchall()
+                        satellite_id = cur.execute('select id from satellites where name = (%s)', [satellite_name])
+                        
+                        cur.execute('SELECT id FROM programms')
+                        programm_id_list = cur.fetchall()
 
-                        for programm in programm_list:
-                                programm_id = cur.execute('select id from programms where name = (%s)', [programm])
-                                cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (select id from satellites where satellite_name = (%s)), (%s)', [satellite_name, programm_id])
+                        for row in programm_id_list
+                                programm_id = cur.execute('select id from programms where name = (%s)', [row[0]])
+                                cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (select id from satellites where id = (%s)), (%s)', [satellite_id, programm_id])
                                 mysql.connection.commit()
+                                
 
                 if request.form['Button'] == 'Programm hinzufügen':
                         programm_name= request.form['programm_name']
