@@ -127,7 +127,7 @@ def admin():
                         bodenfeuchtigkeit = request.form['bodenfeuchtigkeit']
                         
                         cur= mysql.connection.cursor()
-                        cur.execute('insert into programm (name, temperature, brightness, airhumidity, soilhumidity) values (%s, %s, %s, %s, %s)', [programm_name, temperatur, helligkeit, luftfeuchtigkeit, bodenfeuchtigkeit])
+                        cur.execute('insert into programms (name, temperature, brightness, airhumidity, soilhumidity) values (%s, %s, %s, %s, %s)', [programm_name, temperatur, helligkeit, luftfeuchtigkeit, bodenfeuchtigkeit])
                         mysql.connection.commit()
                         
                 return render_template('admin.html', satellite_list=satellite_list, programm_list=programm_list)
