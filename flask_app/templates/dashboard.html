@@ -6,14 +6,13 @@
 
 <body>
   <div class="p-1" align="middle">
-
     <h2 style="color:green">{% block title %} Automatisiertes Gewächshaus {% endblock %}</h2>
     <h3> Dashboard </h3>
     <form method="POST" action="/dashboard">
     <p style="font-family:verdana">
       Satellit auswählen:
       <SELECT name="satellite_name" style="font-family:verdana">
-        {% for i in _satellite_list %}
+        {% for i in satellite_list %}
         <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
         {% endfor %}
       </SELECT>
