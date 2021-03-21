@@ -99,8 +99,8 @@ def admin():
 
     if request.method == 'POST':
         if request.form['Button'] == 'Programm laden':
-            satellite_name = request.form['satellite_name']
-            programm_name = request.form['programm_name']
+            satellite_name = request.form.get['satellite_name']
+            programm_name = request.form.get['programm_name']
             cur = mysql.connection.cursor()
             cur.execute('SELECT id from programms where name = (%s)', [
                         programm_name])
