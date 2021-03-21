@@ -23,10 +23,14 @@ cursor.execute('INSERT INTO parameters (name, unit) VALUES ("Luftfeuchtigkeit", 
 cursor.execute('INSERT INTO parameters (name, unit) VALUES ("Bodenfeuchtigkeit", "°C")')
 
 
-cursor.execute('INSERT INTO programm_parameter(id_programm, id_parameter, value) VALUES ((select id from programms where name = "Testprogramm"), (select id from parameters where name = "Temperatur"), 25) '
-cursor.execute('INSERT INTO programm_parameter(id_programm, id_parameter, value) VALUES ((select id from programms where name = "Testprogramm"), (select id from parameters where name = "Helligkeit"), 8) '
-cursor.execute('INSERT INTO programm_parameter(id_programm, id_parameter, value) VALUES ((select id from programms where name = "Testprogramm"), (select id from parameters where name = "Luftfeuchtigkeit"), 60) '
-cursor.execute('INSERT INTO programm_parameter(id_programm, id_parameter, value) VALUES ((select id from programms where name = "Testprogramm"), (select id from parameters where name = "Bodenfeuchtigkeit"), 50) '
+cursor.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
+VALUES ((select id from programms where name = "Testprogramm"), (select id from parameters where name = "Temperatur"), 25)''') 
+cursor.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
+VALUES ((select id from programms where name = "Testprogramm"), (select id from parameters where name = "Helligkeit"), 8)''')
+cursor.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
+VALUES ((select id from programms where name = "Testprogramm"), (select id from parameters where name = "Luftfeuchtigkeit"), 60)''')
+cursor.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
+VALUES ((select id from programms where name = "Testprogramm"), (select id from parameters where name = "Bodenfeuchtigkeit"), 50)''')
 
 
 
