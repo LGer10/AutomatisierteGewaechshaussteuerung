@@ -110,7 +110,7 @@ def admin():
                         cur.execute('insert into satellites (name, ip_addr) values (%s, %s)', [satellite_name, ip_addr])
                         mysql.connection.commit()
                         cur.execute('select id from satellites where name = (%s)', [satellite_name])
-                        satellite_id = fetchall()
+                        satellite_id = cur.fetchall()
                         
                         cur.execute('SELECT name FROM programms')
                         programm_name_list = cur.fetchall()
