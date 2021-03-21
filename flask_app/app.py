@@ -101,20 +101,20 @@ def admin():
                         cur= mysql.connection.cursor()
                         cur.execute('''select p.name, pp.value from parameters p
                         join programm_parameter pp on p.id = pp.id_parameter
-                        join programms pr on pr.id = pp.id_programm where pr.name = ("%s")''', programme_name)
+                        join programms pr on pr.id = pp.id_programm where pr.name = (%s)''', [programme_name])
                    
                 if request.form['Button'] == 'Satellit hinzufügen':
                         satellite_name= request.form['satellite_name']
                         ip_addr = request.form['ip_addr']
                         cur= mysql.connection.cursor()
-                        cur.execute('insert into satellites (name, ip_addr) values ("%s", "%s")', [satellite_name, ip_addr])
-                        cur.execute('select id from satellites where name = ("%s")', satellite_name)
+                        cur.execute('insert into satellites (name, ip_addr) values (%s, %s)', [satellite_name, ip_addr])
+                        cur.execute('select id from satellites where name = (%s)', [satellite_name])
                         cur.execute('SELECT id, name FROM programms')
                         programm_list = cur.fetchall()
 
                         for programm in programm_list:
-                                programm_id = cur.execute('select id from programms where name = ("%s")', programm)
-                                cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (select id from satellites where satellite_name = ("%s")), ("%s")', satellite_name, programm_id)
+                                programm_id = cur.execute('select id from programms where name = (%s)', [programm])
+                                cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (select id from satellites where satellite_name = (%s)), (%s)', [s]atellite_name, programm_id])
                                 mysql.connection.commit()
 
                 if request.form['Button'] == 'Programm hinzufügen':
@@ -125,7 +125,7 @@ def admin():
                         bodenfeuchtigkeit = request.form['bodenfeuchtigkeit']
                         
                         cur= mysql.connection.cursor()
-                        cur.execute('insert into programm (name, temperature, brightness, airhumidity, soilhumidity) values ("%s", %s, %s, %s, %s)', [programm_name, temperatur, helligkeit, luftfeuchtigkeit, bodenfeuchtigkeit])
+                        cur.execute('insert into programm (name, temperature, brightness, airhumidity, soilhumidity) values (%s, %s, %s, %s, %s)', [programm_name, temperatur, helligkeit, luftfeuchtigkeit, bodenfeuchtigkeit])
                         mysql.connection.commit()
                         
                 return render_template('admin.html', satellite_list=satellite_list, programm_list=programm_list)
