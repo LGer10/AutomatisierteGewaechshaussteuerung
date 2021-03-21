@@ -115,7 +115,7 @@ def admin():
                         cur.execute('SELECT name FROM programms')
                         programm_name_list = cur.fetchall()
                         programm_name_array = []
-                        for index in range(len(programm_id_list)):
+                        for index in range(len(programm_name_list)):
                                 programm_id_array.append(programm_id_list[index][0])
                                 programm_id = cur.execute('select id from programms where name = (%s)', [programm_id_array[index]])
                                 cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES ((%s), (%s))', [satellite_id, programm_id])
