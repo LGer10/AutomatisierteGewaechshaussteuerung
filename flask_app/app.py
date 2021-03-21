@@ -107,6 +107,8 @@ def admin():
             cur.execute('''select p.name, pp.value from parameters p
 			join programm_parameter pp on p.id = pp.id_parameter
 			join programms pr on pr.id = pp.id_programm where pr.id = (%s)''', [p_id])
+            mysql.connection.commit()
+
             cur.close()
 
         if request.form['Button'] == 'Satellit hinzufügen':
