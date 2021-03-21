@@ -34,50 +34,50 @@ def dashboard():
                 cur.execute('SELECT distinct id, date from sensordata where date >= curdate() - interval 7 day')
                 date_list = cur.fetchall()
 
-        if request.method =='GET' and request.form['AnzeigenButton'] == 'Anzeigen':
-                satellite_name= request.args.get(['satellite_name'])
-                programme_name= request.args.get(['programm_name'])
-                date_span = request.args.get(['date_span'])
-               
-                cur.execute('''SELECT date, time FROM sensordata where date >= (%s) and id_satellite_programm in (select id from satellite_programm where id_satellite in 
-                (select id from satellites where name = "(%s)" and id_programm in (select id from programms where name = "(%s)")))''', date_span, satellite_name, programm_name)
-                dates = cur.fetchall()
-                dates_list = []
-                for index in range(len(dates)):
-                        dates_list.append(dates[index][0])
-               
-                cur = mysql.connection.cursor()
-                cur.execute('''SELECT temperature FROM sensordata where date >= (%s) and id_satellite_programm in (select id from satellite_programm where id_satellite in 
-                (select id from satellites where name = "(%s)" and id_programm in (select id from programms where name = "(%s))))''', date_span, satellite_name, programm_name)
-                temperature = cur.fetchall()
-                temperature_list = []
-                for index in range(len(temperature)):
-                        temperature_list.append(temperature[index][0])
-
-
-                cur.execute('''SELECT brightness FROM sensordata where date >= (%s) and id_satellite_programm in (select id from satellite_programm where id_satellite in 
-                (select id from satellites where name = "(%s)" and id_programm in (select id from programms where name = "(%s))))''', date_span, satellite_name, programm_name)
-                brightness = cur.fetchall()
-                brightness_list = []
-                for index in range(len(brightness)):
-                        brightness_list.append(brightness[index][0])
-
-                cur.execute('''SELECT airhumidity FROM sensordata where date >= (%s) and id_satellite_programm in (select id from satellite_programm where id_satellite in 
-                (select id from satellites where name = "(%s)" and id_programm in (select id from programms where name = "(%s))))''', date_span, satellite_name, programm_name)
-                airhumidity = cur.fetchall()
-                airhumidity_list = []
-                for index in range(len(airhumidity)):
-                        airhumidity_list.append(airhumidity[index][0])
-
-                cur.execute('''SELECT soilhumidity FROM sensordata where date >= (%s) and id_satellite_programm in (select id from satellite_programm where id_satellite in 
-                (select id from satellites where name = "(%s)" and id_programm in (select id from programms where name = "(%s))))''', date_span, satellite_name, programm_name)
-                soilhumidity = cur.fetchall()
-                soilhumidity_list = []
-                for index in range(len(soilhumidity)):
-                        soilhumidity_list.append(soilhumidity[index][0])
-
-                cur.close()
+                if request.form['AnzeigenButton'] == 'Anzeigen':
+                        satellite_name= request.args.get(['satellite_name'])
+                        programme_name= request.args.get(['programm_name'])
+                        date_span = request.args.get(['date_span'])
                 
+                        cur.execute('''SELECT date, time FROM sensordata where date >= (%s) and id_satellite_programm in (select id from satellite_programm where id_satellite in 
+                        (select id from satellites where name = "(%s)" and id_programm in (select id from programms where name = "(%s)")))''', date_span, satellite_name, programm_name)
+                        dates = cur.fetchall()
+                        dates_list = []
+                        for index in range(len(dates)):
+                                dates_list.append(dates[index][0])
+                
+                        cur = mysql.connection.cursor()
+                        cur.execute('''SELECT temperature FROM sensordata where date >= (%s) and id_satellite_programm in (select id from satellite_programm where id_satellite in 
+                        (select id from satellites where name = "(%s)" and id_programm in (select id from programms where name = "(%s))))''', date_span, satellite_name, programm_name)
+                        temperature = cur.fetchall()
+                        temperature_list = []
+                        for index in range(len(temperature)):
+                                temperature_list.append(temperature[index][0])
+
+
+                        cur.execute('''SELECT brightness FROM sensordata where date >= (%s) and id_satellite_programm in (select id from satellite_programm where id_satellite in 
+                        (select id from satellites where name = "(%s)" and id_programm in (select id from programms where name = "(%s))))''', date_span, satellite_name, programm_name)
+                        brightness = cur.fetchall()
+                        brightness_list = []
+                        for index in range(len(brightness)):
+                                brightness_list.append(brightness[index][0])
+
+                        cur.execute('''SELECT airhumidity FROM sensordata where date >= (%s) and id_satellite_programm in (select id from satellite_programm where id_satellite in 
+                        (select id from satellites where name = "(%s)" and id_programm in (select id from programms where name = "(%s))))''', date_span, satellite_name, programm_name)
+                        airhumidity = cur.fetchall()
+                        airhumidity_list = []
+                        for index in range(len(airhumidity)):
+                                airhumidity_list.append(airhumidity[index][0])
+
+                        cur.execute('''SELECT soilhumidity FROM sensordata where date >= (%s) and id_satellite_programm in (select id from satellite_programm where id_satellite in 
+                        (select id from satellites where name = "(%s)" and id_programm in (select id from programms where name = "(%s))))''', date_span, satellite_name, programm_name)
+                        soilhumidity = cur.fetchall()
+                        soilhumidity_list = []
+                        for index in range(len(soilhumidity)):
+                                soilhumidity_list.append(soilhumidity[index][0])
+
+                        cur.close()
+                        
                 return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_list=date_list, temperature_list=temperature_list, dates_list=dates_list, brightness_list=brightness_list, airhumidity_list=airhumidity_list, solihumidity_list=soilhumidity_list)
 
         return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_list=date_list)
