@@ -16,7 +16,7 @@
     <title style="color:green">{% block title %}Automatisiertes Gewächshaus {% endblock %}</title>
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-md navbar-light bg-light">
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
@@ -33,10 +33,7 @@
                 </li>
             </ul>
         </div>
-        <img src="static/logo.jpg" width="50" height="50" class="d-inline-block align-top"
-            alt="" align="right" />
-
-
+        <img src="static/logo.jpg" width="50" height="50" class="d-inline-block align-top" align="right"/>
 
     </nav>
     <div class="container-fluid">
@@ -49,14 +46,12 @@
 
     <footer class="py-4 bg-dark text-white-50">
         <div class="footer navbar-fixed-bottom">
-          <small>Automatisiertes Gewächshaut by Lars & Kilian</small>
+          <small >Automatisiertes Gewächshaut by Lars & Kilian</small>
         </div>
       </footer>
 </body>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="http://cdn.pydata.org/bokeh/release/bokeh-1.2.0.min.js"></script>
-    <script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-1.2.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
