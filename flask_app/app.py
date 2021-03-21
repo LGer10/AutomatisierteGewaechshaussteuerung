@@ -107,10 +107,9 @@ def admin():
                         ip_addr = request.form['ip_addr']
                         cur= mysql.connection.cursor()
                         cur.execute('insert into satellites (name, ip_addr) values (%s, %s)', [name, ip_addr])
-                        satellite_id = cur.execute('select id from satellites where name = (%s)', name)
-                        mysql.connection.commit()
+                        cur.execute('select id from satellites where name = (%s)', name)
+                        satellite_id = cur.fetchone()
 
-                        
                         cur.execute('SELECT name FROM programms')
                         programm_list = cur.fetchall()
 
