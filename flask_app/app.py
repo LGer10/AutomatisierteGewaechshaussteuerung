@@ -107,8 +107,8 @@ def admin():
                         satellite_name= request.form['satellite_name']
                         ip_addr = request.form['ip_addr']
                         cur= mysql.connection.cursor()
-                        cur.execute('insert into satellites (name, ip_addr) values (%s, %s)', [satellite_name, ip_addr])
-                        cur.execute('select id from satellites where name = (%s)', satellite_name)
+                        cur.execute('insert into satellites (name, ip_addr) values ("%s", "%s")', [satellite_name, ip_addr])
+                        cur.execute('select id from satellites where name = ("%s")', satellite_name)
                         cur.execute('SELECT id, name FROM programms')
                         programm_list = cur.fetchall()
 
@@ -125,7 +125,7 @@ def admin():
                         bodenfeuchtigkeit = request.form['bodenfeuchtigkeit']
                         
                         cur= mysql.connection.cursor()
-                        cur.execute('insert into programm (name, temperature, brightness, airhumidity, soilhumidity) values (%s, %s, %s, %s, %s)', [programm_name, temperatur, helligkeit, luftfeuchtigkeit, bodenfeuchtigkeit])
+                        cur.execute('insert into programm (name, temperature, brightness, airhumidity, soilhumidity) values ("%s", %s, %s, %s, %s)', [programm_name, temperatur, helligkeit, luftfeuchtigkeit, bodenfeuchtigkeit])
                         mysql.connection.commit()
                         
                 return render_template('admin.html', satellite_list=satellite_list, programm_list=programm_list)
