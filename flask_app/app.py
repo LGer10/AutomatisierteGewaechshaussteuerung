@@ -117,7 +117,7 @@ def admin():
                                 cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (%s, %s)', [satellite_id, programm_id])
                                 mysql.connection.commit()
 
-                        return redirect(url_for('/admin'))
+                        return redirect(url_for('admin'))
                                 
 
                 if request.form['Button'] == 'Programm hinzufügen':
@@ -140,7 +140,7 @@ def admin():
                                 cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (%s, %s)', [satellite_id, programm_id])
                                 mysql.connection.commit()
 
-                        return redirect(url_for('/admin'))
+                        return redirect(url_for('admin'))
 
         return render_template('admin.html', satellite_list=satellite_list, programm_list=programm_list)
 
