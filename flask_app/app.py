@@ -99,8 +99,8 @@ def admin():
 
     if request.method == 'POST':
         if request.form['Button'] == 'Programm laden':
-            satellite_name = request.values.get['satellite_name']
-            programm_name = request.values.get['programm_name']
+            satellite_name = request.form['satellite_name']
+            programm_name = request.form['programm_name']
             cur = mysql.connection.cursor()
             cur.execute('SELECT id from programms where name = (%s)', [
                         programm_name])
@@ -182,7 +182,7 @@ def admin():
 
             return redirect(url_for('admin'))
 
-    return render_template('admin.html', satellite_list=satellite_list, programm_list=programm_list)
+    return render_template('admin.html', satellite_list=satellite_list, programm_list=programm_list, satellite_name=satellite_name)
 
 
 @app.route('/test')
