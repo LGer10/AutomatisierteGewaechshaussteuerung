@@ -16,7 +16,7 @@ db = mysql.connector.connect(
 cursor = db.cursor()
 
 #SQL Befehle
-cursor.execute('INSERT INTO programms (name, date_created) VALUES ('Testprogramm', current_timestamp)')
+cursor.execute('INSERT INTO programms (name, date_created) VALUES ('Testprogramm')')
 cursor.execute('INSERT INTO parameters (name, unit) VALUES ('Temperatur', '°C')')
 cursor.execute('INSERT INTO parameters (name, unit) VALUES ('Helligkeit', 'Stunden')')
 cursor.execute('INSERT INTO parameters (name, unit) VALUES ('Luftfeuchtigkeit', '°C')')
