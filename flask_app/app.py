@@ -112,7 +112,7 @@ def admin():
                         join programm_parameter pp on p.id = pp.id_parameter
                         join programms pr on pr.id = pp.id_programm where pr.name = (%s)''', [programm_name])
                         cur.close()
-                        
+
                 if request.form['Button'] == 'Satellit hinzufügen':
                         satellite_name = request.form['satellite_name']
                         ip_addr = request.form['ip_addr']
