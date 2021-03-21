@@ -115,6 +115,7 @@ def admin():
                         cur.execute('SELECT name FROM programms')
                         programm_name_list = cur.fetchall()
                         programm_name_array = []
+                        
                         for index in range(len(programm_name_list)):
                                 programm_name_array.append(programm_name_list[index][0])
                                 programm_id = cur.execute('select id from programms where name = (%s)', [programm_name_array[index]])
