@@ -12,8 +12,8 @@ mysql = MySQL(app)
 #MySQL Datenbank Verbindung herstellen
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'sml12345'
-app.config['MYSQL_DB'] = 'AutoGewaechshaus'
+app.config['MYSQL_PASSWORD'] = 'AgDB'
+app.config['MYSQL_DB'] = 'AGdb'
 
 #Startseite
 #ohne Methodendeklaration ist nur die default Methode 'GET' möglich
@@ -31,7 +31,7 @@ def dashboard():
                 cur.execute('SELECT id, name FROM programms')
                 programm_list = cur.fetchall()
 
-                cur.execute('SELECT distinct id, date from sensordata where date > curdate() - interval 7 day')
+                cur.execute('SELECT distinct id, date from sensordata where date >= curdate() - interval 7 day')
                 date_list = cur.fetchall()
 
         if request.method =='GET' and request.form['AnzeigenButton'] == 'Anzeigen':
