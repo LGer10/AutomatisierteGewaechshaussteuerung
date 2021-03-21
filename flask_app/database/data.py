@@ -18,7 +18,7 @@ cursor = db.cursor()
 #SQL Befehle
 cursor.execute('INSERT INTO programms (name) VALUES ("Testprogramm")')
 cursor.execute('INSERT INTO parameters (name, unit) VALUES ("Temperatur", "°C")')
-cursor.execute('INSERT INTO parameters (name, unit) VALUES ("Helligkeit", "Stunden")')
+cursor.execute('INSERT INTO parameters (name, unit) VALUES ("Helligkeit", "h")')
 cursor.execute('INSERT INTO parameters (name, unit) VALUES ("Luftfeuchtigkeit", "°C")')
 cursor.execute('INSERT INTO parameters (name, unit) VALUES ("Bodenfeuchtigkeit", "°C")')
 
