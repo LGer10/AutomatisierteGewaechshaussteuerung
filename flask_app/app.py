@@ -119,8 +119,9 @@ def admin():
                         for index in range(len(programm_name_list)):
                                 programm_name_array.append(programm_name_list[index][0])
 
-                        for itme in programm_name_array:
-                                programm_id = cur.execute('select id from programms where name = (%s)', [programm_name_array[index]])
+                        for item in programm_name_array:
+                                programm_id = cur.execute('select id from programms where name = (%s)', [item)
+
                                 cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES ((%s), (%s))', [satellite_id, programm_id])
                                 mysql.connection.commit()
                                 
