@@ -98,7 +98,6 @@ def admin():
                 if request.form['Button'] == 'Programm laden':
                         satellite_name= request.form['satellite_name']
                         programm_name= request.form['programm_name']
-                        
                         cur= mysql.connection.cursor()
 			cur.execute('SELECT id from programms where name = (%s)', [programm_name])
 			programm_id = cur.fetchone()
@@ -106,7 +105,6 @@ def admin():
 			cur.execute('''select p.name, pp.value from parameters p
 			join programm_parameter pp on p.id = pp.id_parameter
 			join programms pr on pr.id = pp.id_programm where pr.name = (%s)''', [programm_name])
-                        
 			cur.execute('SELECT id from programms where name = (%s)', [programm_name])
 			programm_id = cur.fetchone()
                         cur.execute('UPDATE satellites set current_programm = (%s) where name = (%s)', [programm_id, satellite_name])
@@ -114,8 +112,7 @@ def admin():
                         join programm_parameter pp on p.id = pp.id_parameter
                         join programms pr on pr.id = pp.id_programm where pr.name = (%s)''', [programm_name])
                         cur.close()
-
-
+                        
                 if request.form['Button'] == 'Satellit hinzufügen':
                         satellite_name = request.form['satellite_name']
                         ip_addr = request.form['ip_addr']
