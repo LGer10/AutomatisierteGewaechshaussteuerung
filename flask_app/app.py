@@ -108,13 +108,16 @@ def admin():
                         ip_addr = request.form['ip_addr']
                         cur= mysql.connection.cursor()
                         cur.execute('insert into satellites (name, ip_addr) values (%s, %s)', [satellite_name, ip_addr])
+                        mysql.connection.commit()
+
                         satellite_id = cur.execute('select id from satellites where name = (%s)', [satellite_name])
                         
-                        cur.execute('SELECT id FROM programms')
-                        programm_id_list = cur.fetchall()
-
-                        for row in programm_id_list:
-                                programm_id = cur.execute('select id from programms where id = (%s)', [row[0]])
+                        cur.execute('SELECT name FROM programms')
+                        programm_name_list = cur.fetchall()
+                        programm_name_array = []
+                        for index in range(len(programm_id_list)):
+                                programm_id_array.append(programm_id_list[index][0])
+                                programm_id = cur.execute('select id from programms where name = (%s)', [programm_id_array[index]])
                                 cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES ((%s), (%s))', [satellite_id, programm_id])
                                 mysql.connection.commit()
                                 
