@@ -16,7 +16,7 @@
                <form method="POST" action="/admin">
                   <p style="font-family:verdana">
                      Satellit auswählen: </br>
-                     <SELECT name="satellite" style="font-family:verdana">
+                     <SELECT name="s_id" style="font-family:verdana">
                         {% for i in satellite_list %}
                         <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
                         {% endfor %}
@@ -24,7 +24,7 @@
                      </p>
                      <p style="font-family:verdana">
                         Programm auswählen:</br>
-                        <SELECT name="programm" style="font-family:verdana">
+                        <SELECT name="p_id" style="font-family:verdana">
                            {% for i in programm_list %}
                            <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
                            {% endfor %}

@@ -99,8 +99,8 @@ def admin():
 
     if request.method == 'POST':
         if request.form['Button'] == 'Programm laden':
-            s_id = request.form['satellite']
-            p_id = request.form['programm']
+            s_id = request.form['s_id']
+            p_id = request.form['p_id']
             cur = mysql.connection.cursor()
             cur.execute('UPDATE satellites set current_programm = (%s) where id = (%s)', [
                         p_id, s_id])
@@ -171,7 +171,7 @@ def admin():
 
             return redirect(url_for('admin'))
 
-    return render_template('admin.html', satellite_list=satellite_list, programm_list=programm_list, p_id=programm, s_id=satellite)
+    return render_template('admin.html', satellite_list=satellite_list, programm_list=programm_list, p_id=p_id, s_id=s_id)
 
 
 @app.route('/test')
