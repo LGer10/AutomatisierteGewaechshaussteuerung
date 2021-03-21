@@ -42,9 +42,17 @@
 
     </div>
 
-    <footer class="bg-dark text-white-20" align="middle">
+    <footer class="bg-dark text-center" align="middle">
         <div class="footer navbar-fixed-bottom">
-          <small >Automatisiertes Gewächshaut by Lars & Kilian</small>
+          <small style="color:white">Automatisiertes Gewächshaut by Lars & Kilian</small>
+          <small>         
+            <span id="date">
+                <script>
+                    var lastUpdate = new Date();
+                    document.getElementById(date).innerHTML=lastUpdate;
+                </script>
+            </span>
+            </small>
         </div>
       </footer>
 </body>
