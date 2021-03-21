@@ -43,15 +43,10 @@
     </div>
 
     <footer class="bg-dark text-center" align="middle">
-        <div class="footer navbar-fixed-bottom">
+        <div class="footer navbar-fixed-bottom justify-content-center">
           <small style="color:white">Automatisiertes Gewächshaut by Lars & Kilian</small>
-          <small>         
-            <span id="date">
-                <script>
-                    var lastUpdate = new Date();
-                    document.getElementById(date).innerHTML=lastUpdate;
-                </script>
-            </span>
+          <small>        
+                  <script> document.write(new Date().toLocaleDateString()); </script>
             </small>
         </div>
       </footer>
