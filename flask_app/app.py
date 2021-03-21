@@ -91,7 +91,7 @@ def admin():
                 cur= mysql.connection.cursor()
                 cur.execute('SELECT id, name FROM satellites')
                 satellite_list = cur.fetchall()
-                cur.execute('SELECT id, name FROM programm')
+                cur.execute('SELECT id, name FROM programms')
                 programm_list = cur.fetchall()
                               
 
