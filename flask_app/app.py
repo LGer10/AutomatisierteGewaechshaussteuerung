@@ -92,11 +92,13 @@ def admin():
         satellite_list = cur.fetchall()
         cur.execute('SELECT id, name FROM programms')
         programm_list = cur.fetchall()
+        cur.close()
                 
         if request.method =='POST':
                 if request.form['Button'] == 'Programm laden':
                         satellite_name= request.form['satellite_name']
                         programm_name= request.form['programm_name']
+                        
                         cur= mysql.connection.cursor()
 			cur.execute('SELECT id from programms where name = (%s)', [programm_name])
 			programm_id = cur.fetchone()
@@ -104,10 +106,13 @@ def admin():
                         cur.execute('''select p.name, pp.value from parameters p
                         join programm_parameter pp on p.id = pp.id_parameter
                         join programms pr on pr.id = pp.id_programm where pr.name = (%s)''', [programm_name])
-                   
+                        cur.close()
+
+
                 if request.form['Button'] == 'Satellit hinzufügen':
                         satellite_name = request.form['satellite_name']
                         ip_addr = request.form['ip_addr']
+                        
                         cur= mysql.connection.cursor()
                         cur.execute('insert into satellites (name, ip_addr) values (%s, %s)', [satellite_name, ip_addr])
                         cur.execute('select id from satellites where name = (%s)', [satellite_name])
@@ -120,7 +125,8 @@ def admin():
                                 cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (%s, %s)', [satellite_id, programm_id])
                 
                         mysql.connection.commit()
-                        
+                        cur.close()
+
                         return redirect(url_for('admin'))
                                 
 
@@ -130,6 +136,7 @@ def admin():
                         helligkeit = request.form['helligkeit']
                         luftfeuchtigkeit = request.form['luftfeuchtigkeit']
                         bodenfeuchtigkeit = request.form['bodenfeuchtigkeit']
+                        
                         cur= mysql.connection.cursor()
                         cur.execute('insert into programms (name, date_created) values (%s, current_timestamp())', [programm_name])
 
@@ -160,7 +167,8 @@ def admin():
                         (select id from parameters where name = "Bodenfeuchtigkeit"), %s)''', [programm_id, bodenfeuchtigkeit])
 
                         mysql.connection.commit()
-
+                        cur.close()
+                        
                         return redirect(url_for('admin'))
 
         return render_template('admin.html', satellite_list=satellite_list, programm_list=programm_list)
