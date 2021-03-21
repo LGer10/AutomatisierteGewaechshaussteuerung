@@ -95,7 +95,7 @@ def admin():
                 programm_list = cur.fetchall()
                               
         if request.method =='POST':
-                if request.form['LoadProgrammButton'] == "Programm laden":
+                if request.form['Button'] == 'Programm laden':
                         satellite_name= request.form['satellite_name']
                         programme_name= request.form['programm_name']
                         cur= mysql.connection.cursor()
@@ -103,7 +103,7 @@ def admin():
                         join programm_parameter pp on p.id = pp.id_parameter
                         join programms pr on pr.id = pp.id_programm where pr.name = ("%s")''', programme_name)
                    
-                if request.form['AddSatelliteButton'] == 'Satellit hinzufügen':
+                if request.form['Button'] == 'Satellit hinzufügen':
                         satellite_name= request.form['satellite_name']
                         ip_addr = request.form['ip_addr']
                         cur= mysql.connection.cursor()
@@ -117,7 +117,7 @@ def admin():
                                 cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (select id from satellites where satellite_name = ("%s")), ("%s")', satellite_name, programm_id)
                                 mysql.connection.commit()
 
-                if request.form['AddProgrammButton'] == 'Programm hinzufügen':
+                if request.form['Button'] == 'Programm hinzufügen':
                         programm_name= request.form['programm_name']
                         temperatur= request.form['temperatur']
                         helligkeit = request.form['helligkeit']
