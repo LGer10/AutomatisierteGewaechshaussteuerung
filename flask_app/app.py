@@ -94,8 +94,8 @@ def admin():
                 cur.execute('SELECT id, name FROM programms')
                 programm_list = cur.fetchall()
         
-                return render_template('admin.html', satellite_list=satellite_list, programm_list=programm_list)
-
+        return render_template('admin.html', satellite_list=satellite_list, programm_list=programm_list)
+        
         if request.method =='POST':
                 if request.form['Button'] == 'Programm laden':
                         satellite_name= request.form['satellite_name']
