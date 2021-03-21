@@ -32,7 +32,7 @@
                 </li>
             </ul>
         </div>
-        <img src="{{url_for('static', filename='Bild1.jpg')}}" width="50" height="50" class="d-inline-block align-top"
+        <img src="{{url_for('static', filename='logo.jpg')}}" width="50" height="50" class="d-inline-block align-top"
             alt="" align="right" />
 
 
@@ -41,15 +41,17 @@
     <div class="container-fluid">
         {% block content %}  
 
-        { % block footer % }
-        { %- endblock % }
-        
+
          {% endblock %}
 
-       
-      
     </div>
 
+    <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
+        <div class="container text-center">
+          <small>Automatisiertes Gewächshaut by Lars & Kilian</small>
+        </div>
+      </footer>
+</body>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="http://cdn.pydata.org/bokeh/release/bokeh-1.2.0.min.js"></script>
