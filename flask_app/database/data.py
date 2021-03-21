@@ -16,12 +16,14 @@ db = mysql.connector.connect(
 cursor = db.cursor()
 
 #SQL Befehle
+#Programm1
 cursor.execute('INSERT INTO programms (name) VALUES ("Testprogramm")')
 cursor.execute('INSERT INTO parameters (name, unit) VALUES ("Temperatur", "°C")')
 cursor.execute('INSERT INTO parameters (name, unit) VALUES ("Helligkeit", "h")')
 cursor.execute('INSERT INTO parameters (name, unit) VALUES ("Luftfeuchtigkeit", "°C")')
 cursor.execute('INSERT INTO parameters (name, unit) VALUES ("Bodenfeuchtigkeit", "°C")')
 
+#Parameter
 cursor.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
 VALUES ((select id from programms where name = "Testprogramm"), (select id from parameters where name = "Temperatur"), 25)''') 
 cursor.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
@@ -30,6 +32,18 @@ cursor.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, valu
 VALUES ((select id from programms where name = "Testprogramm"), (select id from parameters where name = "Luftfeuchtigkeit"), 60)''')
 cursor.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
 VALUES ((select id from programms where name = "Testprogramm"), (select id from parameters where name = "Bodenfeuchtigkeit"), 50)''')
+
+#Programm2
+cursor.execute('INSERT INTO programms (name) VALUES ("Testprogramm1")')
+
+cursor.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
+VALUES ((select id from programms where name = "Testprogramm1"), (select id from parameters where name = "Temperatur"), 20)''') 
+cursor.execute('''INSERT INTO programm_parameter(id_programm1, id_parameter, value) 
+VALUES ((select id from programms where name = "Testprogramm1"), (select id from parameters where name = "Helligkeit"), 6)''')
+cursor.execute('''INSERT INTO programm_parameter(id_programm1, id_parameter, value) 
+VALUES ((select id from programms where name = "Testprogramm1"), (select id from parameters where name = "Luftfeuchtigkeit"), 50)''')
+cursor.execute('''INSERT INTO programm_parameter(id_programm1, id_parameter, value) 
+VALUES ((select id from programms where name = "Testprogramm1"), (select id from parameters where name = "Bodenfeuchtigkeit"), 40)''')
 
 cursor.execute('INSERT INTO satellites (name, ip_addr) VALUES ("Testsatellit", "192.168.1.100")')
 cursor.execute('''INSERT INTO satellite_programm(id_satellite, id_programm) 

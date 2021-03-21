@@ -103,11 +103,11 @@ def admin():
                         join programms pr on pr.id = pp.id_programm where pr.name = (%s)''', [programme_name])
                    
                 if request.form['Button'] == 'Satellit hinzufügen':
-                        name = request.form['name']
+                        satellite_name = request.form['satellite_name']
                         ip_addr = request.form['ip_addr']
                         cur= mysql.connection.cursor()
-                        cur.execute('insert into satellites (name, ip_addr) values (%s, %s)', [name, ip_addr])
-                        cur.execute('select id from satellites where name = (%s)', name)
+                        cur.execute('insert into satellites (name, ip_addr) values (%s, %s)', [satellite_name, ip_addr])
+                        cur.execute('select id from satellites where name = (%s)', [satellite_name])
                         satellite_id = cur.fetchone()
 
                         cur.execute('SELECT name FROM programms')
