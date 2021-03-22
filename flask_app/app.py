@@ -48,7 +48,7 @@ def dashboard():
         cur.execute('SELECT date from sensordata where id = (%s)', [date_span])
         date_span_date = cur.fetchone()
         cur.execute('''SELECT date, time FROM sensordata where date >= (%s) and id_satellite_programm in 
-        (select id from satellite_programm where id_satellit = (%s) 
+        (select id from satellite_programm where id_satellite = (%s) 
         and id_programm = (%s))''', [date_span, satellite_name, programm_name])
         date_span = cur.fetchall()
         dates_list = []
