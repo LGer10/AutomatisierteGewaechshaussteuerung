@@ -45,8 +45,11 @@ def dashboard():
         date_span = request.form['date_span']
         cur = mysql.connection.cursor()
 
-        cur.execute('''SELECT date, time FROM sensordata where date >= (%s) and id_satellite_programm in (select id from satellite_programm where id_satellite in 
-                (select id from satellites where name = "(%s)" and id_programm in (select id from programms where name = "(%s)")))''', date_span, satellite_name, programm_name)
+        cur.execute('SELECT date from sensordata where id = (%s)', [date_span]
+        date_span_date = cur.fetchone()
+        cur.execute('''SELECT date, time FROM sensordata where date >= (%s) and id_satellite_programm in 
+        (select id from satellite_programm where id_satellit = (%s) 
+        and id_programm = (%s)")''', date_span, satellite_name, programm_name)
         date_span = cur.fetchall()
         dates_list = []
         for index in range(len(date_span)):
