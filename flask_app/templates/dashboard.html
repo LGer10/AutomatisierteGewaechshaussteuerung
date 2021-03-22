@@ -9,30 +9,30 @@
     <h2 style="color:green">{% block title %} Automatisiertes Gewächshaus {% endblock %}</h2>
     <h3> Dashboard </h3>
     <form method="POST" action="/dashboard">
-    <p style="font-family:verdana">
-      Satellit auswählen:
-      <SELECT name="satellite_id" style="font-family:verdana">
-        {% for i in satellite_list %}
-        <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
-        {% endfor %}
-      </SELECT>
-      &nbsp;&nbsp;
-      Programm auswählen:
-      <SELECT name="programm_id" style="font-family:verdana">
-        {% for i in programm_list %}
-        <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
-        {% endfor %}
-      </SELECT>
-      &nbsp;&nbsp;
-      Zeitraum auswählen:
-      <SELECT name="selected_date" style="font-family:verdana">
-        {% for i in date_span %}
-        <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
-        {% endfor %}
-      </SELECT>
-    </p>
-    <input class ="float right" type="submit" name="loadButton" value="Laden">
-  </form>
+      <p style="font-family:verdana">
+        Satellit auswählen:
+        <SELECT name="satellite_id" style="font-family:verdana">
+          {% for i in satellite_list %}
+          <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
+          {% endfor %}
+        </SELECT>
+        &nbsp;&nbsp;
+        Programm auswählen:
+        <SELECT name="programm_id" style="font-family:verdana">
+          {% for i in programm_list %}
+          <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
+          {% endfor %}
+        </SELECT>
+        &nbsp;&nbsp;
+        Zeitraum auswählen:
+        <SELECT name="selected_date" style="font-family:verdana">
+          {% for i in date_span %}
+          <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
+          {% endfor %}
+        </SELECT>
+      </p>
+      <input class="float right" type="submit" name="loadButton" value="Laden">
+    </form>
   </div>
 </body>
 
@@ -122,7 +122,7 @@
           // get bar chart canvas
 
           //steps = 4
-         // max = {{ max }}
+          // max = {{ max }}
 
           // draw bar chart
 
@@ -190,7 +190,7 @@
 
           // get bar chart canvas
 
-         // steps = 4
+          // steps = 4
           //max = {{ max }}
 
           // draw bar chart
@@ -256,7 +256,7 @@
 
           // get bar chart canvas
 
-         // steps = 4
+          // steps = 4
           //max = {{ max }}
 
           // draw bar chart
@@ -283,7 +283,8 @@
             {{ item }},
 
 
-            {% endfor %}]
+            {% endfor %}],
+            label: "Temperatur"
 
           }
 
@@ -291,6 +292,10 @@
 },
 
             options: {
+            title: {
+              display: true,
+              text: 'Bedingungen'
+            }
             scales: {
               yAxes: [{
                 ticks: {
