@@ -49,10 +49,10 @@ def dashboard():
         cur.execute('''SELECT date, time FROM sensordata where date >= (%s) and id_satellite_programm in 
         (select id from satellite_programm where id_satellite = (%s) 
         and id_programm = (%s))''', [selected_date, satellite_id, programm_id])
-        date_span = cur.fetchall()
+        dates = cur.fetchall()
         dates_list = []
-        for index in range(len(date_span)):
-            dates_list.append(date_span[index][0])
+        for index in range(len(dates)):
+            dates_list.append(dates[index][0])
 
         cur.execute('''SELECT temperature FROM sensordata where date >= (%s) and id_satellite_programm in 
         (select id from satellite_programm where id_satellite = (%s) 
@@ -88,7 +88,7 @@ def dashboard():
 
         cur.close()
 
-        return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span, temperature_list=temperature_list, dates_list=dates_list, brightness_list=brightness_list, airhumidity_list=airhumidity_list, solihumidity_list=soilhumidity_list)
+        return render_template('dashboard.html', temperature_list=temperature_list, dates_list=dates_list, brightness_list=brightness_list, airhumidity_list=airhumidity_list, solihumidity_list=soilhumidity_list)
 
     return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span)
 
