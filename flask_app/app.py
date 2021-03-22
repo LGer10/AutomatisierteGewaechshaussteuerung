@@ -41,7 +41,7 @@ def dashboard():
 
     if request.method == 'POST' and request.form['loadButton'] == 'Laden':
         satellite_name = request.form['satellite_name']
-        programme_name = request.form['programm_name']
+        programm_name = request.form['programm_name']
         date_span = request.form['date_span']
         cur = mysql.connection.cursor()
 
