@@ -57,7 +57,7 @@
             data: {
               lables: [
                 {% for item in dates_list %}
-                  "{{ item }}",
+                  '{{ item }}',
  {% endfor %}
                 ],
 
@@ -67,30 +67,22 @@
                 {% for item in temperature_list %}
             {{ item }},
             {% endfor %}],
-            lable: "Temperatur"
+            lable: 'Temperatur'
 
  
           }]
 },
 
 options: {
-            scales: {
-              title:{
-                dispaly: true,
-                labelString: "Temperatur"
-              }
-              
-              }
-              yAxes: [{
+        scales: {
+            yAxes: [{
                 ticks: {
-                  beginAtZero: true
+                    beginAtZero: true
                 }
-              }]
-            }
-          
-}
-          );
-
+            }]
+        }
+    }
+});
 
 
         </script>
@@ -114,7 +106,7 @@ options: {
             data: {
               lables: [
                 {% for item in dates_list %}
-                  "{{ item }}",
+                  '{{ item }},
  {% endfor %}
                 ],
 
@@ -125,7 +117,7 @@ options: {
 
 
             {% endfor %}],
-            lable: "Helligkeit"
+            lable: 'Helligkeit'
            
 
      
@@ -133,22 +125,15 @@ options: {
 },
 
 options: {
-            scales: {
-              title:{
-                dispaly: true,
-                labelString: "Temperatur"
-              }
-              
-              }
-              yAxes: [{
+        scales: {
+            yAxes: [{
                 ticks: {
-                  beginAtZero: true
+                    beginAtZero: true
                 }
-              }]
-            }
-          
-}
-          );
+            }]
+        }
+    }
+});
 
 
 
@@ -175,7 +160,7 @@ options: {
             data: {
               lables: [
                 {% for item in dates_list %}
-                  "{{ item }}",
+                  '{{ item }}'',
  {% endfor %}
                 ],
 
@@ -187,29 +172,22 @@ options: {
 
 
             {% endfor %}],
-            label: "Luftfeuchhtigkeit"
+            label: 'Luftfeuchhtigkeit'
 
 
           }]
 },
 
 options: {
-            scales: {
-              title:{
-                dispaly: true,
-                labelString: "Temperatur"
-              }
-              
-              }
-              yAxes: [{
+        scales: {
+            yAxes: [{
                 ticks: {
-                  beginAtZero: true
+                    beginAtZero: true
                 }
-              }]
-            }
-          
-}
-          );
+            }]
+        }
+    }
+});
 
 
 
@@ -233,7 +211,7 @@ options: {
             data: {
               lables: [
                 {% for item in dates_list %}
-                  "{{ item }}",
+                  '{{ item }}'',
  {% endfor %}
                 ],
 
@@ -245,7 +223,7 @@ options: {
 
 
             {% endfor %}],
-            label: "Bodenfeuchtigkeit"
+            label: 'Bodenfeuchtigkeit'
 
           }]
 },
