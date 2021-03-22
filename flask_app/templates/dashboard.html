@@ -297,8 +297,14 @@ options: {
             title: {
               display: true,
               text: 'Bedingungen'
-            }
-            ,scales: {
+            },
+            scaleShowValues: true,
+            scales: {
+              xAxes: [{
+                ticks: {
+                  autoSkip: false
+                }
+              }],
               yAxes: [{
                 ticks: {
                   beginAtZero: true
