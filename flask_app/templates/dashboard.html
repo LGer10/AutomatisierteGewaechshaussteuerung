@@ -44,13 +44,13 @@
 
         <script>
 
-          Chart.defaults.global.animationSteps = 20;
-          Chart.defaults.global.tooltipYPadding = 10;
+          Chart.defaults.global.animationSteps = 1;
+          Chart.defaults.global.tooltipYPadding = 1;
           Chart.defaults.global.tooltipCornerRadius = 0;
           Chart.defaults.global.tooltipTitleFontStyle = "normal";
           Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
           Chart.defaults.global.animationEasing = "easeOutBounce";
-          Chart.defaults.global.responsive = false;
+          Chart.defaults.global.responsive = true;
           Chart.defaults.global.scaleLineColor = "black";
           Chart.defaults.global.scaleFontSize = 10;
 
@@ -70,13 +70,6 @@
                 ],
 
             datasets : [{
-              fillColor: "rgba(151,187,205,0.2)",
-              strokeColor: "rgba(151,187,205,1)",
-              pointColor: "rgba(151,187,205,1)",
-              pointStrokeColor: "#fff",
-              pointHighlightFill: "#fff",
-              pointHighlightStroke: "rgba(151,187,205,1)",
-              bezierCurve: false,
               data: [
                 {% for item in temperature_list %}
             {{ item }},
@@ -89,14 +82,12 @@
 },
 
             options: {
+              legend: {
+            display: true,
+            labels: {
+                fontColor: 'rgb(255, 99, 132)'
+            }
             scales: {
-              title:{
-                dispaly: true,
-                labelString: "Temperatur"
-              }
-              xAxes:{
-                dispaly: true
-              }
               yAxes: [{
                 ticks: {
                   beginAtZero: true
