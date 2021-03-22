@@ -43,6 +43,7 @@ def dashboard():
         satellite_name = request.form['satellite_name']
         programme_name = request.form['programm_name']
         date_span = request.form['date_span']
+        cur = mysql.connection.cursor()
 
         cur.execute('''SELECT date, time FROM sensordata where date >= (%s) and id_satellite_programm in (select id from satellite_programm where id_satellite in 
                 (select id from satellites where name = "(%s)" and id_programm in (select id from programms where name = "(%s)")))''', date_span, satellite_name, programm_name)
@@ -51,7 +52,6 @@ def dashboard():
         for index in range(len(date_span)):
             dates_list.append(date_span[index][0])
 
-        cur = mysql.connection.cursor()
         cur.execute('''SELECT temperature FROM sensordata where date >= (%s) and id_satellite_programm in (select id from satellite_programm where id_satellite in 
                 (select id from satellites where name = "(%s)" and id_programm in (select id from programms where name = "(%s))))''', date_span, satellite_name, programm_name)
         temperature = cur.fetchall()
