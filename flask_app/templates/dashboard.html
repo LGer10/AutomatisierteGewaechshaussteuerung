@@ -123,14 +123,20 @@ options: {
                 ],
 
             datasets : [{
-             
+              label: "Helligkeit",
+                fillColor: "rgba(220,220,220,0.2)",
+                strokeColor: "rgba(220,220,220,1)",
+                pointColor: "rgba(220,220,220,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(220,220,220,1)",
               data: [
                 {% for item in brightness_list %}
             {{ item }},
 
 
-            {% endfor %}],
-            label: "Helligekit"
+            {% endfor %}]
+           
 
      
           }
@@ -139,24 +145,15 @@ options: {
 },
 
 options: {
-            title: {
-              display: true,
-              text: 'Bedingungen'
-            },
-            scaleShowValues: true,
-            scales: {
-              xAxes: [{
-                ticks: {
-                  autoSkip: false
-                }
-              }],
+            
               yAxes: [{
                 ticks: {
                   beginAtZero: true
                 }
               }]
             }
-          }
+          
+        
 }
           );
 
