@@ -35,14 +35,14 @@ def dashboard():
         programm_list = cur.fetchall()
 
         cur.execute(
-            'SELECT distinct id, date from sensordata where date >= curdate() - interval 7 day')
+            'SELECT distinct id, date from sensordata where date >= current_date() - interval 7 day')
         date_span = cur.fetchall()
         cur.close()
 
     if request.method == 'POST' and request.form['loadButton'] == 'Laden':
-        satellite_name = request.form['satellite_name']
-        programm_name = request.form['programm_name']
-        date_span = request.form['date_span']
+        satellite_id = request.form['satellite_id']
+        programm_id = request.form['programm_id']
+        selected_date = request.form['selected_date']
         cur = mysql.connection.cursor()
 
         cur.execute('SELECT date from sensordata where id = (%s)', [date_span])

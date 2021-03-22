@@ -11,21 +11,21 @@
     <form method="POST" action="/dashboard">
     <p style="font-family:verdana">
       Satellit auswählen:
-      <SELECT name="satellite_name" style="font-family:verdana">
+      <SELECT name="satellite_id" style="font-family:verdana">
         {% for i in satellite_list %}
         <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
         {% endfor %}
       </SELECT>
       &nbsp;&nbsp;
       Programm auswählen:
-      <SELECT name="programm_name" style="font-family:verdana">
+      <SELECT name="programm_id" style="font-family:verdana">
         {% for i in programm_list %}
         <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
         {% endfor %}
       </SELECT>
       &nbsp;&nbsp;
       Zeitraum auswählen:
-      <SELECT name="date_span" style="font-family:verdana">
+      <SELECT name="selected_date" style="font-family:verdana">
         {% for i in date_span %}
         <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
         {% endfor %}
@@ -56,8 +56,8 @@
 
           // get bar chart canvas
 
-          steps = 4
-          max = {{ max }}
+          //steps = 4
+          //max = {{ max }}
 
           // draw bar chart
           new Chart(document.getElementById("chart"), {
