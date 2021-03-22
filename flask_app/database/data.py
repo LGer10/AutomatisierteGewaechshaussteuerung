@@ -47,8 +47,20 @@ VALUES ((select id from programms where name = "Testprogramm1"), (select id from
 
 cursor.execute('INSERT INTO satellites (name, ip_addr) VALUES ("Testsatellit", "192.168.1.100")')
 cursor.execute('''INSERT INTO satellite_programm(id_satellite, id_programm) 
-VALUES ((select id from programms where name = "Testprogramm"), (select id from satellites where name = "Testsatellit"))''') 
+VALUES ((select id from programms where name = "Testprogramm"), (select id from satellites where name = "Testsatellit"))''')
+cursor.execute('''INSERT INTO satellite_programm(id_satellite, id_programm) 
+VALUES ((select id from programms where name = "Testprogramm1"), (select id from satellites where name = "Testsatellit"))''') 
 
+cursor.execute('''insert into sensordata (id_satellite_programm, temperature, brightness, airhumidity, soilhumidity, date, time) 
+VALUES (1, 25, 8, 60, 50, cur_date(), cur_time())''')
+cursor.execute('''insert into sensordata (id_satellite_programm, temperature, brightness, airhumidity, soilhumidity, date, time) 
+VALUES (1, 30, 5, 50, 20, cur_date() - 1, cur_time())''')
+cursor.execute('''insert into sensordata (id_satellite_programm, temperature, brightness, airhumidity, soilhumidity, date, time) 
+VALUES (1, 20, 6, 60, 40, cur_date() - 2, cur_time())''')
+cursor.execute('''insert into sensordata (id_satellite_programm, temperature, brightness, airhumidity, soilhumidity, date, time) 
+VALUES (1, 10, 8, 40, 60, cur_date()- 3, cur_time())''')
+cursor.execute('''insert into sensordata (id_satellite_programm, temperature, brightness, airhumidity, soilhumidity, date, time) 
+VALUES (1, 20, 10, 80, 70, cur_date() -4, cur_time())''')
 
 db.commit()
 cursor.close()
