@@ -44,7 +44,7 @@
 
         <script>
 
-          
+
 
           // get bar chart canvas
 
@@ -62,7 +62,7 @@
                 ],
 
             datasets : [{
-              
+
               data: [
                 {% for item in temperature_list %}
             {{ item }},
@@ -75,22 +75,18 @@
 ]
 },
 
-options: {
-  legend: {
-    display: true,
-    position: 'top',
-    labels: {
-      boxWidth: 80,
-      fontColor: 'black'
-    }
-    },
-            
-              yAxes: [{
-                ticks: {
-                  beginAtZero: true
-                }
-              }]
-            }
+            options: {
+            title: {
+              display: true,
+              text: 'Bedingungen'
+            },
+
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
           }
 }
           );
@@ -104,7 +100,7 @@ options: {
 
         <script>
 
-         
+
 
           // get bar chart canvas
 
@@ -124,12 +120,12 @@ options: {
 
             datasets : [{
               label: "Helligkeit",
-                fillColor: "rgba(220,220,220,0.2)",
-                strokeColor: "rgba(220,220,220,1)",
-                pointColor: "rgba(220,220,220,1)",
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(220,220,220,1)",
+              fillColor: "rgba(220,220,220,0.2)",
+              strokeColor: "rgba(220,220,220,1)",
+              pointColor: "rgba(220,220,220,1)",
+              pointStrokeColor: "#fff",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgba(220,220,220,1)",
               data: [
                 {% for item in brightness_list %}
             {{ item }},
@@ -144,14 +140,19 @@ options: {
 ]
 },
 
-options: {
-            
-              yAxes: [{
-                ticks: {
-                  beginAtZero: true
-                }
-              }]
-            }
+            options: {
+            title: {
+              display: true,
+              text: 'Bedingungen'
+            },
+
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+          }
           
         
 }
@@ -167,7 +168,7 @@ options: {
 
         <script>
 
-          
+
 
           // get bar chart canvas
 
@@ -186,7 +187,7 @@ options: {
                 ],
 
             datasets : [{
-              
+
               data: [
                 {% for item in airhumidity_list %}
             {{ item }},
@@ -201,24 +202,18 @@ options: {
 ]
 },
 
-options: {
+            options: {
             title: {
               display: true,
               text: 'Bedingungen'
             },
-            scaleShowValues: true,
-            scales: {
-              xAxes: [{
-                ticks: {
-                  autoSkip: false
-                }
-              }],
-              yAxes: [{
-                ticks: {
-                  beginAtZero: true
-                }
-              }]
-            }
+
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
           }
 }
           );
@@ -231,7 +226,7 @@ options: {
 
         <script>
 
-          
+
 
           // get bar chart canvas
 
@@ -250,7 +245,7 @@ options: {
                 ],
 
             datasets : [{
-              
+
               data: [
                 {% for item in soilhumidity_list %}
             {{ item }},
@@ -269,20 +264,14 @@ options: {
               display: true,
               text: 'Bedingungen'
             },
-            scaleShowValues: true,
-            scales: {
-              xAxes: [{
-                ticks: {
-                  autoSkip: false
-                }
-              }],
-              yAxes: [{
-                ticks: {
-                  beginAtZero: true
-                }
-              }]
-            }
+
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
           }
+        
 }
           );
 
