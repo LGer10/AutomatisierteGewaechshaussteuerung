@@ -36,7 +36,7 @@ def dashboard():
 
         cur.execute(
             'SELECT distinct id, date from sensordata where date >= curdate() - interval 7 day')
-        date_list = cur.fetchall()
+        date_span = cur.fetchall()
         cur.close()
 
     if request.method == 'POST' and request.form['loadButton'] == 'Laden':
@@ -46,10 +46,10 @@ def dashboard():
 
         cur.execute('''SELECT date, time FROM sensordata where date >= (%s) and id_satellite_programm in (select id from satellite_programm where id_satellite in 
                 (select id from satellites where name = "(%s)" and id_programm in (select id from programms where name = "(%s)")))''', date_span, satellite_name, programm_name)
-        dates = cur.fetchall()
+        date_span = cur.fetchall()
         dates_list = []
-        for index in range(len(dates)):
-            dates_list.append(dates[index][0])
+        for index in range(len(date_span)):
+            dates_list.append(date_span[index][0])
 
         cur = mysql.connection.cursor()
         cur.execute('''SELECT temperature FROM sensordata where date >= (%s) and id_satellite_programm in (select id from satellite_programm where id_satellite in 
