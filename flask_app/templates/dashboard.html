@@ -44,15 +44,7 @@
 
         <script>
 
-          Chart.defaults.global.animationSteps = 20;
-          Chart.defaults.global.tooltipYPadding = 10;
-          Chart.defaults.global.tooltipCornerRadius = 0;
-          Chart.defaults.global.tooltipTitleFontStyle = "normal";
-          Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
-          Chart.defaults.global.animationEasing = "easeOutBounce";
-          Chart.defaults.global.responsive = false;
-          Chart.defaults.global.scaleLineColor = "black";
-          Chart.defaults.global.scaleFontSize = 10;
+          
 
           // get bar chart canvas
 
@@ -70,13 +62,7 @@
                 ],
 
             datasets : [{
-              fillColor: "rgba(151,187,205,0.2)",
-              strokeColor: "rgba(151,187,205,1)",
-              pointColor: "rgba(151,187,205,1)",
-              pointStrokeColor: "#fff",
-              pointHighlightFill: "#fff",
-              pointHighlightStroke: "rgba(151,187,205,1)",
-              bezierCurve: false,
+              
               data: [
                 {% for item in temperature_list %}
             {{ item }},
@@ -90,11 +76,25 @@
 },
 
 options: {
+  legend: {
+    display: true,
+    position: 'top',
+    labels: {
+      boxWidth: 80,
+      fontColor: 'black'
+    }
+    },
             title: {
               display: true,
               text: 'Bedingungen'
-            }
-            ,scales: {
+            },
+            scaleShowValues: true,
+            scales: {
+              xAxes: [{
+                ticks: {
+                  autoSkip: false
+                }
+              }],
               yAxes: [{
                 ticks: {
                   beginAtZero: true
@@ -114,15 +114,7 @@ options: {
 
         <script>
 
-          Chart.defaults.global.animationSteps = 20;
-          Chart.defaults.global.tooltipYPadding = 10;
-          Chart.defaults.global.tooltipCornerRadius = 0;
-          Chart.defaults.global.tooltipTitleFontStyle = "normal";
-          Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
-          Chart.defaults.global.animationEasing = "easeOutBounce";
-          Chart.defaults.global.responsive = false;
-          Chart.defaults.global.scaleLineColor = "black";
-          Chart.defaults.global.scaleFontSize = 10;
+         
 
           // get bar chart canvas
 
@@ -141,13 +133,7 @@ options: {
                 ],
 
             datasets : [{
-              fillColor: "rgba(151,187,205,0.2)",
-              strokeColor: "rgba(151,187,205,1)",
-              pointColor: "rgba(151,187,205,1)",
-              pointStrokeColor: "#fff",
-              pointHighlightFill: "#fff",
-              pointHighlightStroke: "rgba(151,187,205,1)",
-              bezierCurve: false,
+             
               data: [
                 {% for item in brightness_list %}
             {{ item }},
@@ -166,8 +152,14 @@ options: {
             title: {
               display: true,
               text: 'Bedingungen'
-            }
-            ,scales: {
+            },
+            scaleShowValues: true,
+            scales: {
+              xAxes: [{
+                ticks: {
+                  autoSkip: false
+                }
+              }],
               yAxes: [{
                 ticks: {
                   beginAtZero: true
@@ -188,15 +180,7 @@ options: {
 
         <script>
 
-          Chart.defaults.global.animationSteps = 20;
-          Chart.defaults.global.tooltipYPadding = 10;
-          Chart.defaults.global.tooltipCornerRadius = 0;
-          Chart.defaults.global.tooltipTitleFontStyle = "normal";
-          Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
-          Chart.defaults.global.animationEasing = "easeOutBounce";
-          Chart.defaults.global.responsive = false;
-          Chart.defaults.global.scaleLineColor = "black";
-          Chart.defaults.global.scaleFontSize = 10;
+          
 
           // get bar chart canvas
 
@@ -215,13 +199,7 @@ options: {
                 ],
 
             datasets : [{
-              fillColor: "rgba(151,187,205,0.2)",
-              strokeColor: "rgba(151,187,205,1)",
-              pointColor: "rgba(151,187,205,1)",
-              pointStrokeColor: "#fff",
-              pointHighlightFill: "#fff",
-              pointHighlightStroke: "rgba(151,187,205,1)",
-              bezierCurve: false,
+              
               data: [
                 {% for item in airhumidity_list %}
             {{ item }},
@@ -240,8 +218,14 @@ options: {
             title: {
               display: true,
               text: 'Bedingungen'
-            }
-            ,scales: {
+            },
+            scaleShowValues: true,
+            scales: {
+              xAxes: [{
+                ticks: {
+                  autoSkip: false
+                }
+              }],
               yAxes: [{
                 ticks: {
                   beginAtZero: true
