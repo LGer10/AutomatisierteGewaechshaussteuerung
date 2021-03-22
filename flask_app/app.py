@@ -45,7 +45,7 @@ def dashboard():
         date_span = request.form['date_span']
         cur = mysql.connection.cursor()
 
-        cur.execute('SELECT date from sensordata where id = (%s)', [date_span]
+        cur.execute('SELECT date from sensordata where id = (%s)', [date_span])
         date_span_date = cur.fetchone()
         cur.execute('''SELECT date, time FROM sensordata where date >= (%s) and id_satellite_programm in 
         (select id from satellite_programm where id_satellit = (%s) 
