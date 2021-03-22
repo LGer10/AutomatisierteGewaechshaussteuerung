@@ -121,8 +121,8 @@
 
           // get bar chart canvas
 
-          steps = 4
-          max = {{ max }}
+          //steps = 4
+         // max = {{ max }}
 
           // draw bar chart
 
@@ -190,8 +190,8 @@
 
           // get bar chart canvas
 
-          steps = 4
-          max = {{ max }}
+         // steps = 4
+          //max = {{ max }}
 
           // draw bar chart
 
@@ -199,7 +199,7 @@
             type: 'line',
             data: {
               lables: [
-                {% for item in id_date %}
+                {% for item in dates_list %}
                   "{{ item }}",
  {% endfor %}
                 ],
@@ -256,8 +256,8 @@
 
           // get bar chart canvas
 
-          steps = 4
-          max = {{ max }}
+         // steps = 4
+         // max = {{ max }}
 
           // draw bar chart
 
@@ -265,7 +265,7 @@
             type: 'line',
             data: {
               lables: [
-                {% for item in id_date %}
+                {% for item in dates_list %}
                   "{{ item }}",
  {% endfor %}
                 ],
