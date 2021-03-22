@@ -46,9 +46,9 @@ cursor.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, valu
 VALUES ((select id from programms where name = "Testprogramm1"), (select id from parameters where name = "Bodenfeuchtigkeit"), 40)''')
 
 cursor.execute('INSERT INTO satellites (name, ip_addr) VALUES ("Testsatellit", "192.168.1.100")')
-cursor.execute('''INSERT INTO satellite_programm(id_satellite, id_programm) 
+cursor.execute('''INSERT INTO satellite_programm(id_programm, id_satellite) 
 VALUES ((select id from programms where name = "Testprogramm"), (select id from satellites where name = "Testsatellit"))''')
-cursor.execute('''INSERT INTO satellite_programm(id_satellite, id_programm) 
+cursor.execute('''INSERT INTO satellite_programm(id_programm, id_satellite) 
 VALUES ((select id from programms where name = "Testprogramm1"), (select id from satellites where name = "Testsatellit"))''') 
 
 cursor.execute('''insert into sensordata (id_satellite_programm, temperature, brightness, airhumidity, soilhumidity, date, time) 
