@@ -80,7 +80,8 @@
               data: [
                 {% for item in temperature_list %}
             {{ item }},
-            {% endfor %}]
+            {% endfor %}],
+            lable: "Temperatur"
 
  
           }
@@ -88,8 +89,12 @@
 ]
 },
 
-            options: {
-            scales: {
+options: {
+            title: {
+              display: true,
+              text: 'Bedingungen'
+            }
+            ,scales: {
               yAxes: [{
                 ticks: {
                   beginAtZero: true
@@ -148,7 +153,8 @@
             {{ item }},
 
 
-            {% endfor %}]
+            {% endfor %}],
+            label: "Helligekit"
 
      
           }
@@ -156,8 +162,12 @@
 ]
 },
 
-            options: {
-            scales: {
+options: {
+            title: {
+              display: true,
+              text: 'Bedingungen'
+            }
+            ,scales: {
               yAxes: [{
                 ticks: {
                   beginAtZero: true
@@ -217,15 +227,21 @@
             {{ item }},
 
 
-            {% endfor %}]
+            {% endfor %}],
+            label: "Luftfeuchhtigkeit"
+
 
           }
 
 ]
 },
 
-            options: {
-            scales: {
+options: {
+            title: {
+              display: true,
+              text: 'Bedingungen'
+            }
+            ,scales: {
               yAxes: [{
                 ticks: {
                   beginAtZero: true
@@ -244,15 +260,7 @@
 
         <script>
 
-          Chart.defaults.global.animationSteps = 20;
-          Chart.defaults.global.tooltipYPadding = 10;
-          Chart.defaults.global.tooltipCornerRadius = 0;
-          Chart.defaults.global.tooltipTitleFontStyle = "normal";
-          Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
-          Chart.defaults.global.animationEasing = "easeOutBounce";
-          Chart.defaults.global.responsive = false;
-          Chart.defaults.global.scaleLineColor = "black";
-          Chart.defaults.global.scaleFontSize = 10;
+          
 
           // get bar chart canvas
 
@@ -278,7 +286,7 @@
 
 
             {% endfor %}],
-            label: "Temperatur"
+            label: "Bodenfeuchtigkeit"
 
           }
 
