@@ -98,18 +98,24 @@
 
         <script>
 
-          var brightness_data =  {
-            lables: [
+
+          // get bar chart canvas
+
+          //steps = 4
+          // max = {{ max }}
+
+          // draw bar chart
+
+          new Chart(document.getElementById("chart1"), {
+            type: 'line',
+            data: {
+              lables: [
                 {% for item in dates_list %}
                   "{{ item }}",
  {% endfor %}
                 ],
 
             datasets : [{
-                  fillColor : "rgba(172,194,132,0.4)",
-                    strokeColor : "#ACC26D",
-                    pointColor : "#fff",
-                    pointStrokeColor : "#9DB86D",
               data: [
                 {% for item in brightness_list %}
             {{ item }},
@@ -121,17 +127,33 @@
 
      
           }]
-        }
+},
 
-          // get bar chart canvas
+options: {
+              legend: {
+            display: true,
+            labels: {
+                fontColor: 'rgb(255, 99, 132)'
+            }
+            scales: {
+              title:{
+                dispaly: true,
+                labelString: "Temperatur"
+              }
+              xAxes:{
+                dispaly: true
+              }
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }]
+            }
+          }
+      }
+    }
+          );
 
-          //steps = 4
-          // max = {{ max }}
-
-          // draw bar chart
-          var chart1 = document.getElementById('chart1').getContext('2d');
-
-          new Chart(chart1).Line(brightness_data);
 
         </script>
       </div>
