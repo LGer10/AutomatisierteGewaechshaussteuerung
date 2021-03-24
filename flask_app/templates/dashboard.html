@@ -51,47 +51,37 @@
           new Chart(document.getElementById("chart"), {
             type: 'line',
             data: {
-              lables: [
-                {% for item in dates_list %}
-              {'{ item }',}
- {% endfor %}
-                ],
-
+              lables: [{% for item in dates_list %}'{{ item }}', {% endfor %}],
             datasets : [{
-
               data: [
-                {% for item in temperature_list %}
-                  {{ item }},
-            {% endfor %}],
-            lable: 'Temperatur',
-            fill: false
-
-            }
+                {% for item in temperature_list %}{{ item }}{% endfor %}],
+                  lable: 'Temperatur',
+                  fill: false 
+               }
             ]
-},
-      
-           options: {
-    responsive: true,
-    title: {
-      display: true
-    },
-    legend: {
-      display: true
-    },
-    scales: {
-      yAxes: [{
-        ticks: {
-          min: 20,
-          max: 50,
-          stepSize: 5
-        }
-      }],
-      xAxes: [{
-        type: 'time',
-        time: {
-          unit: 'day',
-          tooltipFormat: 'MMM DD'
-        }
+          },
+          options: {
+            responsive: true,
+          title: {
+            display: true
+          },
+          legend: {
+            display: true
+          },
+          scales: {
+            yAxes: [{
+              ticks: {
+                min: 20,
+                max: 50,
+                stepSize: 5
+              }
+            }],
+            xAxes: [{
+              type: 'time',
+              time: {
+                unit: 'day',
+                tooltipFormat: 'MMM DD'
+              }
       }],
     }
   }
