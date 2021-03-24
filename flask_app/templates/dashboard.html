@@ -58,8 +58,10 @@
             datasets: [{
               data: [
                 {% for item in temperature_list %}{{ item }}, {% endfor %}],
-                  lable: 'Temperatur',
-                  fill: false 
+                  label: 'Temperatur',
+                  fill: false,
+                  borderColor: "#c45850",
+
                }
             ]
           },
@@ -110,7 +112,11 @@
 
             {% endfor %}],
 
-            lable: 'Helligkeit'
+            label: 'Helligkeit',
+            fill: false,
+            borderColor: "#e8c3b9",
+
+
            
             }
      
@@ -157,7 +163,10 @@
 
 
             {% endfor %}],
-            label: 'Luftfeuchhtigkeit'
+            label: 'Luftfeuchhtigkeit',
+            borderColor: "#3e95cd",
+            fill: false
+
             
 
             }
@@ -205,7 +214,11 @@
 
 
             {% endfor %}],
-            label: 'Bodenfeuchtigkeit'
+            label: 'Bodenfeuchtigkeit',
+            borderColor: "#3cba9f",
+            fill: false
+
+
 
             }
             ]
