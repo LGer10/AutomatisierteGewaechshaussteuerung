@@ -62,7 +62,7 @@ def dashboard():
         for index in range(len(temperature)):
             temperature_list.append(temperature[index][0])
 
-        cur.execute('''SELECT brightness FROM sensordata where date >= '(%s)' and id_satellite_programm in 
+        cur.execute('''SELECT brightness FROM sensordata where date >= (select date from sensordata where id = (%s)) and id_satellite_programm in 
         (select id from satellite_programm where id_satellite = (%s) 
         and id_programm = (%s))''', [selected_date, satellite_id, programm_id])
         brightness = cur.fetchall()
