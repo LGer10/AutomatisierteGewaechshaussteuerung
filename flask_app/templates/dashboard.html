@@ -72,22 +72,11 @@
             ]
 },
             options: {
-            scales: {
+            scale: {
               xAxes: [{
-                type: 'category',
-                dispaly: true,
-                scaleLabel: {
-                                display: true, // mandatory
-                                labelString: 'Your label' // optional 
-                },
-                ticks: {
-                maxTicksLimit: 10,
-                callback: function(value, index, values) {
-                return value.toLocaleString();
-                }
-              }
-
-              }],
+                type: 'time',
+                distribution: 'series'
+            }],
               yAxes: [{
                 ticks: {
                   beginAtZero: true
