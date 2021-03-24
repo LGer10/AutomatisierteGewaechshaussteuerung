@@ -53,11 +53,7 @@
           new Chart(document.getElementById("chart"), {
             type: 'line',
             data: {
-              lables: [
-                {% for item in dates_list %}
-                  '{{ item }}',
- {% endfor %}
-                ],
+             
 
             datasets : [{
 
