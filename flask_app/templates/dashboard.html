@@ -67,22 +67,16 @@
           },
           options: {
             responsive: true,
-          title: {
-            display: true
-          },
-          legend: {
-            display: true
           },
           scales: {
             yAxes: [{
               ticks: {
-                beginAtZero: true
+                beginAtZero: true,
+                max: 50
+
               }
             }],
-            xAxes: [{
-             stacked: true
-              
-      }],
+           
     }
   }
 });
@@ -126,7 +120,9 @@
             scales: {
               yAxes: [{
                 ticks: {
-                  beginAtZero: true
+                  beginAtZero: true,
+                  max: 12
+
                 }
               }]
             }
@@ -176,7 +172,9 @@
             scales: {
               yAxes: [{
                 ticks: {
-                  beginAtZero: true
+                  beginAtZero: true,
+                  max: 100
+
                 }
               }]
             }
@@ -227,7 +225,9 @@
             scales: {
               yAxes: [{
                 ticks: {
-                  beginAtZero: true
+                  beginAtZero: true,
+                  max: 100
+
                 }
               }]
             }
