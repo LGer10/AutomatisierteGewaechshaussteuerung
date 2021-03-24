@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
 <body>
   <div class="p-1" align="middle">
@@ -53,7 +53,7 @@
             data: {
               lables: [
                 {% for item in dates_list %}
-                  '{{ item }}',
+                  new Date('{{ item }}'),
  {% endfor %}
                 ],
 
@@ -81,7 +81,7 @@
     scales: {
       yAxes: [{
         ticks: {
-          min: 0,
+          min: 20,
           max: 50,
           stepSize: 5
         }
