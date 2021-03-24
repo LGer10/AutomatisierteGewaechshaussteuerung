@@ -1,0 +1,6 @@
+[submodule "automatisiertes_gewaechshaus"]
+	path = automatisiertes_gewaechshaus
+	url = https://github.com/KiLLuuuhh/automatisiertes_gewaechshaus.git
+[submodule "Charts.js"]
+	path = Charts.js
+	url = https://github.com/KiLLuuuhh/automatisiertes_gewaechshaus.git
