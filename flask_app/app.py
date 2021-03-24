@@ -46,7 +46,7 @@ def dashboard():
         cur = mysql.connection.cursor()
 
         
-        cur.execute('''SELECT date FROM sensordata where date >= '(%s)' and id_satellite_programm in 
+        cur.execute('''SELECT date FROM sensordata where date >= (select date from sensordata where id = (%s) and id_satellite_programm in 
         (select id from satellite_programm where id_satellite = (%s) 
         and id_programm = (%s))''', [selected_date, satellite_id, programm_id])
         dates = cur.fetchall()
