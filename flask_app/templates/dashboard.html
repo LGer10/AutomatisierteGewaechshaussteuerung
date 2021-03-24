@@ -55,7 +55,7 @@
             data: {
               lables: [
                 {% for item in dates_list %}
-                  {{ item }},
+                  '{{ item }}'
  {% endfor %}
                 ],
 
@@ -72,10 +72,8 @@
             ]
 },
             options: {
-            scale: {
-              xAxes: {
-                type: 'time'
-              },
+            scales: 
+}
               yAxes: [{
                 ticks: {
                   beginAtZero: true
