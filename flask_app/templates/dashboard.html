@@ -53,10 +53,8 @@
           new Chart(document.getElementById("chart"), {
             type: 'line',
             data: {
-              lables: [
-                {% for item in dates_list %}
-                  '{{ item }}'
- {% endfor %}
+              lables: ['Tag1', 'Tag2', 'Tag3', 'Tag4', 'Tag5'
+               
                 ],
 
             datasets : [{
