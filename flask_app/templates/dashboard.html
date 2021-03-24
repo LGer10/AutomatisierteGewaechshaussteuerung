@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js" integrity="sha512-zO8oeHCxetPn1Hd9PdDleg5Tw1bAaP0YmNvPY8CwcRyUk7d7/+nyElmFrB6f7vg4f7Fv4sui1mcep8RIEShczg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js" integrity="sha512-SuxO9djzjML6b9w9/I07IWnLnQhgyYVSpHZx0JV97kGBfTIsUYlWflyuW4ypnvhBrslz1yJ3R+S14fdCWmSmSA==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.css" integrity="sha512-C7hOmCgGzihKXzyPU/z4nv97W0d9bv4ALuuEbSf6hm93myico9qa0hv4dODThvCsqQUmKmLcJmlpRmCaApr83g==" crossorigin="anonymous" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
 
 <body>
@@ -52,7 +55,7 @@
             type: 'line',
             data: {
               lables: [{% for item in dates_list %}'{{ item }}', {% endfor %}],
-            datasets : [{
+            datasets: [{
               data: [
                 {% for item in temperature_list %}{{ item }}, {% endfor %}],
                   lable: 'Temperatur',
@@ -77,7 +80,7 @@
               }
             }],
             xAxes: [{
-              stacked: true
+             stacked: true
               
       }],
     }
@@ -259,56 +262,7 @@ Chart.defaults.global.animationSteps = 20;
 
         </script>
       </div>
-    <div class="row">
-      <div class="col">
-        <canvas id="chart" width="500" height="200"></canvas>
-
-        <script>
-
-          // get bar chart canvas
-
-
-          // draw bar chart
-          new Chart(document.getElementById("chart"), {
-            type: 'line',
-            data: {
-              lables: [{% for item in dates_list %}'{{ item }}', {% endfor %}],
-            datasets : [{
-              data: [
-                {% for item in temperature_list %}{{ item }}, {% endfor %}],
-                  lable: 'Temperatur',
-                  fill: false 
-               }
-            ]
-          },
-          options: {
-            responsive: true,
-          title: {
-            display: true
-          },
-          legend: {
-            display: true
-          },
-          scales: {
-            yAxes: [{
-              ticks: {
-                min: 20,
-                max: 50,
-                stepSize: 5
-              }
-            }],
-            xAxes: [{
-              stacked: true
-              
-      }],
-    }
-  }
-});
-
-        </script>
-      </div>
+    </div>
   </div>
-</div>
-
 </body>
 {% endblock %}
