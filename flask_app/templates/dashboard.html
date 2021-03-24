@@ -53,15 +53,17 @@
           new Chart(document.getElementById("chart"), {
             type: 'line',
             data: {
-              lables: ['Tag1', 'Tag2', 'Tag3', 'Tag4', 'Tag5'
-               
+              lables: [
+                {for item in dates_list %}
+                  '{{ item }}',
+ {% endfor %}
                 ],
 
             datasets : [{
 
               data: [
                 {% for item in temperature_list %}
-            {{ item }},
+                  '{{ item }}',
             {% endfor %}],
             lable: 'Temperatur',
             fill: false
