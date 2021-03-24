@@ -44,12 +44,6 @@
 
         <script>
 
-          Chart.defaults.global.animationSteps = 50;
-          Chart.defaults.global.tooltipYPadding = 20;
-          Chart.defaults.global.tooltipCornerRadius = 0;
-          Chart.defaults.global.tooltipTitleFontStyle = "normal";
-          Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
-
           // get bar chart canvas
 
           //steps = 4
@@ -78,6 +72,9 @@
 },
             options: {
             scales: {
+              xAxes: {
+                type: 'category'
+              }
               yAxes: [{
                 ticks: {
                   beginAtZero: true
