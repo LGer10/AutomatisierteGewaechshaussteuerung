@@ -74,9 +74,7 @@
           scales: {
             yAxes: [{
               ticks: {
-                min: 20,
-                max: 50,
-                stepSize: 5
+                beginAtZero: true
               }
             }],
             xAxes: [{
@@ -94,18 +92,7 @@
         <canvas id="chart1" width="500" height="200"></canvas>
 
         <script>
-Chart.defaults.global.animationSteps = 50;
-          Chart.defaults.global.tooltipYPadding = 20;
-          Chart.defaults.global.tooltipCornerRadius = 0;
-          Chart.defaults.global.tooltipTitleFontStyle = "normal";
-          Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
 
-          // get bar chart canvas
-
-          //steps = 4
-          // max = {{ max }}
-
-          // draw bar chart
 
           new Chart(document.getElementById("chart1"), {
             type: 'line',
@@ -152,19 +139,6 @@ Chart.defaults.global.animationSteps = 50;
         <canvas id="chart2" width="500" height="200"></canvas>
 
         <script>
-Chart.defaults.global.animationSteps = 20;
-          Chart.defaults.global.tooltipYPadding = 10;
-          Chart.defaults.global.tooltipCornerRadius = 0;
-          Chart.defaults.global.tooltipTitleFontStyle = "normal";
-          Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
-
-
-          // get bar chart canvas
-
-          // steps = 4
-          //max = {{ max }}
-
-          // draw bar chart
 
           new Chart(document.getElementById("chart2"), {
             type: 'line',
@@ -184,6 +158,7 @@ Chart.defaults.global.animationSteps = 20;
 
             {% endfor %}],
             label: 'Luftfeuchhtigkeit'
+            
 
             }
             ]
@@ -210,17 +185,8 @@ Chart.defaults.global.animationSteps = 20;
 
         <script>
 
-          Chart.defaults.global.animationSteps = 50;
-          Chart.defaults.global.tooltipYPadding = 20;
-          Chart.defaults.global.tooltipCornerRadius = 0;
-          Chart.defaults.global.tooltipTitleFontStyle = "normal";
-          Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
-          // get bar chart canvas
-
-          // steps = 4
-          //max = {{ max }}
-
-          // draw bar chart
+          
+   
 
           new Chart(document.getElementById("chart3"), {
             type: 'line',
