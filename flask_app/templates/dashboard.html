@@ -54,7 +54,7 @@
               lables: [{% for item in dates_list %}'{{ item }}', {% endfor %}],
             datasets : [{
               data: [
-                {% for item in temperature_list %}{{ item }}{% endfor %}],
+                {% for item in temperature_list %}{{ item }}, {% endfor %}],
                   lable: 'Temperatur',
                   fill: false 
                }
@@ -77,7 +77,7 @@
               }
             }],
             xAxes: [{
-              type: 'time',
+              type: 'category',
               time: {
                 unit: 'day',
                 tooltipFormat: 'MMM DD'
