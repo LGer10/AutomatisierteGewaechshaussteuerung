@@ -260,6 +260,54 @@ Chart.defaults.global.animationSteps = 20;
         </script>
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-6">
+        <canvas id="chart" width="500" height="200"></canvas>
+
+        <script>
+
+          // get bar chart canvas
+
+
+          // draw bar chart
+          new Chart(document.getElementById("chart"), {
+            type: 'line',
+            data: {
+              lables: [{% for item in dates_list %}'{{ item }}', {% endfor %}],
+            datasets : [{
+              data: [
+                {% for item in temperature_list %}{{ item }}, {% endfor %}],
+                  lable: 'Temperatur',
+                  fill: false 
+               }
+            ]
+          },
+          options: {
+            responsive: true,
+          title: {
+            display: true
+          },
+          legend: {
+            display: true
+          },
+          scales: {
+            yAxes: [{
+              ticks: {
+                min: 20,
+                max: 50,
+                stepSize: 5
+              }
+            }],
+            xAxes: [{
+              stacked: true
+              
+      }],
+    }
+  }
+});
+
+        </script>
+      </div>
   </div>
 </body>
 {% endblock %}
