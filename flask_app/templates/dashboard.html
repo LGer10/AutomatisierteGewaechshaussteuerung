@@ -75,11 +75,17 @@
             scales: {
               xAxes: [{
                 type: 'category',
-                dispaly: true},
+                dispaly: true,
                 scaleLabel: {
                                 display: true, // mandatory
                                 labelString: 'Your label' // optional 
+                },
+                ticks: {
+                maxTicksLimit: 10,
+                callback: function(value, index, values) {
+                return value.toLocaleString();
                 }
+              }
 
               }],
               yAxes: [{
