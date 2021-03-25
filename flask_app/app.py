@@ -185,11 +185,8 @@ def admin():
 
 @app.route('/test')
 def test():
-    id_list = [10, 20, 30, 40, 50]
-
-    id_date = ["10.03.2021", "11.03.2021",
-               "12.03.2021", "13.03.2021", "15.03.2020"]
-    return render_template('test.html', title='Test', max=100, id_list=id_list, id_date=id_date)
+    
+    return render_template('test.html')
 
 
 if __name__ == '__main__':
