@@ -1,5 +1,4 @@
-
-# data collector script | Automatisiertes Gewächshaus
+# data collector script | Automatisiertes Gewächshaus | mit lärsu
 
 # Klassen laden
 import mysql.connector
