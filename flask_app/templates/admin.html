@@ -6,7 +6,6 @@
       <link rel="stylesheet" href="/static/style.css"/>
 
       <body>
-
       <div class="container">
          <h1 style="color:green">{% block title %} Automatisiertes Gewächshaus - <h1>Admin-Bereich</h1>         {% endblock %}</h1>
          </br>
@@ -39,19 +38,14 @@
                            {% endfor %}
                         </SELECT>
                      </p>
-                     <input type="submit" name="Button" value="Programm laden">
+                     <input class="align-items-end" type="submit" name="Button" value="Programm laden">
                </fieldset>
             </form>           
          </div>
-
-
-
             <div class="col-md-4">
              
                   <h3>Satellit hinzufügen</h3>
                   <fieldset>
-                     <legend>Eingaben</legend> 
-               </br>
                <form method="POST" action="/admin">
                   </br>
                   <p>
@@ -67,7 +61,7 @@
                      </label>
                   </br><input type="text" id="ipadresse" name="ip_addr">
                   
-                  <input type="submit" name="Button" value="Satellit hinzufügen">
+                  <input class="align-items-end" type="submit" name="Button" value="Satellit hinzufügen">
                   </form>
             </div>
 
