@@ -1,23 +1,20 @@
 /* Container Border */
 .container {
-    border: 10px solid #B22222;
+    border: 10px solid #22b241;
     border-radius: 8px;
-    margin-top: 100px;
-    margin-bottom: 50px;
-    margin-left: 100px;
-    margin-right: 100px;
+  
     }
     .column {
     flex: 100%;
+    border: 5px solid #22b241;
+
     }
     .card {
     /* Add shadows to create the "card" effect */
-    box-shadow: 0 4px 4px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
     }
     .row {
     display: flex;
-    margin-left: 100px;
-    margin-right: 100px;
     }
     
     
