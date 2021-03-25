@@ -6,18 +6,24 @@
       
       <body>
 
-      <div class="align-item-center p-3" align="middle">
+      <div class="container">
          <h1 style="color:green">{% block title %} Automatisiertes Gewächshaus - <h1>Admin-Bereich</h1>         {% endblock %}</h1>
          </br>
          </br>
          
          <div class="row">
             <div class="col-md-4">
+               <div class="card">
                <h3> Programm Laden </h3>
                </br>
+               <fieldset>
+                  <legend>Eingaben</legend>                  
                <form method="POST" action="/admin">
-                  <p style="font-family:verdana">
-                     Satellit auswählen: </br>
+                  <p>
+                     <label for="satellit">
+                     <span>Satellit auswählen: </span>
+                     </label>
+                      </br>
                      <SELECT name="s_id" style="font-family:verdana">
                         {% for i in satellite_list %}
                         <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
@@ -34,6 +40,7 @@
                      </p>
                      <input type="submit" name="Button" value="Programm laden">
                   </from>
+               </fieldset>
             </div>
 
 
