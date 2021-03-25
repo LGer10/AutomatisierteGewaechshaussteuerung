@@ -13,7 +13,7 @@
          
          <div class="row">
             <div class="col-md-4">
-               <div class="card">
+      
                <h3> Programm Laden </h3>
                               
                <form method="POST" action="/admin">
@@ -43,13 +43,13 @@
                </fieldset>
             </form>
 
-            </div>
+           
          </div>
 
 
 
             <div class="col-md-4">
-               <div class="card">
+             
                   <h3>Satellit hinzufügen</h3>
                   <fieldset>
                      <legend>Eingaben</legend> 
@@ -61,22 +61,29 @@
                      <span>Name: </span>
                      </label>
                       </br>
-                  <input type="text" name="satellite_name">
+                  <input type="text" id="name" name="satellite_name">
                   </p>
-                  <p3>IP-Adresse:</p3>
-                  </br><input type="text" name="ip_addr">
+                  <p>
+                     <label for="ipadresse">
+                     <span>IP-Adresse: </span>
+                     </label>
+                  </br><input type="text" id="ipadresse" name="ip_addr">
                   
                   <input type="submit" name="Button" value="Satellit hinzufügen">
-                  </from>
+                  </form>
             </div>
 
             <div class="col-md-4">
                <h3>Programm hinzufügen</h3>
                </br>
+               <fieldset>
+                  <legend>Eingaben</legend> 
                <form method="POST" action="/admin">
                   </br>
-                  <p1>Name:</p1>
-                  </br><input type="text" name="programm_name">
+                  <label for="name">
+                     <span>Name: </span>
+                     </label>
+                  </br><input type="text" id="name" name="programm_name">
                   </br>
                   <p2>Temperatur:</p2>
                   </br><input type="number" name="temperatur">
