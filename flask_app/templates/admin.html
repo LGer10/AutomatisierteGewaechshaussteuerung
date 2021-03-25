@@ -3,6 +3,9 @@
 
    <!Bereich wird in Basis html-Template eingefügt>
       {% block content %}
+      
+      <body>
+
       <div class="align-item-center p-3" align="middle">
          <h1 style="color:green">{% block title %} Automatisiertes Gewächshaus - <h1>Admin-Bereich</h1>         {% endblock %}</h1>
          </br>
@@ -74,5 +77,5 @@
                   </br> <input type="submit" name="Button" value="Programm hinzufügen">
             </div>
          </div>
-
+      </body>
          {% endblock %}
