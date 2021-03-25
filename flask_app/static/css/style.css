@@ -1,6 +1,6 @@
 /* Container Border */
 .container {
-    border: 10px solid #22b241;
+    border: 10px;
     border-radius: 4px;
   
     }
