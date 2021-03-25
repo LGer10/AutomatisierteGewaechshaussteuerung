@@ -3,7 +3,8 @@
 
    <!Bereich wird in Basis html-Template eingefügt>
       {% block content %}
-      
+      <link rel="stylesheet" href="/static/style.css"/>
+
       <body>
 
       <div class="container">
@@ -17,8 +18,7 @@
                <h3> Programm Laden </h3>
                               
                <form method="POST" action="/admin">
-                  <fieldset>
-                     <legend>Eingaben</legend>   
+                  <fieldset>  
                   <p>
                      <label for="satellit">
                      <span>Satellit auswählen: </span>
@@ -41,9 +41,7 @@
                      </p>
                      <input type="submit" name="Button" value="Programm laden">
                </fieldset>
-            </form>
-
-           
+            </form>           
          </div>
 
 
