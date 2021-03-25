@@ -15,7 +15,6 @@
             <div class="col-md-4">
                <div class="card">
                <h3> Programm Laden </h3>
-               </br>
                               
                <form method="POST" action="/admin">
                   <fieldset>
@@ -24,8 +23,7 @@
                      <label for="satellit">
                      <span>Satellit auswählen: </span>
                      </label>
-                      </br>
-                     <SELECT name="s_id" style="font-family:verdana">
+                     <SELECT name="s_id" id="satellit">
                         {% for i in satellite_list %}
                         <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
                         {% endfor %}
@@ -35,7 +33,7 @@
                         <label for="programm">
                            <span>Programm auswählen: </span>
                         </label>
-                        <SELECT name="p_id" style="font-family:verdana">
+                        <SELECT name="p_id" id="programm">
                            {% for i in programm_list %}
                            <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
                            {% endfor %}
