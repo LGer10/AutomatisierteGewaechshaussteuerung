@@ -1,11 +1,10 @@
 /* Container Border */
 .container {
-    border: 10px;
+    border: 10px solid #22b241;
     border-radius: 4px;
   
     }
     .column {
-    flex: 100%;
     border: 5px solid #22b241;
 
     }
