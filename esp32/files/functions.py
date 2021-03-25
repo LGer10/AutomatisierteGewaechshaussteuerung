@@ -1,36 +1,61 @@
-#from machine import Pin
 import machine
-from time import sleep
+
 import dht
 
+
 def get_temperature():
+    
+    #import dht
     import dht
     from machine import Pin
-    # define pin
-    sensor = dht.DHT11(Pin(27))
+    from time import sleep
 
+    # define pin
+    sensor = dht.DHT11(Pin(21))
+    while True:
     # measure temperature
-    sensor.measure()
-    temp = sensor.temperature()
-    sleep(5)
+    
+        try:
+
+            sleep(10)
+            sensor.measure()
+
+            temp = sensor.temperature()
+            return '%3.1f' %temp
+    
+        except OSError as e:
+            print('Failed to read sensor.')
+    
     # return temperature
-    return '%3.1f' %temp
+
+
 
 def get_air_humidity():
-    
-    # load libraries
     import dht
     from machine import Pin
-    
-    # define pin
-    sensor = dht.DHT11(Pin(27))
+    from time import sleep
 
-    # measure humidity
-    sensor.measure()
-    hum = sensor.humidity()
-    sleep(5)
-     # return humidity
-    return '%3.1f' %hum
+    # load libraries
+    #import dht
+    #from machine import Pin
+    sensor = dht.DHT11(Pin(21))
+    
+    while True:
+        try:
+            # define pin
+            sleep(10)
+            # measure humidity
+            sensor.measure()
+            hum = sensor.humidity()
+            
+            # return humidity
+            return '%3.1f' %hum
+
+        except OSError as e:
+            print('Failed to read sensor humidity.')
+     
+
+
 
 def get_brightness():
     
@@ -49,16 +74,15 @@ def get_brightness():
 
 
 def control(pin,status):
-
-    # load libraries
     from machine import Pin
 
-    # define pin
-    p0 = Pin(17, Pin.OUT)
+    p = Pin(pin, Pin.OUT)
 
-    p0.value(1)
-    sleep(5)
-    p21.value(0)
+    if(status is "open"):
+        p.value(1)
+    
+    if(status is "close"):
+        p.value(0)
 
+#control(1,2) 4,16, 7, 18 ,19 , 21, 22,23, 25,26,27,32,33
 
-#control(1,2) 4,16, 17, 18 ,19 , 21, 22,23, 25,26,27,32,33
