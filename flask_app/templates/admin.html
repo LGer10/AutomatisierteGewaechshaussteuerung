@@ -5,22 +5,16 @@
       {% block content %}
 
       <body>
-      <div class="container">
          <h1 style="color:green">{% block title %} Automatisiertes Gewächshaus - <h1>Admin-Bereich</h1>       
-           {% endblock %}</h1>
-         </br>
-         </br>
-      </div>
-         <div class="container">
+         {% endblock %}</h1>
+      <div class="container">
          <div class="row">
-            <div class="column md-4">
-               <div class="card flex-column">
-
-      
+            <div class="column">
+               <div class="card">
                <h3> Programm Laden </h3>
-                              
+               <fieldset> 
                <form method="POST" action="/admin">
-                  <fieldset>  
+                  <legend>Eingaben</legend>
                   <p>
                      <label for="satellit">
                      <span>Satellit auswählen: </span>
@@ -40,32 +34,31 @@
                            <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
                            {% endfor %}
                         </SELECT>
+                     
+                     <input type="submit" name="Button" value="Programm laden">
                      </p>
-                     <input class="align-items-end" type="submit" name="Button" value="Programm laden">
+                  </form>           
                </fieldset>
-            </form>           
          </div>
       </div>
-            <div class="column md-4">
+            <div class="column">
                <div class="card">
-
-             
                   <h3>Satellit hinzufügen</h3>
                   <fieldset>
                <form method="POST" action="/admin">
-                  </br>
                   <p>
+                     <legend>Eingaben</legend>
                      <label for="name">
                      <span>Name: </span>
                      </label>
-                      </br>
+                      
                   <input type="text" id="name" name="satellite_name">
                   </p>
                   <p>
                      <label for="ipadresse">
                      <span>IP-Adresse: </span>
                      </label>
-                  </br><input type="text" id="ipadresse" name="ip_addr">
+                  <input type="text" id="ipadresse" name="ip_addr">
                   
                   <input type="submit" name="Button" value="Satellit hinzufügen">
                   </form>
@@ -73,34 +66,28 @@
             </div>
          </div>
 
-            <div class="column md-4">
+            <div class="column">
                <div class="card">
 
                <h3>Programm hinzufügen</h3>
-               </br>
                <fieldset>
                   <legend>Eingaben</legend> 
                <form method="POST" action="/admin">
-                  </br>
                   <label for="name">
                      <span>Name: </span>
                      </label>
-                  </br><input type="text" id="name" name="programm_name">
-                  </br>
+   <input type="text" id="name" name="programm_name">
+                 >
                   <p2>Temperatur:</p2>
-                  </br><input type="number" id="temperatur" name="temperatur">
-                  </br>
+                  <input type="number" id="temperatur" name="temperatur">
                   <p3>Helligkeit:</p3>
-                  </br><input type="number" id="helligkeit" name="helligkeit">
-                  </br>
+                  ><input type="number" id="helligkeit" name="helligkeit">
                   <p3>Luftfeuchtigkeit:</p3>
-                  </br><input type="number" id="luftfeuchtigkeit"  name="luftfeuchtigkeit">
-                  </br>
+                  <input type="number" id="luftfeuchtigkeit"  name="luftfeuchtigkeit">
                   <p3>Bodenfeuchtigkeit:</p3>
-                  </br><input type="number" id="bodenfeuchtigkeit" name="bodenfeuchtigkeit">
-                  </br>
-                  </br>
-                  </br> <input type="submit" id="hinzufügen" name="Button" value="Programm hinzufügen">
+                  <input type="number" id="bodenfeuchtigkeit" name="bodenfeuchtigkeit">
+                  
+                  <input type="submit" id="hinzufügen" name="Button" value="Programm hinzufügen">
                </form>
             </fieldset>
             </div>
