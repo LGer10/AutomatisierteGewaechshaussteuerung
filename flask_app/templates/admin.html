@@ -30,8 +30,10 @@
                         {% endfor %}
                      </SELECT>
                      </p>
-                     <p style="font-family:verdana">
-                        Programm auswählen:</br>
+                     <p>
+                        <label for="programm">
+                           <span>Programm auswählen: </span>
+                        </label>
                         <SELECT name="p_id" style="font-family:verdana">
                            {% for i in programm_list %}
                            <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
@@ -42,21 +44,28 @@
                   </from>
                </fieldset>
             </div>
+         </div>
+
 
 
             <div class="col-md-4">
-               <h3>Satellit hinzufügen</h3>
+               <div class="card">
+                  <h3>Satellit hinzufügen</h3>
+                  <fieldset>
+                     <legend>Eingaben</legend> 
                </br>
                <form method="POST" action="/admin">
                   </br>
-                  <p2>Name:</p2>
-                  </br><input type="text" name="satellite_name">
-                  </br>
+                  <p>
+                     <label for="name">
+                     <span>Name: </span>
+                     </label>
+                      </br>
+                  <input type="text" name="satellite_name">
+                  </p>
                   <p3>IP-Adresse:</p3>
                   </br><input type="text" name="ip_addr">
-                  </br>
-                  </br>
-                  </br>
+                  
                   <input type="submit" name="Button" value="Satellit hinzufügen">
                   </from>
             </div>
