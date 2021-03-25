@@ -3,16 +3,17 @@
 
    <!Bereich wird in Basis html-Template eingefügt>
       {% block content %}
-      <link href="/static/style.css" rel="stylesheet"  type="text/css">
 
       <body>
       <div class="container">
-         <h1 style="color:green">{% block title %} Automatisiertes Gewächshaus - <h1>Admin-Bereich</h1>         {% endblock %}</h1>
+         <h1 style="color:green">{% block title %} Automatisiertes Gewächshaus - <h1>Admin-Bereich</h1>       
+           {% endblock %}</h1>
          </br>
          </br>
-         
          <div class="row">
-            <div class="col-md-4">
+            <div class="column md-4">
+               <div class="card flex-column">
+
       
                <h3> Programm Laden </h3>
                               
@@ -42,7 +43,10 @@
                </fieldset>
             </form>           
          </div>
-            <div class="col-md-4">
+      </div>
+            <div class="column md-4">
+               <div class="card">
+
              
                   <h3>Satellit hinzufügen</h3>
                   <fieldset>
@@ -63,9 +67,13 @@
                   
                   <input type="submit" name="Button" value="Satellit hinzufügen">
                   </form>
+                  </fieldset>
             </div>
+         </div>
 
-            <div class="col-md-4">
+            <div class="column md-4">
+               <div class="card">
+
                <h3>Programm hinzufügen</h3>
                </br>
                <fieldset>
@@ -78,19 +86,21 @@
                   </br><input type="text" id="name" name="programm_name">
                   </br>
                   <p2>Temperatur:</p2>
-                  </br><input type="number" name="temperatur">
+                  </br><input type="number" id="temperatur" name="temperatur">
                   </br>
                   <p3>Helligkeit:</p3>
-                  </br><input type="number" name="helligkeit">
+                  </br><input type="number" id="helligkeit" name="helligkeit">
                   </br>
                   <p3>Luftfeuchtigkeit:</p3>
-                  </br><input type="number" name="luftfeuchtigkeit">
+                  </br><input type="number" id="luftfeuchtigkeit"  name="luftfeuchtigkeit">
                   </br>
                   <p3>Bodenfeuchtigkeit:</p3>
-                  </br><input type="number" name="bodenfeuchtigkeit">
+                  </br><input type="number" id="bodenfeuchtigkeit" name="bodenfeuchtigkeit">
                   </br>
                   </br>
-                  </br> <input type="submit" name="Button" value="Programm hinzufügen">
+                  </br> <input type="submit" id="hinzufügen" name="Button" value="Programm hinzufügen">
+               </form>
+            </fieldset>
             </div>
          </div>
       </div>
