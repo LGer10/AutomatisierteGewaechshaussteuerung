@@ -9,22 +9,22 @@ from threading import Thread
 import functions
 
 
-temperature = 25
-air_humidity = 55
-
 def control_air_humidity(air_humidity):
     
     while True:
         
-        if functions.get_air_humidity() < str(air_humidity):
+        current_air_humidity = float(functions.get_air_humidity())
+        air_humidity = float(air_humidity)
+
+        if air_humidity < current_air_humidity:
             print("start floatie")
-            functions.control(22,"close")
+            functions.control(25,"open")
         
         else:
-            print("open doors")
-            functions.control(22,"open")
+            print("stop floatie")
+            functions.control(25,"close")
 
-        time.sleep(5)
+        time.sleep(30)
 
 
 
@@ -32,10 +32,10 @@ def control_temperature(temperature):
     
     while True:
         
-        temperature = functions.get_temperature()
+        current_temperature = float(functions.get_temperature())
         temperature = float(temperature)
-
-        if float(functions.get_temperature()) < float(temperature):
+        
+        if temperature < current_temperature:
             print("start heater")
             functions.control(19,"open")
         
@@ -47,11 +47,6 @@ def control_temperature(temperature):
 
 
 def main(temperature, air_humidity, soil_humidity, brightness):
-    print(temperature)
-    print(air_humidity)
-    print(soil_humidity)
-    print(brightness)
-
 
     # initalize temperature thread
     thread_temperature = Thread(target=control_temperature, args=[temperature])
