@@ -35,7 +35,7 @@ def dashboard():
         programm_list = cur.fetchall()
 
         cur.execute(
-            'SELECT date from sensordata where date >= current_date() - 7 group by date order by date desc')
+            'SELECT id, date from sensordata where date >= current_date() - 7 group by date order by date desc')
         date_span = cur.fetchall()
         cur.close()
 
@@ -46,9 +46,9 @@ def dashboard():
         cur = mysql.connection.cursor()
 
         
-        cur.execute('''SELECT date FROM sensordata where date >= (%s) and id_satellite_programm in 
+        cur.execute('''SELECT date FROM sensordata where id >= (%s) and id_satellite_programm in 
         (select id from satellite_programm where id_satellite = (%s) 
-        and id_programm = (%s)) order by date desc''', [selected_date, satellite_id, programm_id])
+        and id_programm = (%s))''', [selected_date, satellite_id, programm_id])
         dates = cur.fetchall()
         dates_list = []
         for index in range(len(dates)):
