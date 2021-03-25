@@ -35,7 +35,7 @@ def dashboard():
         programm_list = cur.fetchall()
 
         cur.execute(
-            'SELECT id, date from sensordata where date >= current_date() - 7 group by date order by date desc')
+            'SELECT id, date from sensordata where date >= current_date() - 7')
         date_span = cur.fetchall()
         cur.close()
 
