@@ -6,60 +6,84 @@
       
       <body>
 
-      <div class="align-item-center p-3" align="middle">
+      <div class="container">
          <h1 style="color:green">{% block title %} Automatisiertes Gewächshaus - <h1>Admin-Bereich</h1>         {% endblock %}</h1>
          </br>
          </br>
+         
          <div class="row">
             <div class="col-md-4">
+      
                <h3> Programm Laden </h3>
-               </br>
+                              
                <form method="POST" action="/admin">
-                  <p style="font-family:verdana">
-                     Satellit auswählen: </br>
-                     <SELECT name="s_id" style="font-family:verdana">
+                  <fieldset>
+                     <legend>Eingaben</legend>   
+                  <p>
+                     <label for="satellit">
+                     <span>Satellit auswählen: </span>
+                     </label>
+                     <SELECT name="s_id" id="satellit">
                         {% for i in satellite_list %}
                         <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
                         {% endfor %}
                      </SELECT>
                      </p>
-                     <p style="font-family:verdana">
-                        Programm auswählen:</br>
-                        <SELECT name="p_id" style="font-family:verdana">
+                     <p>
+                        <label for="programm">
+                           <span>Programm auswählen: </span>
+                        </label>
+                        <SELECT name="p_id" id="programm">
                            {% for i in programm_list %}
                            <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
                            {% endfor %}
                         </SELECT>
                      </p>
                      <input type="submit" name="Button" value="Programm laden">
-                  </from>
-            </div>
+               </fieldset>
+            </form>
+
+           
+         </div>
+
 
 
             <div class="col-md-4">
-               <h3>Satellit hinzufügen</h3>
+             
+                  <h3>Satellit hinzufügen</h3>
+                  <fieldset>
+                     <legend>Eingaben</legend> 
                </br>
                <form method="POST" action="/admin">
                   </br>
-                  <p2>Name:</p2>
-                  </br><input type="text" name="satellite_name">
-                  </br>
-                  <p3>IP-Adresse:</p3>
-                  </br><input type="text" name="ip_addr">
-                  </br>
-                  </br>
-                  </br>
+                  <p>
+                     <label for="name">
+                     <span>Name: </span>
+                     </label>
+                      </br>
+                  <input type="text" id="name" name="satellite_name">
+                  </p>
+                  <p>
+                     <label for="ipadresse">
+                     <span>IP-Adresse: </span>
+                     </label>
+                  </br><input type="text" id="ipadresse" name="ip_addr">
+                  
                   <input type="submit" name="Button" value="Satellit hinzufügen">
-                  </from>
+                  </form>
             </div>
 
             <div class="col-md-4">
                <h3>Programm hinzufügen</h3>
                </br>
+               <fieldset>
+                  <legend>Eingaben</legend> 
                <form method="POST" action="/admin">
                   </br>
-                  <p1>Name:</p1>
-                  </br><input type="text" name="programm_name">
+                  <label for="name">
+                     <span>Name: </span>
+                     </label>
+                  </br><input type="text" id="name" name="programm_name">
                   </br>
                   <p2>Temperatur:</p2>
                   </br><input type="number" name="temperatur">
@@ -77,5 +101,6 @@
                   </br> <input type="submit" name="Button" value="Programm hinzufügen">
             </div>
          </div>
+      </div>
       </body>
          {% endblock %}
