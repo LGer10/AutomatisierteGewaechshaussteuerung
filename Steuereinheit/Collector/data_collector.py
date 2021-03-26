@@ -52,13 +52,14 @@ def collector():
 
             response = requests.get("http://" + satellit + ":8081/get_data")
             json_file = json.loads(response.text)
-            #print(json_file)
+            print(json_file)
 
 
             temperature = json_file["temperature"]
             #brightness_hours = json_file["brightness_hours"]
            # soil_humidity = json_file["Soil Humidity"]
             air_humidity = json_file["air_humidity"]
+
 
             cursor.execute('''SELECT id from satellite_programm where id_satellite in 
             (select id from satellites where ip_addr = "192.168.1.16 and current_programm = 1)''')
@@ -79,6 +80,7 @@ def collector():
             #cursor.commit()
             #break
     except:
+        print('Error')
         time.sleep(5)
 
 collector()
