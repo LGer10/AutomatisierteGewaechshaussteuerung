@@ -19,7 +19,7 @@ except:
      print("Keine Verbindung zum Server")
      sys.exit(0)
 
-#cursor = connection.cursor(buffered=True)
+cursor = connection.cursor(buffered=True)
 
 # Satelliten aus DB auslesen
 
