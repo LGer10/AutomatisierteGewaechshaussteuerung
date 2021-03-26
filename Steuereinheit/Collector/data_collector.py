@@ -36,8 +36,6 @@ satellit_array = ['192.168.1.16']
 
 cursor.close()
 
-collector()
-connection.close()
 
 # Daten Collecten
 def collector():
@@ -62,12 +60,14 @@ def collector():
            # soil_humidity = json_file["Soil Humidity"]
             air_humidity = json_file["air_humidity"]
 
+            cursor.execute('''SELECT id from satellite_programm where id_satellite in 
+            (select id from satellites where ip_addr = "192.168.1.16 and current_programm = 1)''')
 
+            id_satellite_programm = cursor.fetchone()
 
             cursor.execute('''INSERT INTO sensordata 
             (id_satellite_programm, date, time, temperature, airhumidity) 
-            VALUES (select id from satellite_programm where id_satellite in (select id from satellites where ip_addr = (%s) and id_programm = (%s)),
-            current_date(), current_time(), %s, %s, )''', [satellite, current_programm, temperature,air_humidity])
+            VALUES (%s, current_date(), current_time(), %s, %s)''', [id_satellite_programm, temperature, air_humidity])
 
             connection.commit()
             cursor.close()
