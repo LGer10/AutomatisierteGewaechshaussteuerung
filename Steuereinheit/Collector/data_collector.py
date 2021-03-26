@@ -81,7 +81,7 @@ def collector():
             #break
     except:
         print('Error')
-        print(satellite_array)
+        print(satellite_list)
         time.sleep(5)
 
 collector()
