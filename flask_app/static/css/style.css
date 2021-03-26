@@ -1,5 +1,11 @@
 
-
+.footer {
+    background-color: gray;
+    width: 100%;
+    text-align: center;
+    left: 0;
+    bottom: 0;
+}
     
     
     .column {
