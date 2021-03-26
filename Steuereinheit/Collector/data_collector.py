@@ -12,7 +12,7 @@ from datetime import datetime
 # Prüfen ob Datenbank verfügbar
 
 try:
-    connection = mysql.connector.connect(host = "127.0.0.1", user = "root", passwd = "sml12345", db = "AGdb")
+    connection = mysql.connector.connect(host = "127.0.0.1", user = "root", passwd = "AGdb", db = "AGdb")
     #print("Verbunden mit SQL Server")
 
 except:
@@ -23,12 +23,15 @@ cursor = connection.cursor(buffered=True)
 
 # Satelliten aus DB auslesen
 
-cursor.execute("SELECT ip_addr FROM satellites")
+#cursor.execute("SELECT ip_addr FROM satellites")
+#cursor.execute("SELECT current_programm FROM satellites")
+
+
 
 # Variablen in Array speichern
 
-satellit_array = cursor.fetchone()
-
+#satellit_array = cursor.fetchone()
+satellit_array = ['192.168.1.16']
 # Verbindung schliessen
 
 cursor.close()
@@ -39,31 +42,32 @@ def collector():
     try:
         for satellit in satellit_array:
 
+            cursor = connection.cursor(buffered=True)
+
+            #Aktuelle geladenes Programm abfragen
+            #cursor.excecute('SELECT current_programm FROM satellites WHERE ip_addr = (%s)', satellite)
+            #current_programm = cursor.fetchone()
+            current_programm = 1
             # REST-API anfragen
 
             response = requests.get("http://" + satellit + ":8081/get_data")
             json_file = json.loads(response.text)
             #print(json_file)
 
-            current_date = datetime.date(datetime.now())
-            current_time = datetime.time(datetime.now())
 
             temperature = json_file["temperature"]
             #brightness_hours = json_file["brightness_hours"]
-            #soil_humidity = json_file["Soil Humidity"]
+           # soil_humidity = json_file["Soil Humidity"]
             air_humidity = json_file["air_humidity"]
 
+            cursor.execute('''SELECT id from satellite_programm where id_satellite in 
+            (select id from satellites where ip_addr = "192.168.1.16 and current_programm = 1)''')
 
-            cursor = connection.cursor(buffered=True)
+            id_satellite_programm = cursor.fetchone()
 
-            add_data = ("INSERT INTO sensordata"
-                       "(date, time, id_satellite_programm, temperature, airhumidity) "
-                       "VALUES (%s, %s, %s, %s, %s)")
-
-            data_data = (current_date, current_time, '1', temperature, air_humidity)
-            cursor.execute(add_data, data_data)
-
-            #cursor.fetchall()
+            cursor.execute('''INSERT INTO sensordata 
+            (id_satellite_programm, date, time, temperature, airhumidity) 
+            VALUES (%s, current_date(), current_time(), %s, %s)''', [id_satellite_programm, temperature, air_humidity])
 
             connection.commit()
             cursor.close()
