@@ -7,8 +7,8 @@
       <body>
          <h1 style="color:green">{% block title %} Automatisiertes Gewächshaus - <h1>Admin-Bereich</h1>       
          {% endblock %}</h1>
-      <div class="container">
-         <div class="row">
+      <div class="container-fluid">
+         <div class="row-flex">
             <div class="column-md-4">
                <h3> Programm Laden </h3>
                <fieldset> 
@@ -18,22 +18,27 @@
                      <label for="satellit">
                      <span>Satellit auswählen: </span>
                      </label>
+                  </br>
                      <SELECT name="s_id" id="satellit">
                         {% for i in satellite_list %}
                         <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
                         {% endfor %}
                      </SELECT>
                      </p>
+
                      <p>
                         <label for="programm">
                            <span>Programm auswählen: </span>
                         </label>
+                     </br>
+
                         <SELECT name="p_id" id="programm">
                            {% for i in programm_list %}
                            <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
                            {% endfor %}
                         </SELECT>
-                     
+                     </br>
+
                      <input type="submit" name="Button" value="Programm laden">
                      </p>
                   </form>           
@@ -48,13 +53,16 @@
                      <label for="name">
                      <span>Name: </span>
                      </label>
-                      
+                  </br>
+
                   <input type="text" id="name" name="satellite_name">
                   </p>
                   <p>
                      <label for="ipadresse">
                      <span>IP-Adresse: </span>
                      </label>
+                  </br>
+
                   <input type="text" id="ipadresse" name="ip_addr">
                   
                   <input type="submit" name="Button" value="Satellit hinzufügen">
@@ -71,17 +79,27 @@
                   <label for="name">
                      <span>Name: </span>
                      </label>
-   <input type="text" id="name" name="programm_name">
-                 >
+                  </br>
+                  <input type="text" id="name" name="programm_name">
+                 
                   <p2>Temperatur:</p2>
+               </br>
+
                   <input type="number" id="temperatur" name="temperatur">
                   <p3>Helligkeit:</p3>
-                  ><input type="number" id="helligkeit" name="helligkeit">
+               </br>
+
+                  <input type="number" id="helligkeit" name="helligkeit">
                   <p3>Luftfeuchtigkeit:</p3>
+               </br>
+
                   <input type="number" id="luftfeuchtigkeit"  name="luftfeuchtigkeit">
                   <p3>Bodenfeuchtigkeit:</p3>
+               </br>
+
                   <input type="number" id="bodenfeuchtigkeit" name="bodenfeuchtigkeit">
-                  
+               </br>
+
                   <input type="submit" id="hinzufügen" name="Button" value="Programm hinzufügen">
                </form>
             </fieldset>
