@@ -6,7 +6,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js" integrity="sha512-SuxO9djzjML6b9w9/I07IWnLnQhgyYVSpHZx0JV97kGBfTIsUYlWflyuW4ypnvhBrslz1yJ3R+S14fdCWmSmSA==" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.css" integrity="sha512-C7hOmCgGzihKXzyPU/z4nv97W0d9bv4ALuuEbSf6hm93myico9qa0hv4dODThvCsqQUmKmLcJmlpRmCaApr83g==" crossorigin="anonymous" />
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
 
 <body>
@@ -44,10 +43,10 @@
 </body>
 
 <body>
-  <div class="container">
+  <div class="container border border-secondary">
 
-    <div class="row">
-      <div class="col-md-6">
+    <div class="row border-bottom border-secondary">
+      <div class="col-md-6 border-right border-secondary">
         <canvas id="chart" width="500" height="200"></canvas>
 
         <script>
@@ -140,7 +139,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-6 border-right border-secondary">
         <canvas id="chart2" width="500" height="200"></canvas>
 
         <script>
