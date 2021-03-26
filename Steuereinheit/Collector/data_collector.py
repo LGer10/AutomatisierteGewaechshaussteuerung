@@ -56,16 +56,16 @@ def collector():
 
 
             temperature = json_file["temperature"]
-            brightness_hours = json_file["brightness_hours"]
-            soil_humidity = json_file["Soil Humidity"]
+            #brightness_hours = json_file["brightness_hours"]
+           # soil_humidity = json_file["Soil Humidity"]
             air_humidity = json_file["air_humidity"]
 
 
 
             cursor.execute('''INSERT INTO sensordata 
-            (id_satellite_programm, date, time, temperature, brightness, airhumidity, soilhumidity) 
+            (id_satellite_programm, date, time, temperature, airhumidity) 
             VALUES (select id from satellite_programm where id_satellite in (select id from satellites where ip_addr = (%s) and id_programm = (%s)),
-            current_date(), current_time(), %s, %s, %s, %s)''', [satellite, current_programm, temperature, brightness_hours, air_humidity, soil_humidity])
+            current_date(), current_time(), %s, %s, )''', [satellite, current_programm, temperature,air_humidity])
 
             connection.commit()
             cursor.close()
