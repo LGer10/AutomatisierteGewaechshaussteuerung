@@ -12,7 +12,7 @@ from datetime import datetime
 # Prüfen ob Datenbank verfügbar
 
 try:
-    connection = mysql.connector.connect(host = "127.0.0.1", user = "root", passwd = "AGdb", db = "AGdb")
+    connection = mysql.connector.connect(host = "localhost", user = "root", passwd = "AGdb", db = "AGdb")
     #print("Verbunden mit SQL Server")
 
 except:
@@ -23,7 +23,7 @@ except:
 
 # Satelliten aus DB auslesen
 
-#cursor.execute("SELECT ip_addr FROM satellites")
+cursor.execute("SELECT ip_addr FROM satellites")
 #cursor.execute("SELECT current_programm FROM satellites")
 
 
@@ -31,7 +31,7 @@ except:
 # Variablen in Array speichern
 
 #satellit_array = cursor.fetchone()
-satellit_array = ['192.168.1.16', '192.168.1.16']
+satellite_array = cursor.fetchone()
 # Verbindung schliessen
 
 #cursor.close()
@@ -40,17 +40,17 @@ satellit_array = ['192.168.1.16', '192.168.1.16']
 # Daten Collecten
 def collector():
     try:
-        for satellit in satellit_array:
+        for satellite in satellite_array:
 
             cursor = mysql.connection.cursor(buffered=True)
 
             #Aktuelle geladenes Programm abfragen
-            #cursor.excecute('SELECT current_programm FROM satellites WHERE ip_addr = (%s)', satellite)
-            #current_programm = cursor.fetchone()
-            current_programm = 1
+            cursor.excecute('SELECT current_programm FROM satellites WHERE ip_addr = (%s)', satellite)
+            current_programm = cursor.fetchone()
+            #current_programm = 1
             # REST-API anfragen
 
-            response = requests.get("http://" + satellit + ":8081/get_data")
+            response = requests.get("http://" + satellite + ":8081/get_data")
             json_file = json.loads(response.text)
             print(json_file)
 
@@ -62,7 +62,7 @@ def collector():
 
 
             cursor.execute('''SELECT id from satellite_programm where id_satellite in 
-            (select id from satellites where ip_addr = (%S) and current_programm = (%S))''', [satellit, current_programm])
+            (select id from satellites where ip_addr = (%s) and current_programm = (%s))''', [satellite, current_programm])
 
             id_satellite_programm = cursor.fetchone()
 
@@ -81,6 +81,7 @@ def collector():
             #break
     except:
         print('Error')
+        print(satellite_array)
         time.sleep(5)
 
 collector()
