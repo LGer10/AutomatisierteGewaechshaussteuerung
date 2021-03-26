@@ -19,7 +19,7 @@ except:
      print("Keine Verbindung zum Server")
      sys.exit(0)
 
-cursor = connection.cursor(buffered=True)
+#cursor = connection.cursor(buffered=True)
 
 # Satelliten aus DB auslesen
 
@@ -34,7 +34,7 @@ cursor = connection.cursor(buffered=True)
 satellit_array = ['192.168.1.16', '192.168.1.16']
 # Verbindung schliessen
 
-cursor.close()
+#cursor.close()
 
 
 # Daten Collecten
@@ -42,7 +42,7 @@ def collector():
     try:
         for satellit in satellit_array:
 
-            cursor = connection.cursor(buffered=True)
+            cursor = mysql.connection.cursor(buffered=True)
 
             #Aktuelle geladenes Programm abfragen
             #cursor.excecute('SELECT current_programm FROM satellites WHERE ip_addr = (%s)', satellite)
@@ -70,7 +70,7 @@ def collector():
             (id_satellite_programm, date, time, temperature, airhumidity) 
             VALUES (%s, current_date(), current_time(), %s, %s)''', [id_satellite_programm, temperature, air_humidity])
 
-            connection.commit()
+            mysql.connection.commit()
             cursor.close()
 
             #cursor.execute("insert into sensordata (date, time, id_satellite_programm, temperature, airhumidity) values (%s, %s, '1', %s, %s), (current_date, current_time, temperature, air_humidity)")
