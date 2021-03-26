@@ -1,5 +1,5 @@
 
-.footer-dark {
+.footer{
     width: 100%;
     text-align: center;
     align-items: center;
@@ -7,6 +7,12 @@
     bottom: 0;
     color: white;
     position: fixed;
+}
+
+.col-md-4{
+    border: 5px;
+    border-radius: 5px;
+    border-color: gray;
 }
     
     

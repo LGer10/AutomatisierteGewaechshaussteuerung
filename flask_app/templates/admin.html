@@ -8,7 +8,7 @@
          <h2 style="color:green" align="middle">{% block title %} Admin-Bereich </h2>       
          <hr>
          {% endblock %}
-      </hr>
+      <hr>
       <div class="container">
          <div class="row">
             <div class="col-md-4">
@@ -69,7 +69,7 @@
 
             <div class="col-md-4">
                <h3>Programm hinzufügen</h3>
-            </hr>
+            <hr>
                <form method="POST" action="/admin">
                   <p>
                   <label for="name">
@@ -77,8 +77,7 @@
                      </label>
                   </br>
                   <input type="text" id="name" name="programm_name">
-               </p>
-            </br>
+               </p>          
             <p>
                <label for="temperatur">
                   <span>Temperatur: </span>
@@ -86,7 +85,6 @@
                </br>
                <input type="number" id="temperatur" name="temperatur">
             </p>
-         </br>
          <p>
             <label for="helligkeit">
                <span>Helligkeit: </span>
@@ -94,7 +92,6 @@
             </br>
             <input type="number" id="helligkeit" name="helligkeit">
          </p>
-      </br>
       <p>
          <label for="luftfeuchtigkeit">
             <span>Luftfeuchtigkeit: </span>
@@ -102,7 +99,6 @@
          </br>
          <input type="number" id="luftfeuchtigkeit"  name="luftfeuchtigkeit">
       </p>
-   </br>
    <p>
       <label for="bodenfeuchtigkeit">
          <span>Bodenfeuchtigkeit: </span>
