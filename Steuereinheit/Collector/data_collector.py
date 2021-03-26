@@ -23,15 +23,15 @@ cursor = connection.cursor(buffered=True)
 
 # Satelliten aus DB auslesen
 
-cursor.execute("SELECT ip_addr FROM satellites")
-cursor.execute("SELECT current_programm FROM satellites")
+#cursor.execute("SELECT ip_addr FROM satellites")
+#cursor.execute("SELECT current_programm FROM satellites")
 
 
 
 # Variablen in Array speichern
 
-satellit_array = cursor.fetchone()
-
+#satellit_array = cursor.fetchone()
+satellit_array = ['192.168.1.16']
 # Verbindung schliessen
 
 cursor.close()
@@ -45,9 +45,9 @@ def collector():
             cursor = connection.cursor(buffered=True)
 
             #Aktuelle geladenes Programm abfragen
-            cursor.excecute('SELECT current_date FROM satellites WHERE ip_addr = (%s)', satellite)
-            current_programm = cursor.fetchone()
-
+            #cursor.excecute('SELECT current_programm FROM satellites WHERE ip_addr = (%s)', satellite)
+            #current_programm = cursor.fetchone()
+            current_programm = 1
             # REST-API anfragen
 
             response = requests.get("http://" + satellit + ":8081/get_data")
