@@ -31,7 +31,7 @@ cursor.execute("SELECT ip_addr FROM satellites")
 # Variablen in Array speichern
 
 #satellit_array = cursor.fetchone()
-satellite_array = cursor.fetchone()
+satellite_list = cursor.fetchone()
 # Verbindung schliessen
 
 #cursor.close()
@@ -50,7 +50,7 @@ def collector():
             #current_programm = 1
             # REST-API anfragen
 
-            response = requests.get("http://" + satellite + ":8081/get_data")
+            response = requests.get("http://" + '%s' + ":8081/get_data", satellite)
             json_file = json.loads(response.text)
             print(json_file)
 
