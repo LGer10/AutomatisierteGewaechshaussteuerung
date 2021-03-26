@@ -23,7 +23,7 @@ cursor = connection.cursor(buffered=True)
 
 # Satelliten aus DB auslesen
 
-cursor.execute("SELECT ip_addr FROM satellites")
+cursor.execute("SELECT ip_addr FROM satellites where id = 3")
 #cursor.execute("SELECT current_programm FROM satellites")
 
 
@@ -40,7 +40,7 @@ satellite_list = cursor.fetchone()
 # Daten Collecten
 def collector():
     try:
-        for satellite in satellite_array:
+        for satellite in satellite_list:
 
             cursor = mysql.connection.cursor(buffered=True)
 
