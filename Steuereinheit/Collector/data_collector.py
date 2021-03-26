@@ -36,6 +36,8 @@ satellit_array = ['192.168.1.16']
 
 cursor.close()
 
+collector()
+connection.close()
 
 # Daten Collecten
 def collector():
