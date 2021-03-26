@@ -5,11 +5,11 @@
     text-align: center;
     left: 0;
     bottom: 0;
+    color: white;
 }
     
     
     .column {
         display: flex;
-        border: 2px gray;
-        
+        border: 5px gray;
     }
