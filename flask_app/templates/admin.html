@@ -5,15 +5,15 @@
       {% block content %}
 
       <body>
-         <h1 style="color:green" align="middle">{% block title %} Automatisiertes Gewächshaus - <h2>Admin-Bereich</h2>       
-         </h1>
+         <h2 style="color:green" align="middle">{% block title %} Admin-Bereich </h2>       
+         <hr>
          {% endblock %}
       </hr>
       <div class="container">
          <div class="row">
             <div class="col-md-4">
                <h3> Programm Laden </h3>
-            </br>
+            <hr>
                <form method="POST" action="/admin">
                   <p>
                      <label for="satellit">
@@ -38,15 +38,14 @@
                            <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
                            {% endfor %}
                         </SELECT>
-                     </br>
-
-                     <input type="submit" name="Button" value="Programm laden">
                      </p>
+                  </br>
+                     <input type="submit" name="Button" value="Programm laden">
                   </form>           
          </div>
             <div class="col-md-4">
                   <h3>Satellit hinzufügen</h3>
-               </br>
+               <hr>
 
                <form method="POST" action="/admin">
                   <p>
@@ -60,46 +59,59 @@
                      <label for="ipadresse">
                      <span>IP-Adresse: </span>
                      </label>
-                  </br>
-
-                  <input type="text" id="ipadresse" name="ip_addr">
                </br>
-
+                  <input type="text" id="ipadresse" name="ip_addr">
+               </p>
+            </br>
                   <input type="submit" name="Button" value="Satellit hinzufügen">
                   </form>
             </div>
 
             <div class="col-md-4">
-
                <h3>Programm hinzufügen</h3>
-            </br>
-
+            </hr>
                <form method="POST" action="/admin">
+                  <p>
                   <label for="name">
                      <span>Name: </span>
                      </label>
                   </br>
                   <input type="text" id="name" name="programm_name">
-                 
-                  <p>Temperatur:</p>
+               </p>
+            </br>
+            <p>
+               <label for="temperatur">
+                  <span>Temperatur: </span>
+                  </label>
                </br>
-
-                  <input type="number" id="temperatur" name="temperatur">
-                  <p>Helligkeit:</p>
-               </br>
-
-                  <input type="number" id="helligkeit" name="helligkeit">
-                  <p>Luftfeuchtigkeit:</p>
-               </br>
-
-                  <input type="number" id="luftfeuchtigkeit"  name="luftfeuchtigkeit">
-                  <p>Bodenfeuchtigkeit:</p>
-               </br>
-
-                  <input type="number" id="bodenfeuchtigkeit" name="bodenfeuchtigkeit">
-               </br>
-
-                  <input type="submit" id="hinzufügen" name="Button" value="Programm hinzufügen">
+               <input type="number" id="temperatur" name="temperatur">
+            </p>
+         </br>
+         <p>
+            <label for="helligkeit">
+               <span>Helligkeit: </span>
+               </label>
+            </br>
+            <input type="number" id="helligkeit" name="helligkeit">
+         </p>
+      </br>
+      <p>
+         <label for="luftfeuchtigkeit">
+            <span>Luftfeuchtigkeit: </span>
+            </label>
+         </br>
+         <input type="number" id="luftfeuchtigkeit"  name="luftfeuchtigkeit">
+      </p>
+   </br>
+   <p>
+      <label for="bodenfeuchtigkeit">
+         <span>Bodenfeuchtigkeit: </span>
+         </label>
+      </br>
+      <input type="number" id="bodenfeuchtigkeit" name="bodenfeuchtigkeit">
+   </p>
+</br>
+      <input type="submit" id="hinzufügen" name="Button" value="Programm hinzufügen">
                </form>
             </div>
          </div>

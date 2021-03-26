@@ -1,8 +1,8 @@
 
-.footer {
-    background-color: grey;
+.footer-dark {
     width: 100%;
     text-align: center;
+    align-items: center;
     left: 0;
     bottom: 0;
     color: white;

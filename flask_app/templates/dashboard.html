@@ -9,35 +9,37 @@
 
 
 <body>
-  <div class="p-1" align="middle">
-    <h2 style="color:green">{% block title %} Automatisiertes Gewächshaus - <h3> Dashboard </h3>{% endblock %}</h2>
-    
+  <div class="p-2" align="middle">
+    <h3 style="color:green">{% block title %} Automatisiertes Gewächshaus - Dashboard</h3>{% endblock %}
+  <hr>
     <form method="POST" action="/dashboard">
-      <p style="font-family:verdana">
+      <p>
         Satellit auswählen:
-        <SELECT name="satellite_id" style="font-family:verdana">
+        <SELECT name="satellite_id">
           {% for i in satellite_list %}
           <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
           {% endfor %}
         </SELECT>
         &nbsp;&nbsp;
         Programm auswählen:
-        <SELECT name="programm_id" style="font-family:verdana">
+        <SELECT name="programm_id">
           {% for i in programm_list %}
           <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
           {% endfor %}
         </SELECT>
         &nbsp;&nbsp;
         Zeitraum auswählen:
-        <SELECT name="selected_date" style="font-family:verdana">
+        <SELECT name="selected_date">
           {% for i in date_span %}
           <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
           {% endfor %}
         </SELECT>
-      </p>
-      <input class="float right" type="submit" name="loadButton" value="Laden">
+        &nbsp;&nbsp;
+        <input class="float right" type="submit" name="loadButton" value="Laden">
+      </p>     
     </form>
   </div>
+  <hr>
 </body>
 
 <body>
