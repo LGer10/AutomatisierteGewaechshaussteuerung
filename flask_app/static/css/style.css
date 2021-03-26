@@ -9,9 +9,13 @@
     position: fixed;
 }
 
-.col-md-4{
+.col{
     border: 5px;
     border-radius: 5px;
     border-color: gray;
 }
-
+.row{
+    border: 5px;
+    border-radius: 5px;
+    border-color: gray;
+}
