@@ -31,7 +31,7 @@ cursor = connection.cursor(buffered=True)
 # Variablen in Array speichern
 
 #satellit_array = cursor.fetchone()
-satellit_array = ['192.168.1.16']
+satellit_array = ['192.168.1.16', '192.168.1.16']
 # Verbindung schliessen
 
 cursor.close()
@@ -62,7 +62,7 @@ def collector():
 
 
             cursor.execute('''SELECT id from satellite_programm where id_satellite in 
-            (select id from satellites where ip_addr = "192.168.1.16 and current_programm = 1)''')
+            (select id from satellites where ip_addr = (%S) and current_programm = (%S))''', [satellit, current_programm])
 
             id_satellite_programm = cursor.fetchone()
 
