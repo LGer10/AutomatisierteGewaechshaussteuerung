@@ -8,21 +8,18 @@
   
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
-
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
-
-    <title style="color:green">{% block title %}Automatisiertes Gewächshaus {% endblock %}</title>
+    <title style="color:green">{% block title %} Automatisiertes Gewächshaus {% endblock %}</title>
 </head>
 
-<body class="d-flex flex-column min-vh-100">
+<body class="min-vh-100">
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Home</a>
                 </li>
-
 
                 <li class="nav-item active">
                     <a class="nav-link" href="dashboard">Dashboard</a>
@@ -32,28 +29,26 @@
                 </li>
             </ul>
         </div>
-        <img src="/static/logo.jpg" width="50" height="50" class="d-inline-block align-top" align="right"/>
+        <img src="/static/logo.jpg" width="50" height="50" class="d-inline-block align-top" alt="symbol" align="right"/>
 
     </nav>
-    
+</body>
+
         {% block content %}  
 
 
          {% endblock %}
 
    
-
-    <footer class="bg-dark" style="height: 60px; width: 100%; left: 0; bottom: 0; text-align: center;"> 
-          <p1 style="color:white">Automatisiertes Gewächshaut by Lars & Kilian</p1>
+<body>
+    <div class="footer bg-dark">
+          <p1>Automatisiertes Gewächshaut by Lars & Kilian</p1>
     </br>
-          <small style="color:white">  
-            <p2>Letzes Update der Seite: <script> document.write(new Date().toLocaleString()); </script> 
-            </p2>           
+          <small>  
+            <p3>Letzes Update der Seite: <script> document.write(new Date().toLocaleString()); </script> 
+            </p3>           
           </small>
-        </footer>
+    </div>
 </body>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
    
-
 </html>
