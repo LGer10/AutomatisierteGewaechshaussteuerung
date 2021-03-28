@@ -56,7 +56,7 @@ def dashboard():
         displayed_programm = displayed_programm_array[0]
 
         cur.execute('''SELECT value from programm_parameter where id_programm = (%s) and id_parameter in 
-        (select id from parameters where name = 'Temperature')''', [programm_id])
+        (select id from parameters where name = 'Temperatur')''', [programm_id])
         temperature_v = cur.fetchone()
         temperature_value_array = []
         temperature_value_array.append(temperature_v[0])
