@@ -45,9 +45,10 @@ def dashboard():
         cur = mysql.connection.cursor()
         cur.execute('SELECT name from satellites where id = (%s)', [satellite_id])
         displayed_s = cur.fetchone()
-        displayed_satellite = []
-        displayed_satellite.append(displayed_s[1][0])
-
+        displayed_satellite_array = []
+        displayed_satellite_array.append(displayed_s[0])
+        displayed_satellite = displayed_satellite_array[0]
+        
         cur.execute('SELECT name from programms where id = (%s)', [programm_id])
         displayed_programm = cur.fetchone()
 
