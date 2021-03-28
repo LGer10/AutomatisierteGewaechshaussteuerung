@@ -130,6 +130,23 @@ def dashboard():
 
         return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span, temperature_list=temperature_list, dates_list=dates_list, brightness_list=brightness_list, airhumidity_list=airhumidity_list, soilhumidity_list=soilhumidity_list, displayed_satellite=displayed_satellite, displayed_programm=displayed_programm, temperature_value=temperature_value, brightness_value=brightness_value, airhumidity_value=airhumidity_value, soilhumidity_value=soilhumidity_value)
 
+    else:
+        satellite_id = request.args.get['satellite_id']
+        programm_id = request.args.get['programm_id']
+        selected_date = request.args.get['selected_date']
+
+        cur = mysql.connection.cursor()
+        cur.execute('SELECT name from satellites where id = (%s)',
+                    [satellite_id])
+        displayed_s = cur.fetchone()
+        displayed_satellite_array = []
+        displayed_satellite_array.append(displayed_s[0])
+        displayed_satellite = displayed_satellite_array[0]
+
+        cur.close()
+
+        return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span, displayed_satellite=displayed_satellite)
+
     return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span)
 
 
