@@ -80,7 +80,13 @@
                 beginAtZero: true,
                 max: 50
               }
-            }]
+            }],
+            xAxes: {
+                scaleLabel: {
+                display: true,
+                labelString: 'Zeitraum'
+              }
+            }
            
     }
   }
@@ -114,10 +120,7 @@
             label: 'Helligkeit',
             fill: false,
             borderColor: "#e8d41e",
-
-
-           
-            }
+                 }
      
             ]
 },
@@ -132,9 +135,15 @@
                   beginAtZero: true,
                   max: 12
                 }
-              }]
+              }],
+              xAxes: {
+                scaleLabel: {
+                display: true,
+                labelString: 'Zeitraum'
+              }
             }
           }
+        }
 }
 
           );
@@ -181,18 +190,21 @@
               yAxes: [{
                 scaleLabel: {
                 display: true,
-                labelString: 'Luftfeuchtigkeit %',
-                font: {
-                  weight: bold
-                }
+                labelString: 'Luftfeuchtigkeit %'          
               },
                 ticks: {
                   beginAtZero: true,
                   max: 100
                 }
-              }]
+              }],
+              xAxes: {
+                scaleLabel: {
+                display: true,
+                labelString: 'Zeitraum'
+              }
             }
           }
+        }
 
 }
           );
@@ -237,17 +249,21 @@
 },
             options: {
             scales: {
-              scaleLabel: {
+              yAxes: [{
+                scaleLabel: {
                 display: true,
                 labelString: 'Bodenfeuchtigkeit % h'
                 },
-              yAxes: [{
                 ticks: {
                   beginAtZero: true,
                   max: 100
-
                 }
-              }]
+              }],
+              xAxes: {
+                scaleLabel: {
+                display: true,
+                labelString: 'Zeitraum'
+              }
             }
           }
 
