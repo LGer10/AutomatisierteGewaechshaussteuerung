@@ -5,9 +5,10 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
-  
+
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
     <title style="color:green">{% block title %} Automatisiertes Gewächshaus {% endblock %}</title>
@@ -29,26 +30,28 @@
                 </li>
             </ul>
         </div>
-        <img src="/static/logo.jpg" width="50" height="50" class="d-inline-block align-top" alt="symbol" align="right"/>
+        <img src="/static/logo.jpg" width="30" height="30" class="d-inline-block align-top" alt="symbol"
+            align="right" />
 
     </nav>
 </body>
 
-        {% block content %}  
+{% block content %}
 
 
-         {% endblock %}
+{% endblock %}
 
-   
+
 <body>
     <div class="footer bg-dark">
-          <p1>Automatisiertes Gewächshaut by Lars & Kilian</p1>
-    </br>
-          <small>  
-            <p3>Letzes Update der Seite: <script> document.write(new Date().toLocaleString()); </script> 
-            </p3>           
-          </small>
+        <p1>Automatisiertes Gewächshaut by Lars & Kilian</p1>
+        </br>
+        <small>
+            <p3>Letzes Update der Seite:
+                <script> document.write(new Date().toLocaleString());</script>
+            </p3>
+        </small>
     </div>
 </body>
-   
+
 </html>
