@@ -1,18 +1,27 @@
 {% extends "base.html" %}
 
 {% block content %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js" integrity="sha512-zO8oeHCxetPn1Hd9PdDleg5Tw1bAaP0YmNvPY8CwcRyUk7d7/+nyElmFrB6f7vg4f7Fv4sui1mcep8RIEShczg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js" integrity="sha512-SuxO9djzjML6b9w9/I07IWnLnQhgyYVSpHZx0JV97kGBfTIsUYlWflyuW4ypnvhBrslz1yJ3R+S14fdCWmSmSA==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
+  integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"
+  integrity="sha512-zO8oeHCxetPn1Hd9PdDleg5Tw1bAaP0YmNvPY8CwcRyUk7d7/+nyElmFrB6f7vg4f7Fv4sui1mcep8RIEShczg=="
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"
+  integrity="sha512-SuxO9djzjML6b9w9/I07IWnLnQhgyYVSpHZx0JV97kGBfTIsUYlWflyuW4ypnvhBrslz1yJ3R+S14fdCWmSmSA=="
+  crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.css" integrity="sha512-C7hOmCgGzihKXzyPU/z4nv97W0d9bv4ALuuEbSf6hm93myico9qa0hv4dODThvCsqQUmKmLcJmlpRmCaApr83g==" crossorigin="anonymous" />
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.css"
+  integrity="sha512-C7hOmCgGzihKXzyPU/z4nv97W0d9bv4ALuuEbSf6hm93myico9qa0hv4dODThvCsqQUmKmLcJmlpRmCaApr83g=="
+  crossorigin="anonymous" />
 
 
 <body>
   <div class="p-2" align="middle">
     <h3 style="color:green">{% block title %} Automatisiertes Gewächshaus - Dashboard</h3>{% endblock %}
-  <hr>
+    <hr>
     <form method="POST" action="/dashboard">
       <p>
         Satellit auswählen:
@@ -37,7 +46,7 @@
         </SELECT>
         &nbsp;&nbsp;
         <input class="float right" type="submit" name="loadButton" value="Laden">
-      </p>     
+      </p>
     </form>
     <hr>
   </div>
@@ -63,57 +72,56 @@
             datasets: [{
               data: [
                 {% for item in temperature_list %}{{ item }}, {% endfor %}],
-                  label: 'Temperatur',
-                  fill: false,
-                  borderColor: "#c45850"
+            label: 'Temperatur',
+            fill: false,
+            borderColor: "#c45850"
 
                }
             ]
           },
-          options: {
-            responsive: true,
-          scales: {
-            yAxes: [{
-              id: 'y1',
-              scaleLabel: {
-                display: true,
-                labelString: 'Temperatur °C'
-                },
-              ticks: {
-                beginAtZero: true,
-                max: 40
-                
-              }
-            }],
-            xAxes: [{
+            options: {
+            scales: {
+              yAxes: [{
+                id: 'y1',
                 scaleLabel: {
-                display: true,
-                labelString: 'Zeitraum'
-              }, 
-              ticks: {
-        autoSkip: true,
-        maxTicksLimit: 10
-    }
-                 
-  }]
-},
-annotation: {
-      annotations: [{
-        type: 'line',
-        mode: 'horizontal',
-        scaleID: 'y1',
-        value: {{temperature_value}},
-        borderColor: 'rgb(0, 153, 76)',
-        borderWidth: 2,
-        label: {
-          enabled: true,
-          content: 'Idealbedingung'
-        }
-      }]
+                  display: true,
+                  labelString: 'Temperatur °C'
+                },
+                ticks: {
+                  beginAtZero: true,
+                  max: 40
+
+                }
+              }],
+              xAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Zeitraum'
+                },
+                ticks: {
+                  autoSkip: true,
+                  maxTicksLimit: 10
+                }
+
+              }]
+            },
+            annotation: {
+              annotations: [{
+                type: 'line',
+                mode: 'horizontal',
+                scaleID: 'y1',
+                value: {{ temperature_value }},
+            borderColor: 'rgb(0, 153, 76)',
+            borderWidth: 2,
+            label: {
+              enabled: true,
+              content: 'Idealbedingung'
+            }
+          }]
     } 
    }
-  } 
-  );
+  }
+          );
 
         </script>
       </div>
@@ -148,13 +156,13 @@ annotation: {
             ]
 },
             options: {
-              responsive: true,
-          scales: {
-            yAxes: [{
-              id: 'y1',
+            responsive: true,
+            scales: {
+              yAxes: [{
+                id: 'y1',
                 scaleLabel: {
-                display: true,
-                labelString: 'Helligkeit h'
+                  display: true,
+                  labelString: 'Helligkeit h'
                 },
                 ticks: {
                   beginAtZero: true,
@@ -163,32 +171,32 @@ annotation: {
               }],
               xAxes: [{
                 scaleLabel: {
-                display: true,
-                labelString: 'Zeitraum'
-              },
-              ticks: {
-        autoSkip: true,
-        maxTicksLimit: 10
-    }
-            }]
-          },
-          annotation: {
-      annotations: [{
-        type: 'line',
-        mode: 'horizontal',
-        scaleID: 'y1',
-        value: {{brightness_value}},
-        borderColor: 'rgb(0, 153, 76)',
-        borderWidth: 2,
-        label: {
-          enabled: true,
-          content: 'Idealbedingung'
-        }
-      }]
+                  display: true,
+                  labelString: 'Zeitraum'
+                },
+                ticks: {
+                  autoSkip: true,
+                  maxTicksLimit: 10
+                }
+              }]
+            },
+            annotation: {
+              annotations: [{
+                type: 'line',
+                mode: 'horizontal',
+                scaleID: 'y1',
+                value: {{ brightness_value }},
+            borderColor: 'rgb(0, 153, 76)',
+            borderWidth: 2,
+            label: {
+              enabled: true,
+              content: 'Idealbedingung'
+            }
+          }]
     } 
    }
-  } 
-  );
+  }
+          );
 
 
 
@@ -228,14 +236,14 @@ annotation: {
             ]
 },
             options: {
-              responsive: true,
-          scales: {
-            yAxes: [{
-              id: 'y1',
+            responsive: true,
+            scales: {
+              yAxes: [{
+                id: 'y1',
                 scaleLabel: {
-                display: true,
-                labelString: 'Luftfeuchtigkeit %'          
-              },
+                  display: true,
+                  labelString: 'Luftfeuchtigkeit %'
+                },
                 ticks: {
                   beginAtZero: true,
                   max: 100
@@ -243,33 +251,33 @@ annotation: {
               }],
               xAxes: [{
                 scaleLabel: {
-                display: true,
-                labelString: 'Zeitraum'
-              },
-              ticks: {
-        autoSkip: true,
-        maxTicksLimit: 10
-    }
-            }]
-          
-        },
-        annotation: {
-      annotations: [{
-        type: 'line',
-        mode: 'horizontal',
-        scaleID: 'y1',
-        value: {{airhumidity_value}},
-        borderColor: 'rgb(0, 153, 76)',
-        borderWidth: 2,
-        label: {
-          enabled: true,
-          content: 'Idealbedingung'
-        }
-      }]
+                  display: true,
+                  labelString: 'Zeitraum'
+                },
+                ticks: {
+                  autoSkip: true,
+                  maxTicksLimit: 10
+                }
+              }]
+
+            },
+            annotation: {
+              annotations: [{
+                type: 'line',
+                mode: 'horizontal',
+                scaleID: 'y1',
+                value: {{ airhumidity_value }},
+            borderColor: 'rgb(0, 153, 76)',
+            borderWidth: 2,
+            label: {
+              enabled: true,
+              content: 'Idealbedingung'
+            }
+          }]
     } 
    }
-  } 
-  );
+  }
+          );
 
 
         </script>
@@ -279,8 +287,8 @@ annotation: {
 
         <script>
 
-          
-   
+
+
 
           new Chart(document.getElementById("chart3"), {
             type: 'line',
@@ -306,13 +314,13 @@ annotation: {
             ]
 },
             options: {
-              responsive: true,
-          scales: {
-            yAxes: [{
-              id: 'y1',
+            responsive: true,
+            scales: {
+              yAxes: [{
+                id: 'y1',
                 scaleLabel: {
-                display: true,
-                labelString: 'Bodenfeuchtigkeit %'
+                  display: true,
+                  labelString: 'Bodenfeuchtigkeit %'
                 },
                 ticks: {
                   beginAtZero: true,
@@ -321,34 +329,34 @@ annotation: {
               }],
               xAxes: [{
                 scaleLabel: {
-                display: true,
-                labelString: 'Zeitraum'
-              },
-              ticks: {
-        autoSkip: true,
-        maxTicksLimit: 10
-    }
-            }]
-          
-        },
+                  display: true,
+                  labelString: 'Zeitraum'
+                },
+                ticks: {
+                  autoSkip: true,
+                  maxTicksLimit: 10
+                }
+              }]
 
-  annotation: {
-      annotations: [{
-        type: 'line',
-        mode: 'horizontal',
-        scaleID: 'y1',
-        value: {{soilhumidity_value}},
-        borderColor: 'rgb(0, 153, 76)',
-        borderWidth: 2,
-        label: {
-          enabled: true,
-          content: 'Idealbedingung'
-        }
-      }]
+            },
+
+            annotation: {
+              annotations: [{
+                type: 'line',
+                mode: 'horizontal',
+                scaleID: 'y1',
+                value: {{ soilhumidity_value }},
+            borderColor: 'rgb(0, 153, 76)',
+            borderWidth: 2,
+            label: {
+              enabled: true,
+              content: 'Idealbedingung'
+            }
+          }]
     } 
    }
-  } 
-  );
+  }
+          );
 
 
 
