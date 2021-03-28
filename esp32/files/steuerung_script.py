@@ -6,7 +6,21 @@ import time
 from threading import Thread
 #from datetime import datetime
 #from pathlib import Path
+import ntptime
 from functions import get_temperature, get_air_humidity, get_brightness, get_soil_humidity, control
+
+def get_local_time():
+
+    #if needed, overwrite default time server
+    ntptime.host = "0.ch.pool.ntp.org"
+
+    try:
+        
+        ntptime.settime()
+
+        return ((time.localtime()[3]) + 1)
+    except:
+        print("Error syncing time")
 
 
 def control_air_humidity(air_humidity):
@@ -46,7 +60,42 @@ def control_temperature(temperature):
 
         time.sleep(30)
 
+def control_brightness(brightness):
+    
+    while True:
 
+        current_time = get_local_time()
+        
+        brightness = float(brightness)
+        
+        if current_time is 8:
+            
+            time_to_shine = 60
+            timeout_start = time.time()
+            print("start")
+
+            while time.time() < timeout_start + time_to_shine:
+                current_brightness = float(get_brightness())
+                if current_brightness < 200:
+                    print("start light")
+                else:
+                    print("stop light")
+
+        else:
+            print("schlafen")
+            pass
+
+def control_soil_humidity(soil_humidity)
+
+    current_soil_humidity = float(get_soil_humidity)
+
+    while True:
+        if current_soil_humidity < soil_humidity:
+            print("start pump")
+            sleep(5)
+            print("stop pumpt")
+        else:
+            pass
 
 def main(temperature, air_humidity, soil_humidity, brightness):
 
@@ -57,10 +106,10 @@ def main(temperature, air_humidity, soil_humidity, brightness):
     thread_air_humidity = Thread(target=control_air_humidity, args=[air_humidity])
 
     # initalize soil_humidity thread
-    thread_soil_humidity = Thread(target=control_temperature, args=[soil_humidity])
+    thread_soil_humidity = Thread(target=control_soil_humidity, args=[soil_humidity])
 
      # initalize soil_humidity thread
-    thread_brightness = Thread(target=control_temperature, args=[brightness])
+    thread_brightness = Thread(target=control_brightness, args=[brightness])
 
     # start air_humidity thread         
     thread_air_humidity.start()
