@@ -1,106 +1,50 @@
-import machine
-
+from machine import Pin, ADC
 import dht
-
+from time import sleep
 
 def get_temperature():
-    
-    #import dht
-    import dht
-    from machine import Pin
-    from time import sleep
 
     # define pin
     sensor = dht.DHT11(Pin(21))
-    print("wurde aufgerufen")
-    
-    # measure temperature
-    
-    try:
 
-        sleep(10)
-        sensor.measure()
+    temp = None
 
-        temp = sensor.temperature()
-        return '%3.1f' %temp
-    
-    except OSError as e:
-        print('Failed to read sensor.')
-    
-    # return temperature
-
-
-
-def get_air_humidity():
-    import dht
-    from machine import Pin
-    from time import sleep
-
-    # load libraries
-    #import dht
-    #from machine import Pin
-    sensor = dht.DHT11(Pin(21))
-    
-    try:
-        # define pin
-        sleep(10)
-        # measure humidity
-        sensor.measure()
-        hum = sensor.humidity()
+    while temp is None:
+        try:
             
-        # return humidity
-        return '%3.1f' %hum
+            sleep(3)
 
-    except OSError as e:
-        print('Failed to read sensor humidity.')
-     
-
-
-
-def get_brightness():
+            # measure temperature
+            sensor.measure()
+            temp = sensor.temperature()
+            
+            # return temperature
+            return '%3.1f' %temp
+        
+        except OSError as e:
+            pass
     
-    # load libraries
-    from machine import Pin, ADC
-    
-    # define pin
-    pot = ADC(Pin(34))
-    pot.atten(ADC.ATTN_11DB)
-    
-    # measure brightness
-    pot_value = pot.read()
-    
-    # return brightness
-    return(pot_value)
-
-def get_soil_humidity():
-    
-    # load libraries
-    from machine import Pin, ADC
-    from time import sleep
+def get_air_humidity():
 
     # define pin
-    pot = ADC(Pin(36))
-    pot.atten(ADC.ATTN_11DB)       #Full range: 3.3v
+    sensor = dht.DHT11(Pin(21))
 
-    i = 0
-
-    while i < 10:
-        
-        moisture = float(pot.read())
-        list.append(moisture)
-        mean = statistics.mean(list)
-        sleep(0.5)
-        ++i
-        
-        # measure soil_humidity
-
+    hum = None
     
-    print(mean)
+    while hum is None:
+        try:
 
-        #pot_value = pot.read()
-        #print(pot_value)
-        #return(pot_value)
-        
+            sleep(3)
+            
+            # measure humidity
+            sensor.measure()
+            hum= sensor.humidity()
+            
+            # return humidity
+            return '%3.1f' %hum
+
+        except OSError as e:
+            pass
 
 def control(pin,status):
     from machine import Pin
@@ -113,5 +57,50 @@ def control(pin,status):
     if(status is "close"):
         p.value(0)
 
-#control(1,2) 4,16, 7, 18 ,19 , 21, 22,23, 25,26,27,32,33
+def get_brightness():
+    
+    # define pin
+    pot = ADC(Pin(34))
+    pot.atten(ADC.ATTN_11DB)
+    
+    # measure brightness
+    pot_value = pot.read()
+    
+    # return brightness
+    return(pot_value)
 
+def get_soil_humidity():
+    # voll nass = 1449.0
+    # voll trocken = 4095
+    
+    # define pin
+    pot = ADC(Pin(36))
+    pot.atten(ADC.ATTN_11DB)
+
+    i = 0
+
+    while i < 10:
+        
+        # measure soil_humidity
+        moisture = pot.read()
+        
+        # define array
+        list = []
+        
+        # add measurement to array
+        list.append(moisture)
+
+        i += 1
+        sleep(0.5)
+        
+        
+    number_list = list
+    avg = sum(number_list)/len(number_list)
+    wert = (round(avg,2))
+
+    if wert > 4000:
+        return(0)
+    else:
+        percent = ((4095 - wert) / 2646 ) * 100
+
+        return(percent)

@@ -1,9 +1,11 @@
 # main script | project: Automatisiertes Gewächshaus
+# upip.install('picoweb')
+# upip.install('pycopy-ulogging')
 
 import picoweb
 import network
 import ujson
-import functions
+from functions import get_temperature, get_air_humidity, get_brightness, get_soil_humidity, control
 import time
 import steuerung_script
 
@@ -36,11 +38,14 @@ def rest_api():
     @app.route("/get_data")
     def index(req, resp):
 
-        temperature = functions.get_temperature()
-        air_humidity = functions.get_air_humidity()
+        temperature = get_temperature()
+        time.sleep(5)
+        air_humidity = get_air_humidity()
+        brightness = get_brightness()
+        soil_humidity = get_soil_humidity()
 
-        jsonData = {"temperature": temperature, "air_humidity": air_humidity}
-
+        jsonData = {"temperature": temperature, "air_humidity": air_humidity, "brightness": brightness, "soil_humidity": soil_humidity}
+        
         encoded = ujson.dumps(jsonData)
  
         yield from picoweb.start_response(resp, content_type = "application/json")
@@ -67,5 +72,5 @@ def rest_api():
  
     app.run(debug=True, host =ip[0])
 
-
-rest_api()
+if __name__ == '__main__':
+  rest_api()

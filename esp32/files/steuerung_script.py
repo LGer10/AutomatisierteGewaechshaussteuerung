@@ -6,44 +6,46 @@ import time
 from threading import Thread
 #from datetime import datetime
 #from pathlib import Path
-import functions
+from functions import get_temperature, get_air_humidity, get_brightness, get_soil_humidity, control
 
 
 def control_air_humidity(air_humidity):
     
     while True:
         
-        current_air_humidity = float(functions.get_air_humidity())
+        current_air_humidity = float(get_air_humidity())
         air_humidity = float(air_humidity)
 
         if air_humidity < current_air_humidity:
             print("start floatie")
-            functions.control(25,"open")
+            control(25,"open")
         
         else:
             print("stop floatie")
-            functions.control(25,"close")
+            control(25,"close")
 
         time.sleep(30)
 
 
-
 def control_temperature(temperature):
-    
+
     while True:
         
-        current_temperature = float(functions.get_temperature())
+        current_temperature = float(get_temperature())
         temperature = float(temperature)
         
         if temperature < current_temperature:
             print("start heater")
-            functions.control(19,"open")
+            control(19,"open")
+
         
         else:
             print("stop heater")
-            functions.control(19,"close")
+            control(19,"close")
+
 
         time.sleep(30)
+
 
 
 def main(temperature, air_humidity, soil_humidity, brightness):
