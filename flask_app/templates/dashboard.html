@@ -71,6 +71,7 @@
             ]
           },
           options: {
+            responsive: true,
           scales: {
             yAxes: [{
               id: 'y1',
@@ -95,18 +96,22 @@
                  
   }]
 },
-  drawHorizontalLine: {
-      lineY: [20, 20],
-      lineColor: "rgba(50, 155, 255, 0.85)",
-      text: 'Obj 67 & 68',
-      textPosition: 720,
-      textFont: '18px sans-serif',
-      textColor: "rgba(50, 155, 255, 0.85)"
-    }
+annotation: {
+      annotations: [{
+        type: 'line',
+        mode: 'horizontal',
+        scaleID: 'y1',
+        value: 5,
+        borderColor: 'rgb(75, 192, 192)',
+        borderWidth: 4,
+        label: {
+          enabled: false,
+          content: 'Test label'
         }
-      
+      }]
+    } 
    }
-  
+  } 
   );
 
         </script>
