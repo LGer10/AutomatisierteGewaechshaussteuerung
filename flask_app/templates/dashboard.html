@@ -38,8 +38,8 @@
         <input class="float right" type="submit" name="loadButton" value="Laden">
       </p>     
     </form>
+    <hr>
   </div>
-  <hr>
 </body>
 
 <body>
@@ -110,7 +110,7 @@
 
             label: 'Helligkeit',
             fill: false,
-            borderColor: "#e8c3b9",
+            borderColor: "#e8d41e",
 
 
            
@@ -121,9 +121,15 @@
             options: {
             scales: {
               yAxes: [{
+                scaleLabel: {
+                display: true,
+                labelString: 'Temperatur °C'
+                },
                 ticks: {
                   beginAtZero: true,
-                  max: 12
+                  max: 12,
+                  callback: function(value, index, values) {
+                        return '°C' + value;
 
                 }
               }]
