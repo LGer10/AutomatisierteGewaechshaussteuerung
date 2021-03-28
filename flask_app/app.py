@@ -38,12 +38,16 @@ def dashboard():
     date_span = cur.fetchall()
     cur.close()
 
-
-
     if request.method == 'POST' and request.form['loadButton'] == 'Laden':
         satellite_id = request.form['satellite_id']
         programm_id = request.form['programm_id']
         selected_date = request.form['selected_date']
+
+        cur.execute('SELECT name from satellites where id = (%s)', [satellite_id])
+        displayed_satellite = cur.fetchone()
+
+        cur.execute('SELECT name from programms where id = (%s)', [programm_id])
+        displayed_programm = cur.fetchone()
         cur = mysql.connection.cursor()
 
         
