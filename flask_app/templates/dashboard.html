@@ -73,6 +73,7 @@
           options: {
           scales: {
             yAxes: [{
+              id: 'y1',
               scaleLabel: {
                 display: true,
                 labelString: 'Temperatur °C'
@@ -97,7 +98,9 @@
           annotation: {
           drawTime: "afterDraw",
           annotations: [{
+            id: 'box1',
             type: 'box',
+            yScaleID: 'y1',
             yMin: 20,
             yMax: 25,
             backgroundColor: 'rgba(100, 100, 100, 0.2)',
