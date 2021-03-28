@@ -101,12 +101,12 @@ annotation: {
         type: 'line',
         mode: 'horizontal',
         scaleID: 'y1',
-        value: 5,
+        value: {{temperatur_value}},
         borderColor: 'rgb(75, 192, 192)',
         borderWidth: 4,
         label: {
-          enabled: false,
-          content: 'Test label'
+          enabled: true,
+          content: 'Idealbedingung'
         }
       }]
     } 
@@ -168,11 +168,24 @@ annotation: {
         maxTicksLimit: 10
     }
             }]
-          }
+          },
+          annotation: {
+      annotations: [{
+        type: 'line',
+        mode: 'horizontal',
+        scaleID: 'y1',
+        value: {{brightness_value}},
+        borderColor: 'rgb(75, 192, 192)',
+        borderWidth: 4,
+        label: {
+          enabled: true,
+          content: 'Idealbedingung'
         }
-}
-
-          );
+      }]
+    } 
+   }
+  } 
+  );
 
 
 
@@ -234,11 +247,24 @@ annotation: {
     }
             }]
           }
+        },
+        annotation: {
+      annotations: [{
+        type: 'line',
+        mode: 'horizontal',
+        scaleID: 'y1',
+        value: {{airhumidity_value}},
+        borderColor: 'rgb(75, 192, 192)',
+        borderWidth: 4,
+        label: {
+          enabled: true,
+          content: 'Idealbedingung'
         }
-
-}
-          );
-
+      }]
+    } 
+   }
+  } 
+  );
 
 
         </script>
@@ -300,11 +326,25 @@ annotation: {
     }
             }]
           }
+        },
+
+  annotation: {
+      annotations: [{
+        type: 'line',
+        mode: 'horizontal',
+        scaleID: 'y1',
+        value: {{soilhumidity_value}},
+        borderColor: 'rgb(75, 192, 192)',
+        borderWidth: 4,
+        label: {
+          enabled: true,
+          content: 'Idealbedingung'
         }
-
-}
-          );
-
+      }]
+    } 
+   }
+  } 
+  );
 
 
 

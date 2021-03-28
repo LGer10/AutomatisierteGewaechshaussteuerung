@@ -55,6 +55,25 @@ def dashboard():
         displayed_programm_array.append(displayed_p[0])
         displayed_programm = displayed_programm_array[0]
 
+        cur.execute('''SELECT value from programm_parameters where id_programm = (%s) and id_parameter in 
+        (select id from parameters where name = 'temperature')''', [programm_id])
+        temperature_v = cur.fetchone()
+        temperature_value = temperature_v[0]
+
+        cur.execute('''SELECT value from programm_parameters where id_programm = (%s) and id_parameter in 
+        (select id from parameters where name = 'brightness')''', [programm_id])
+        brightness_v = cur.fetchone()
+        brightness_value = brightness_v[0]
+
+        cur.execute('''SELECT value from programm_parameters where id_programm = (%s) and id_parameter in 
+        (select id from parameters where name = 'airhumidity')''', [programm_id])
+        airhumidity_v = cur.fetchone()
+        airhumidity_value = airhumidity_v[0]
+
+        cur.execute('''SELECT value from programm_parameters where id_programm = (%s) and id_parameter in 
+        (select id from parameters where name = 'soilhumidity')''', [programm_id])
+        soilhumidity_v = cur.fetchone()
+        soilhumidity_value = soilhumidity_v[0]
         
         cur.execute('''SELECT date FROM sensordata where id >= (%s) and id_satellite_programm in 
         (select id from satellite_programm where id_satellite = (%s) 
@@ -98,7 +117,7 @@ def dashboard():
 
         cur.close()
 
-        return render_template('dashboard.html',satellite_list=satellite_list, programm_list=programm_list, date_span=date_span, temperature_list=temperature_list, dates_list=dates_list, brightness_list=brightness_list, airhumidity_list=airhumidity_list, soilhumidity_list=soilhumidity_list, displayed_satellite=displayed_satellite, displayed_programm=displayed_programm)
+        return render_template('dashboard.html',satellite_list=satellite_list, programm_list=programm_list, date_span=date_span, temperature_list=temperature_list, dates_list=dates_list, brightness_list=brightness_list, airhumidity_list=airhumidity_list, soilhumidity_list=soilhumidity_list, displayed_satellite=displayed_satellite, displayed_programm=displayed_programm, temperature_value=temperature_value, brightness_value, brightness_value, airhumidity_value=airhumidity_value, soilhumidity_value=soilhumidity_value)
     
     return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span)
 
