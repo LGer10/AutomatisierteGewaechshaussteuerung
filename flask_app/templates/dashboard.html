@@ -72,10 +72,13 @@
           options: {
           scales: {
             yAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: 'Temperatur °C'
+                },
               ticks: {
                 beginAtZero: true,
                 max: 50
-
               }
             }]
            
@@ -123,7 +126,7 @@
               yAxes: [{
                 scaleLabel: {
                 display: true,
-                labelString: 'Temperatur °C'
+                labelString: 'Helligkeit h'
                 },
                 ticks: {
                   beginAtZero: true,
@@ -176,10 +179,16 @@
             options: {
             scales: {
               yAxes: [{
+                scaleLabel: {
+                display: true,
+                labelString: 'Luftfeuchtigkeit %',
+                font: {
+                  weight: bold
+                }
+              },
                 ticks: {
                   beginAtZero: true,
                   max: 100
-
                 }
               }]
             }
@@ -228,6 +237,10 @@
 },
             options: {
             scales: {
+              scaleLabel: {
+                display: true,
+                labelString: 'Bodenfeuchtigkeit % h'
+                },
               yAxes: [{
                 ticks: {
                   beginAtZero: true,
