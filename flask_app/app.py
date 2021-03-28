@@ -39,7 +39,6 @@ def dashboard():
     satellite_id = request.form['satellite_id']
     programm_id = request.form['programm_id']
     selected_date = request.form['selected_date']
- cur = mysql.connection.cursor()
         cur.execute('SELECT name from satellites where id = (%s)', [satellite_id])
         displayed_s = cur.fetchone()
         displayed_satellite_array = []
