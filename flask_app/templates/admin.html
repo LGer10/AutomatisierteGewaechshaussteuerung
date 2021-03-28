@@ -10,7 +10,7 @@
          <hr>
       <div class="container">
          <div class="row">
-            <div class="col-md-4 border border-secondary">
+            <div class="col-md-4 border border-secondary" align="middle">
                <h3> Programm Laden </h3>
             <hr>
                <form method="POST" action="/admin">
@@ -38,21 +38,22 @@
                            {% endfor %}
                         </SELECT>
                      </p>
-                  </br>
+                  <hr>
+                  <div style="margin-top: 245px;">
                      <input type="submit" name="Button" value="Programm laden">
+                  </div>
                   </form>           
          </div>
-            <div class="col-md-4 border border-secondary">
+            <div class="col-md-4 border border-secondary"  align="middle">
                   <h3>Satellit hinzufügen</h3>
                <hr>
-
                <form method="POST" action="/admin">
                   <p>
-                     <label for="name">
+                     <label for="s_name">
                      <span>Name: </span>
                      </label>
                   </br>
-                  <input type="text" id="name" name="satellite_name">
+                  <input type="text" id="s_name" name="satellite_name">
                   </p>
                   <p>
                      <label for="ipadresse">
@@ -61,21 +62,23 @@
                </br>
                   <input type="text" id="ipadresse" name="ip_addr">
                </p>
-            </br>
+            <hr>
+            <div style="margin-top: 235px;">
                   <input type="submit" name="Button" value="Satellit hinzufügen">
+               </div>
                   </form>
             </div>
 
-            <div class="col-md-4 border border-secondary">
+            <div class="col-md-4 border border-secondary" align="middle">
                <h3>Programm hinzufügen</h3>
             <hr>
                <form method="POST" action="/admin">
                   <p>
-                  <label for="name">
+                  <label for="p_name">
                      <span>Name: </span>
                      </label>
                   </br>
-                  <input type="text" id="name" name="programm_name">
+                  <input type="text" id="p_name" name="programm_name">
                </p>          
             <p>
                <label for="temperatur">
@@ -105,8 +108,10 @@
       </br>
       <input type="number" id="bodenfeuchtigkeit" name="bodenfeuchtigkeit">
    </p>
-</br>
+<hr>
+   <div style="margin-bottom: 30px;">
       <input type="submit" id="hinzufügen" name="Button" value="Programm hinzufügen">
+   </div>
                </form>
             </div>
          </div>
