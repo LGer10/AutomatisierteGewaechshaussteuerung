@@ -26,20 +26,18 @@ def home():
 
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
-    if request.method == 'GET':
-        cur = mysql.connection.cursor()
-        cur.execute('SELECT id, name FROM satellites')
-        satellite_list = cur.fetchall()
+    cur = mysql.connection.cursor()
+    cur.execute('SELECT id, name FROM satellites')
+    satellite_list = cur.fetchall()
 
-        cur.execute('SELECT id, name FROM programms')
-        programm_list = cur.fetchall()
+    cur.execute('SELECT id, name FROM programms')
+    programm_list = cur.fetchall()
 
-        cur.execute(
-            'SELECT id, date from sensordata where date >= current_date() - 7')
-        date_span = cur.fetchall()
-        cur.close()
+    cur.execute(
+        'SELECT id, date from sensordata where date >= current_date() - 7')
+    date_span = cur.fetchall()
+    cur.close()
 
-        return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span)
 
 
     if request.method == 'POST' and request.form['loadButton'] == 'Laden':
@@ -91,9 +89,9 @@ def dashboard():
 
         cur.close()
 
-        return render_template('dashboard.html', temperature_list=temperature_list, dates_list=dates_list, brightness_list=brightness_list, airhumidity_list=airhumidity_list, soilhumidity_list=soilhumidity_list)
-
-    return redirect(url_for('admin'))
+        return render_template('dashboard.html',satellite_list=satellite_list, programm_list=programm_list, date_span=date_span, temperature_list=temperature_list, dates_list=dates_list, brightness_list=brightness_list, airhumidity_list=airhumidity_list, soilhumidity_list=soilhumidity_list)
+    
+    return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span)
 
 
 
