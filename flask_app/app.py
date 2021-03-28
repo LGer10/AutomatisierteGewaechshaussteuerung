@@ -33,8 +33,7 @@ def dashboard():
     cur.execute('SELECT id, name FROM programms')
     programm_list = cur.fetchall()
 
-    cur.execute(
-        'SELECT id, date from sensordata where date >= current_date() - 7')
+    cur.execute('SELECT id, date from sensordata where date >= current_date() - 7')
     date_span = cur.fetchall()
     cur.close()
 
@@ -42,13 +41,13 @@ def dashboard():
         satellite_id = request.form['satellite_id']
         programm_id = request.form['programm_id']
         selected_date = request.form['selected_date']
-
+        
+        cur = mysql.connection.cursor()
         cur.execute('SELECT name from satellites where id = (%s)', [satellite_id])
         displayed_satellite = cur.fetchone()
 
         cur.execute('SELECT name from programms where id = (%s)', [programm_id])
         displayed_programm = cur.fetchone()
-        cur = mysql.connection.cursor()
 
         
         cur.execute('''SELECT date FROM sensordata where id >= (%s) and id_satellite_programm in 
