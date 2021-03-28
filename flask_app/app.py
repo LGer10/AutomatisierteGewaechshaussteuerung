@@ -56,28 +56,28 @@ def dashboard():
         displayed_programm = displayed_programm_array[0]
 
         cur.execute('''SELECT value from programm_parameter where id_programm = (%s) and id_parameter in 
-        (select id from parameters where name = 'temperature')''', [programm_id])
+        (select id from parameters where name = 'Temperature')''', [programm_id])
         temperature_v = cur.fetchone()
         temperature_value_array = []
         temperature_value_array.append(temperature_v[0])
         temperature_value = temperature_value_array[0]
 
         cur.execute('''SELECT value from programm_parameter where id_programm = (%s) and id_parameter in 
-        (select id from parameters where name = 'brightness')''', [programm_id])
+        (select id from parameters where name = 'Helligkeit')''', [programm_id])
         brightness_v = cur.fetchone()
         brightness_value_array = []
         brightness_value_array.append(brightness_v[0])
         brightness_value = brightness_value_array[0]
 
         cur.execute('''SELECT value from programm_parameter where id_programm = (%s) and id_parameter in 
-        (select id from parameters where name = 'airhumidity')''', [programm_id])
+        (select id from parameters where name = 'Luftfeuchtigkeit')''', [programm_id])
         airhumidity_v = cur.fetchone()
         airhumidity_value_array = []
         airhumidity_value_array.append(airhumidity_v[0])
         airhumidity_value = airhumidity_value_array[0]
 
         cur.execute('''SELECT value from programm_parameter where id_programm = (%s) and id_parameter in 
-        (select id from parameters where name = 'soilhumidity')''', [programm_id])
+        (select id from parameters where name = 'Bodenfeuchtigkeit')''', [programm_id])
         soilhumidity_v = cur.fetchone()
         soilhumidity_value_array = []
         soilhumidity_value_array.append(soilhumidity_v[0])
