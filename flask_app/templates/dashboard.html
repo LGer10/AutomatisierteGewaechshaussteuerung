@@ -103,8 +103,8 @@ annotation: {
         mode: 'horizontal',
         scaleID: 'y1',
         value: {{temperature_value}},
-        borderColor: 'rgb(75, 192, 192)',
-        borderWidth: 4,
+        borderColor: 'rgb(0, 153, 76)',
+        borderWidth: 2,
         label: {
           enabled: true,
           content: 'Idealbedingung'
@@ -148,8 +148,10 @@ annotation: {
             ]
 },
             options: {
-            scales: {
-              yAxes: [{
+              responsive: true,
+          scales: {
+            yAxes: [{
+              id: 'y1',
                 scaleLabel: {
                 display: true,
                 labelString: 'Helligkeit h'
@@ -176,8 +178,8 @@ annotation: {
         mode: 'horizontal',
         scaleID: 'y1',
         value: {{brightness_value}},
-        borderColor: 'rgb(75, 192, 192)',
-        borderWidth: 4,
+        borderColor: 'rgb(0, 153, 76)',
+        borderWidth: 2,
         label: {
           enabled: true,
           content: 'Idealbedingung'
@@ -226,8 +228,10 @@ annotation: {
             ]
 },
             options: {
-            scales: {
-              yAxes: [{
+              responsive: true,
+          scales: {
+            yAxes: [{
+              id: 'y1',
                 scaleLabel: {
                 display: true,
                 labelString: 'Luftfeuchtigkeit %'          
@@ -255,8 +259,8 @@ annotation: {
         mode: 'horizontal',
         scaleID: 'y1',
         value: {{airhumidity_value}},
-        borderColor: 'rgb(75, 192, 192)',
-        borderWidth: 4,
+        borderColor: 'rgb(0, 153, 76)',
+        borderWidth: 2,
         label: {
           enabled: true,
           content: 'Idealbedingung'
@@ -302,8 +306,10 @@ annotation: {
             ]
 },
             options: {
-            scales: {
-              yAxes: [{
+              responsive: true,
+          scales: {
+            yAxes: [{
+              id: 'y1',
                 scaleLabel: {
                 display: true,
                 labelString: 'Bodenfeuchtigkeit %'
@@ -332,8 +338,8 @@ annotation: {
         mode: 'horizontal',
         scaleID: 'y1',
         value: {{soilhumidity_value}},
-        borderColor: 'rgb(75, 192, 192)',
-        borderWidth: 4,
+        borderColor: 'rgb(0, 153, 76)',
+        borderWidth: 2,
         label: {
           enabled: true,
           content: 'Idealbedingung'
