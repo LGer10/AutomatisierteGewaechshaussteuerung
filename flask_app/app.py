@@ -48,9 +48,12 @@ def dashboard():
         displayed_satellite_array = []
         displayed_satellite_array.append(displayed_s[0])
         displayed_satellite = displayed_satellite_array[0]
-        
+
         cur.execute('SELECT name from programms where id = (%s)', [programm_id])
-        displayed_programm = cur.fetchone()
+        displayed_p = cur.fetchone()
+        displayed_programm_array = []
+        displayed_programm_array.append(displayed_p[0])
+        displayed_programm = displayed_programm_array[0]
 
         
         cur.execute('''SELECT date FROM sensordata where id >= (%s) and id_satellite_programm in 
