@@ -38,9 +38,9 @@ def dashboard():
         'SELECT id, date from sensordata where date >= current_date() - 7')
     date_span = cur.fetchall()
 
-    satellite_id = request.values['satellite_id']
-    programm_id = request.values['programm_id']
-    selected_date = request.values['selected_date']
+    satellite_id = request.form.get['satellite_id']
+    programm_id = request.form.get['programm_id']
+    selected_date = request.form.get['selected_date']
 
     cur.execute('SELECT name from satellites where id = (%s)', [satellite_id])
     displayed_s = cur.fetchone()
