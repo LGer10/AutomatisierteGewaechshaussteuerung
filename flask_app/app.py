@@ -27,6 +27,7 @@ def home():
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     cur = mysql.connection.cursor()
+
     cur.execute('SELECT id, name FROM satellites')
     satellite_list = cur.fetchall()
 
@@ -37,9 +38,10 @@ def dashboard():
         'SELECT id, date from sensordata where date >= current_date() - 7')
     date_span = cur.fetchall()
 
-    cur.close()
+    satellite_id = request.form['satellite_id']
+    programm_id = request.form['programm_id']
+    selected_date = request.form['selected_date']
 
-    cur = mysql.connection.cursor()
     cur.execute('SELECT name from satellites where id = (%s)', [satellite_id])
     displayed_s = cur.fetchone()
     displayed_satellite_array = []
