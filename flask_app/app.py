@@ -92,7 +92,7 @@ def dashboard():
 
         cur.close()
 
-        return render_template('dashboard.html',satellite_list=satellite_list, programm_list=programm_list, date_span=date_span, temperature_list=temperature_list, dates_list=dates_list, brightness_list=brightness_list, airhumidity_list=airhumidity_list, soilhumidity_list=soilhumidity_list)
+        return render_template('dashboard.html',satellite_list=satellite_list, programm_list=programm_list, date_span=date_span, temperature_list=temperature_list, dates_list=dates_list, brightness_list=brightness_list, airhumidity_list=airhumidity_list, soilhumidity_list=soilhumidity_list, displayed_satellite=displayed_satellite, displayed_programm=displayed_programm)
     
     return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span)
 
