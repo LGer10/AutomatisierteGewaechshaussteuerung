@@ -38,16 +38,6 @@ def dashboard():
         'SELECT id, date from sensordata where date >= current_date() - 7')
     date_span = cur.fetchall()
 
-    satellite_id = request.form.get['satellite_id']
-    programm_id = request.form.get['programm_id']
-    selected_date = request.form.get['selected_date']
-
-    cur.execute('SELECT name from satellites where id = (%s)', [satellite_id])
-    displayed_s = cur.fetchone()
-    displayed_satellite_array = []
-    displayed_satellite_array.append(displayed_s[0])
-    displayed_satellite = displayed_satellite_array[0]
-
     if request.method == 'POST' and request.form['loadButton'] == 'Laden':
         satellite_id = request.form['satellite_id']
         programm_id = request.form['programm_id']
