@@ -35,7 +35,7 @@ def dashboard():
     programm_list = cur.fetchall()
 
     cur.execute(
-        'SELECT distinct id, date from sensordata where date >= current_date() - 7')
+        'SELECT id, date from sensordata where date >= (select  max(date) - 7) group by date')
     date_span = cur.fetchall()
 
     if request.method == 'POST' and request.form['loadButton'] == 'Laden':
