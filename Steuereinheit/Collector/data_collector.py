@@ -24,51 +24,31 @@ cursor = connection.cursor()
 
 # Satelliten aus DB auslesen
 
-cursor.execute("SELECT ip_addr FROM satellites where id = 3")
-#cursor.execute("SELECT current_programm FROM satellites")
+cursor.execute("SELECT ip_addr FROM satellites)
 
 
 # Variablen in Array speichern
 
 #satellit_array = cursor.fetchone()
-satellite = cursor.fetchall()
-satellite_array = []
-for index in range(len(satellite)):
-            satellite_array.append(satellite[index][0])
-# Verbindung schliessen
-satellit = satellite[0]
-
-<<<<<<< HEAD
-cursor.close()
-=======
-# cursor.close()
->>>>>>> refs/remotes/origin/master
+satellite_ip = cursor.fetchall()
+satellite_ip_array = []
+for index in range(len(satellite_ip)):
+    satellite_ip_array.append(satellite_ip[index][0])
 
 
 # Daten Collecten
 def collector():
     try:
-        for satellite in satellite_list:
+        for satellite in satellite_array:
 
-<<<<<<< HEAD
     cursor = connection.cursor()
-        #Aktuelle geladenes Programm abfragen
-    cursor.execute('SELECT current_programm FROM satellites WHERE ip_addr = (%s)', satellit)
-=======
-    cursor = mysql.connection.cursor(buffered=True)
     # Aktuelle geladenes Programm abfragen
-    cursor.excecute(
-        'SELECT current_programm FROM satellites WHERE ip_addr = (%s)', [satellite])
->>>>>>> refs/remotes/origin/master
+    cursor.execute(
+        'SELECT current_programm FROM satellites WHERE ip_addr = (%s)', satellit)
     current_programm = cursor.fetchone()
-    #current_programm = 1
     # REST-API anfragen
 
-<<<<<<< HEAD
-    response = requests.get("http://" + '(%s)' + ":8081/get_data", satellit)
-=======
     response = requests.get("http://" + '%s' + ":8081/get_data", [satellite])
->>>>>>> refs/remotes/origin/master
     json_file = json.loads(response.text)
     print(json_file)
 
