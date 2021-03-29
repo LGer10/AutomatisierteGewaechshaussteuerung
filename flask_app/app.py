@@ -88,7 +88,7 @@ def dashboard():
 
         cur.execute('''SELECT date FROM sensordata where id >= (%s) and id_satellite_programm in 
         (select id from satellite_programm where id_satellite = (%s) 
-        and id_programm = (%s))''', [selected_date, satellite_id, programm_id])
+        and id_programm = (%s)))''', [selected_date, satellite_id, programm_id])
         dates = cur.fetchall()
         dates_list = []
         for index in range(len(dates)):
@@ -97,7 +97,7 @@ def dashboard():
         cur.execute('''SELECT temperature FROM sensordata where date >= (SELECT date from sensordata WHERE 
         id = (%s) and id_satellite_programm in 
         (select id from satellite_programm where id_satellite = (%s) 
-        and id_programm = (%s))''', [selected_date, satellite_id, programm_id])
+        and id_programm = (%s)))''', [selected_date, satellite_id, programm_id])
         temperature = cur.fetchall()
         temperature_list = []
         for index in range(len(temperature)):
@@ -106,7 +106,7 @@ def dashboard():
         cur.execute('''SELECT brightness FROM sensordata where date >= (SELECT date from sensordata WHERE 
         id = (%s) and id_satellite_programm in 
         (select id from satellite_programm where id_satellite = (%s) 
-        and id_programm = (%s))''', [selected_date, satellite_id, programm_id])
+        and id_programm = (%s)))''', [selected_date, satellite_id, programm_id])
         brightness = cur.fetchall()
         brightness_list = []
         for index in range(len(brightness)):
@@ -115,7 +115,7 @@ def dashboard():
         cur.execute('''SELECT airhumidity FROM sensordata where date >= (SELECT date from sensordata WHERE 
         id = (%s) and id_satellite_programm in 
         (select id from satellite_programm where id_satellite = (%s) 
-        and id_programm = (%s))''', [selected_date, satellite_id, programm_id])
+        and id_programm = (%s)))''', [selected_date, satellite_id, programm_id])
         airhumidity = cur.fetchall()
         airhumidity_list = []
         for index in range(len(airhumidity)):
