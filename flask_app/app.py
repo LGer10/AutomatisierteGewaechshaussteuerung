@@ -86,7 +86,7 @@ def dashboard():
         soilhumidity_value_array.append(soilhumidity_v[0])
         soilhumidity_value = soilhumidity_value_array[0]
 
-        cur.execute('''SELECT date FROM sensordata where date >= (SELECT date WHERE id = (%s) and id_satellite_programm in 
+        cur.execute('''SELECT date FROM sensordata where date >= (SELECT date from sensordata WHERE id = (%s) and id_satellite_programm in 
         (select id from satellite_programm where id_satellite = (%s) 
         and id_programm = (%s)))''', [selected_date, satellite_id, programm_id])
         dates = cur.fetchall()
