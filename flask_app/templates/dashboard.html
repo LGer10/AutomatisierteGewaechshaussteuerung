@@ -315,54 +315,63 @@
             ]
 },
             options: {
-            legend: {
+            title: {
               display: true,
-              position: "bottom",
-              labels: {
-                fontColor: 'rgb(255, 99, 132)'
-              }
-            },
+              position: 'top',
+              fontSize: 20,
+              fontColor: "#3cba9f",
+              fontStyle: 'bold'
+            }
+          },
+            legend: {
+            display: true,
+            position: "bottom"
+
+          },
             responsive: true,
             scales: {
-              yAxes: [{
-                id: 'y1',
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Bodenfeuchtigkeit %',
-                  fontSize: 16,
-                },
-                ticks: {
-                  beginAtZero: true,
-                  max: 100
-                }
-              }],
-              xAxes: [{
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Zeitraum',
-                  fontSize: 16,
+            yAxes: [{
+              id: 'y1',
+              scaleLabel: {
+                display: true,
+                labelString: 'Bodenfeuchtigkeit %',
+                fontSize: 16,
+                fontStyle: 'bold'
 
-                },
-                ticks: {
-                  autoSkip: true,
-                  maxTicksLimit: 14
-                }
-              }]
+              },
+              ticks: {
+                beginAtZero: true,
+                max: 100
+              }
+            }],
+            xAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: 'Zeitraum',
+                fontSize: 16,
+                fontStyle: 'bold'
 
-            },
+              },
+              ticks: {
+                autoSkip: true,
+                maxTicksLimit: 14
+              }
+            }]
+
+          },
 
             annotation: {
-              annotations: [{
-                type: 'line',
-                mode: 'horizontal',
-                scaleID: 'y1',
-                value: {{ soilhumidity_value }},
+            annotations: [{
+              type: 'line',
+              mode: 'horizontal',
+              scaleID: 'y1',
+              value: {{ soilhumidity_value }},
             borderColor: 'rgb(0, 153, 76)',
             borderWidth: 2,
             label: {
-              enabled: true,
-              content: 'Idealwert'
-            }
+            enabled: true,
+            content: 'Idealwert'
+          }
           }]
     } 
    }
