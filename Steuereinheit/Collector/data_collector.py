@@ -24,7 +24,7 @@ cursor = connection.cursor()
 
 # Satelliten aus DB auslesen
 
-cursor.execute("SELECT ip_addr FROM satellites)
+cursor.execute("SELECT ip_addr FROM satellites where id = 3")
 
 
 # Variablen in Array speichern
