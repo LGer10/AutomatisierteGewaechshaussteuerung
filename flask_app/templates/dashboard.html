@@ -292,6 +292,11 @@
 
           new Chart(document.getElementById("chart3"), {
             type: 'line',
+            title: {
+              text: 'Bodenfeuchtigkeit',
+              fontSize: 20,
+              fontWeight: "bold"
+            },
             data: {
               labels: [
                 {% for item in dates_list %}
@@ -310,6 +315,10 @@
             label: 'Bodenfeuchtigkeit',
             borderColor: "#3cba9f",
             fill: false,
+            fontSize: 16,
+            fontWeight: "bold",
+            position: 'top'
+            
 
             }
             ]
@@ -322,7 +331,8 @@
                 scaleLabel: {
                   display: true,
                   labelString: 'Bodenfeuchtigkeit %',
-                  fontSize: 15
+                  fontSize: 16,
+                  fontWeight: "bold"
 
                 },
                 ticks: {
@@ -334,7 +344,8 @@
                 scaleLabel: {
                   display: true,
                   labelString: 'Zeitraum',
-                  fontSize: 15
+                  fontSize: 16,
+                  fontWeight: "bold"
 
                 },
                 ticks: {
