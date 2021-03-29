@@ -39,6 +39,7 @@ def collector():
 
     for satellite in satellite_ip_array:
 
+        print(satellite)
         # Aktuelle geladenes Programm abfragen
         cursor.execute(
             'SELECT current_programm FROM satellites WHERE ip_addr = (%s)', [satellite])
