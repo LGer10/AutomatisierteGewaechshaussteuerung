@@ -37,11 +37,11 @@ for index in range(len(satellite_ip)):
 # Daten Collecten
 def collector():
     try:
-        for satellite in satellite_array:
+        for satellite in satellite_ip_array:
 
             # Aktuelle geladenes Programm abfragen
             cursor.execute(
-                'SELECT current_programm FROM satellites WHERE ip_addr = (%s)', satellit)
+                'SELECT current_programm FROM satellites WHERE ip_addr = (%s)', satellite)
             current_programm = cursor.fetchone()
         # REST-API anfragen
 
@@ -56,7 +56,7 @@ def collector():
             air_humidity = json_file["air_humidity"]
 
             cursor.execute('''SELECT id from satellite_programm where id_satellite in 
-            (select id from satellites where ip_addr = (%s) and current_programm = (%s))''', [satellit, current_programm])
+            (select id from satellites where ip_addr = (%s) and current_programm = (%s))''', [satellite, current_programm])
 
             id_satellite_programm = cursor.fetchone()
 
@@ -75,7 +75,7 @@ def collector():
     # break
     except:
         print('Error')
-        print(satellite_array)
+        print(satellite_ip_array)
         time.sleep(5)
 
 
