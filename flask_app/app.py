@@ -35,7 +35,7 @@ def dashboard():
     programm_list = cur.fetchall()
 
     cur.execute(
-        'SELECT id, date from sensordata where date >= current_date() - 7')
+        'SELECT distinct id, date from sensordata where date >= current_date() - 7')
     date_span = cur.fetchall()
 
     if request.method == 'POST' and request.form['loadButton'] == 'Laden':
@@ -88,7 +88,7 @@ def dashboard():
 
         cur.execute('''SELECT date FROM sensordata where id >= (%s) and id_satellite_programm in 
         (select id from satellite_programm where id_satellite = (%s) 
-        and id_programm = (%s)))''', [selected_date, satellite_id, programm_id])
+        and id_programm = (%s))''', [selected_date, satellite_id, programm_id])
         dates = cur.fetchall()
         dates_list = []
         for index in range(len(dates)):
@@ -124,7 +124,7 @@ def dashboard():
         cur.execute('''SELECT soilhumidity FROM sensordata where date >= (SELECT date from sensordata WHERE 
         id = (%s) and id_satellite_programm in 
         (select id from satellite_programm where id_satellite = (%s) 
-        and id_programm = (%s))''', [selected_date, satellite_id, programm_id])
+        and id_programm = (%s)))''', [selected_date, satellite_id, programm_id])
         soilhumidity = cur.fetchall()
         soilhumidity_list = []
         for index in range(len(soilhumidity)):
