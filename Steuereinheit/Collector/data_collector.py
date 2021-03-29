@@ -47,7 +47,7 @@ def collector():
     # REST-API anfragen
 
         response = requests.get(
-            "http://" + '%s' + ":8081/get_data", [satellite])
+            "http://" + satellite + ":8081/get_data")
         json_file = json.loads(response.text)
         print(json_file)
 
