@@ -292,11 +292,6 @@
 
           new Chart(document.getElementById("chart3"), {
             type: 'line',
-            title: {
-              text: 'Bodenfeuchtigkeit',
-              fontSize: 20,
-              fontWeight: "bold"
-            },
             data: {
               labels: [
                 {% for item in dates_list %}
@@ -312,13 +307,13 @@
 
 
             {% endfor %}],
-            label: 'Bodenfeuchtigkeit',
-            borderColor: "#3cba9f",
-            fill: false,
-            fontSize: 16,
+            label: {
+            text: 'Bodenfeuchtigkeit',
+            fontSize: 20,
             fontWeight: "bold",
-            position: 'top'
-            
+          },
+            borderColor: "#3cba9f",
+            fill: false
 
             }
             ]
