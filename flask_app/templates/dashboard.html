@@ -307,18 +307,21 @@
 
 
             {% endfor %}],
-            label: {
-            text: 'Bodenfeuchtigkeit',
-            fontSize: 20,
-            fontWeight: "bold",
-          },
+            label: 'Bodenfeuchtigkeit',
             borderColor: "#3cba9f",
-            fill: false
-
+            fill: false,
+         
             }
             ]
 },
             options: {
+            legend: {
+              display: true,
+              position: "bottom",
+              labels: {
+                fontColor: 'rgb(255, 99, 132)'
+              }
+            },
             responsive: true,
             scales: {
               yAxes: [{
@@ -327,8 +330,6 @@
                   display: true,
                   labelString: 'Bodenfeuchtigkeit %',
                   fontSize: 16,
-                  fontWeight: "bold"
-
                 },
                 ticks: {
                   beginAtZero: true,
@@ -340,7 +341,6 @@
                   display: true,
                   labelString: 'Zeitraum',
                   fontSize: 16,
-                  fontWeight: "bold"
 
                 },
                 ticks: {
