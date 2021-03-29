@@ -310,7 +310,6 @@
             label: 'Bodenfeuchtigkeit',
             borderColor: "#3cba9f",
             fill: false,
-            fontSize: 20
 
             }
             ]
@@ -319,11 +318,12 @@
             responsive: true,
             scales: {
               yAxes: [{
-                fontSize: 15,
                 id: 'y1',
                 scaleLabel: {
                   display: true,
-                  labelString: 'Bodenfeuchtigkeit %'
+                  labelString: 'Bodenfeuchtigkeit %',
+                  fontSize: 15
+
                 },
                 ticks: {
                   beginAtZero: true,
@@ -331,10 +331,11 @@
                 }
               }],
               xAxes: [{
-                fontSize: 15,
                 scaleLabel: {
                   display: true,
-                  labelString: 'Zeitraum'
+                  labelString: 'Zeitraum',
+                  fontSize: 15
+
                 },
                 ticks: {
                   autoSkip: true,
