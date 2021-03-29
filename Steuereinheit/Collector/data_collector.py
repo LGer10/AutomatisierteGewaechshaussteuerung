@@ -19,7 +19,7 @@ except:
      print("Keine Verbindung zum Server")
      sys.exit(0)
 
-cursor = connection.cursor(buffered=True)
+cursor = connection.cursor()
 
 # Satelliten aus DB auslesen
 
@@ -31,10 +31,14 @@ cursor.execute("SELECT ip_addr FROM satellites where id = 3")
 # Variablen in Array speichern
 
 #satellit_array = cursor.fetchone()
-satellite_list = cursor.fetchone()
+satellite = cursor.fetchall()
+satellite_array = []
+for index in range(len(satellite)):
+            satellite_array.append(satellite[index][0])
 # Verbindung schliessen
+satellit = satellite[0]
 
-#cursor.close()
+cursor.close()
 
 
 # Daten Collecten
@@ -42,14 +46,14 @@ def collector():
     #try:
         #for satellite in satellite_list:
 
-    cursor = mysql.connection.cursor(buffered=True)
+    cursor = connection.cursor()
         #Aktuelle geladenes Programm abfragen
-    cursor.excecute('SELECT current_programm FROM satellites WHERE ip_addr = (%s)', satellite)
+    cursor.execute('SELECT current_programm FROM satellites WHERE ip_addr = (%s)', satellit)
     current_programm = cursor.fetchone()
     #current_programm = 1
             # REST-API anfragen
 
-    response = requests.get("http://" + '%s' + ":8081/get_data", satellite)
+    response = requests.get("http://" + '(%s)' + ":8081/get_data", satellit)
     json_file = json.loads(response.text)
     print(json_file)
 
@@ -61,7 +65,7 @@ def collector():
 
 
     cursor.execute('''SELECT id from satellite_programm where id_satellite in 
-    (select id from satellites where ip_addr = (%s) and current_programm = (%s))''', [satellite, current_programm])
+    (select id from satellites where ip_addr = (%s) and current_programm = (%s))''', [satellit, current_programm])
 
     id_satellite_programm = cursor.fetchone()
 
