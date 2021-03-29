@@ -27,35 +27,65 @@ def home():
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     cur = mysql.connection.cursor()
+
     cur.execute('SELECT id, name FROM satellites')
     satellite_list = cur.fetchall()
 
     cur.execute('SELECT id, name FROM programms')
     programm_list = cur.fetchall()
 
-    cur.execute('SELECT id, date from sensordata where date >= current_date() - 7')
+    cur.execute(
+        'SELECT id, date from sensordata where date >= current_date() - 7')
     date_span = cur.fetchall()
-    cur.close()
 
     if request.method == 'POST' and request.form['loadButton'] == 'Laden':
         satellite_id = request.form['satellite_id']
         programm_id = request.form['programm_id']
         selected_date = request.form['selected_date']
-        
+
         cur = mysql.connection.cursor()
-        cur.execute('SELECT name from satellites where id = (%s)', [satellite_id])
+        cur.execute('SELECT name from satellites where id = (%s)',
+                    [satellite_id])
         displayed_s = cur.fetchone()
         displayed_satellite_array = []
         displayed_satellite_array.append(displayed_s[0])
         displayed_satellite = displayed_satellite_array[0]
 
-        cur.execute('SELECT name from programms where id = (%s)', [programm_id])
+        cur.execute('SELECT name from programms where id = (%s)',
+                    [programm_id])
         displayed_p = cur.fetchone()
         displayed_programm_array = []
         displayed_programm_array.append(displayed_p[0])
         displayed_programm = displayed_programm_array[0]
 
-        
+        cur.execute('''SELECT value from programm_parameter where id_programm = (%s) and id_parameter in 
+        (select id from parameters where name = 'Temperatur')''', [programm_id])
+        temperature_v = cur.fetchone()
+        temperature_value_array = []
+        temperature_value_array.append(temperature_v[0])
+        temperature_value = temperature_value_array[0]
+
+        cur.execute('''SELECT value from programm_parameter where id_programm = (%s) and id_parameter in 
+        (select id from parameters where name = 'Helligkeit')''', [programm_id])
+        brightness_v = cur.fetchone()
+        brightness_value_array = []
+        brightness_value_array.append(brightness_v[0])
+        brightness_value = brightness_value_array[0]
+
+        cur.execute('''SELECT value from programm_parameter where id_programm = (%s) and id_parameter in 
+        (select id from parameters where name = 'Luftfeuchtigkeit')''', [programm_id])
+        airhumidity_v = cur.fetchone()
+        airhumidity_value_array = []
+        airhumidity_value_array.append(airhumidity_v[0])
+        airhumidity_value = airhumidity_value_array[0]
+
+        cur.execute('''SELECT value from programm_parameter where id_programm = (%s) and id_parameter in 
+        (select id from parameters where name = 'Bodenfeuchtigkeit')''', [programm_id])
+        soilhumidity_v = cur.fetchone()
+        soilhumidity_value_array = []
+        soilhumidity_value_array.append(soilhumidity_v[0])
+        soilhumidity_value = soilhumidity_value_array[0]
+
         cur.execute('''SELECT date FROM sensordata where id >= (%s) and id_satellite_programm in 
         (select id from satellite_programm where id_satellite = (%s) 
         and id_programm = (%s))''', [selected_date, satellite_id, programm_id])
@@ -98,10 +128,9 @@ def dashboard():
 
         cur.close()
 
-        return render_template('dashboard.html',satellite_list=satellite_list, programm_list=programm_list, date_span=date_span, temperature_list=temperature_list, dates_list=dates_list, brightness_list=brightness_list, airhumidity_list=airhumidity_list, soilhumidity_list=soilhumidity_list, displayed_satellite=displayed_satellite, displayed_programm=displayed_programm)
-    
-    return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span)
+        return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span, temperature_list=temperature_list, dates_list=dates_list, brightness_list=brightness_list, airhumidity_list=airhumidity_list, soilhumidity_list=soilhumidity_list, displayed_satellite=displayed_satellite, displayed_programm=displayed_programm, temperature_value=temperature_value, brightness_value=brightness_value, airhumidity_value=airhumidity_value, soilhumidity_value=soilhumidity_value)
 
+    return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span)
 
 
 # Adminseite
@@ -196,7 +225,7 @@ def admin():
 
 @app.route('/test')
 def test():
-    
+
     return render_template('test.html')
 
 
