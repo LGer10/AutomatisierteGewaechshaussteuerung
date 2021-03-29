@@ -15,16 +15,15 @@ try:
     connection = mysql.connector.connect(
         host="localhost", user="root", passwd="AGdb", db="AGdb")
     #print("Verbunden mit SQL Server")
-    cursor = connection.cursor()
 
 except:
     print("Keine Verbindung zum Server")
     sys.exit(0)
 
 # Satelliten aus DB auslesen
+cursor = connection.cursor()
 
 cursor.execute("SELECT ip_addr FROM satellites where id = 3")
-
 
 # Variablen in Array speichern
 
@@ -40,8 +39,7 @@ def collector():
     try:
         for satellite in satellite_array:
 
-    cursor = connection.cursor()
-    # Aktuelle geladenes Programm abfragen
+            # Aktuelle geladenes Programm abfragen
     cursor.execute(
         'SELECT current_programm FROM satellites WHERE ip_addr = (%s)', satellit)
     current_programm = cursor.fetchone()
