@@ -79,13 +79,28 @@
             ]
           },
             options: {
+            title: {
+              display: true,
+              text: 'Temperatur',
+              position: 'top',
+              fontSize: 20,
+              fontStyle: 'bold'
+            }
+            ,
+            legend: {
+              display: true,
+              position: "bottom",
+              fontStyle: 'bold'
+            },
             responsive: true,
             scales: {
               yAxes: [{
                 id: 'y1',
                 scaleLabel: {
                   display: true,
-                  labelString: 'Temperatur °C'
+                  labelString: '°C',
+                  fontSize: 16,
+                  fontStyle: 'bold'
                 },
                 ticks: {
                   beginAtZero: true,
@@ -96,7 +111,9 @@
               xAxes: [{
                 scaleLabel: {
                   display: true,
-                  labelString: 'Zeitraum'
+                  labelString: 'Zeitraum',
+                  fontSize: 16,
+                  fontStyle: 'bold'
                 },
                 ticks: {
                   autoSkip: true,
@@ -156,13 +173,28 @@
             ]
 },
             options: {
+            title: {
+              display: true,
+              text: 'Helligkeit',
+              position: 'top',
+              fontSize: 20,
+              fontStyle: 'bold'
+            }
+            ,
+            legend: {
+              display: true,
+              position: "bottom",
+              fontStyle: 'bold'
+            },
             responsive: true,
             scales: {
               yAxes: [{
                 id: 'y1',
                 scaleLabel: {
                   display: true,
-                  labelString: 'Helligkeit h'
+                  labelString: 'Stunden hell',
+                  fontSize: 16,
+                  fontStyle: 'bold'
                 },
                 ticks: {
                   beginAtZero: true,
@@ -172,7 +204,9 @@
               xAxes: [{
                 scaleLabel: {
                   display: true,
-                  labelString: 'Zeitraum'
+                  labelString: 'Zeitraum',
+                  fontSize: 16,
+                  fontStyle: 'bold'
                 },
                 ticks: {
                   autoSkip: true,
@@ -236,13 +270,28 @@
             ]
 },
             options: {
+            title: {
+              display: true,
+              text: 'Luftfeuchhtigkeit',
+              position: 'top',
+              fontSize: 20,
+              fontStyle: 'bold'
+            }
+            ,
+            legend: {
+              display: true,
+              position: "bottom",
+              fontStyle: 'bold'
+            },
             responsive: true,
             scales: {
               yAxes: [{
                 id: 'y1',
                 scaleLabel: {
                   display: true,
-                  labelString: 'Luftfeuchtigkeit %'
+                  labelString: '%',
+                  fontSize: 16,
+                  fontStyle: 'bold'
                 },
                 ticks: {
                   beginAtZero: true,
@@ -252,7 +301,9 @@
               xAxes: [{
                 scaleLabel: {
                   display: true,
-                  labelString: 'Zeitraum'
+                  labelString: 'Zeitraum',
+                  fontSize: 16,
+                  fontStyle: 'bold'
                 },
                 ticks: {
                   autoSkip: true,
@@ -319,15 +370,14 @@
               text: 'Bodenfeuchtigkeit',
               position: 'top',
               fontSize: 20,
-              fontColor: "#3cba9f",
               fontStyle: 'bold'
             }
             ,
             legend: {
               display: true,
               position: "bottom",
-              fontStyle: 'bold',
-              align: 'end'
+              fontStyle: 'bold'
+
             },
             responsive: true,
             scales: {
