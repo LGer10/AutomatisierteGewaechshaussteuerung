@@ -94,7 +94,8 @@ def dashboard():
         for index in range(len(dates)):
             dates_list.append(dates[index][0])
 
-        cur.execute('''SELECT temperature FROM sensordata where id >= (%s) and id_satellite_programm in 
+        cur.execute('''SELECT temperature FROM sensordata where date >= (SELECT date from sensordata WHERE 
+        id = (%s) and id_satellite_programm in 
         (select id from satellite_programm where id_satellite = (%s) 
         and id_programm = (%s))''', [selected_date, satellite_id, programm_id])
         temperature = cur.fetchall()
@@ -102,7 +103,8 @@ def dashboard():
         for index in range(len(temperature)):
             temperature_list.append(temperature[index][0])
 
-        cur.execute('''SELECT brightness FROM sensordata where id >= (%s) and id_satellite_programm in 
+        cur.execute('''SELECT brightness FROM sensordata where date >= (SELECT date from sensordata WHERE 
+        id = (%s) and id_satellite_programm in 
         (select id from satellite_programm where id_satellite = (%s) 
         and id_programm = (%s))''', [selected_date, satellite_id, programm_id])
         brightness = cur.fetchall()
@@ -110,7 +112,8 @@ def dashboard():
         for index in range(len(brightness)):
             brightness_list.append(brightness[index][0])
 
-        cur.execute('''SELECT airhumidity FROM sensordata where id >= (%s) and id_satellite_programm in 
+        cur.execute('''SELECT airhumidity FROM sensordata where date >= (SELECT date from sensordata WHERE 
+        id = (%s) and id_satellite_programm in 
         (select id from satellite_programm where id_satellite = (%s) 
         and id_programm = (%s))''', [selected_date, satellite_id, programm_id])
         airhumidity = cur.fetchall()
@@ -118,7 +121,8 @@ def dashboard():
         for index in range(len(airhumidity)):
             airhumidity_list.append(airhumidity[index][0])
 
-        cur.execute('''SELECT soilhumidity FROM sensordata where id >= (%s) and id_satellite_programm in 
+        cur.execute('''SELECT soilhumidity FROM sensordata where date >= (SELECT date from sensordata WHERE 
+        id = (%s) and id_satellite_programm in 
         (select id from satellite_programm where id_satellite = (%s) 
         and id_programm = (%s))''', [selected_date, satellite_id, programm_id])
         soilhumidity = cur.fetchall()
