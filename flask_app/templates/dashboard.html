@@ -316,6 +316,7 @@
             options: {
             title: {
               display: true,
+              text: 'Bodenfeuchtigkeit',
               position: 'top',
               fontSize: 20,
               fontColor: "#3cba9f",
@@ -324,8 +325,9 @@
             ,
             legend: {
               display: true,
-              position: "bottom"
-
+              position: "bottom",
+              fontStyle: 'bold',
+              align: 'end'
             },
             responsive: true,
             scales: {
@@ -333,7 +335,7 @@
                 id: 'y1',
                 scaleLabel: {
                   display: true,
-                  labelString: 'Bodenfeuchtigkeit %',
+                  labelString: '%',
                   fontSize: 16,
                   fontStyle: 'bold'
 
