@@ -41,7 +41,7 @@ def collector():
 
             # Aktuelle geladenes Programm abfragen
             cursor.execute(
-                'SELECT current_programm FROM satellites WHERE ip_addr = (%s)', satellite)
+                'SELECT current_programm FROM satellites WHERE ip_addr = (%s)', [satellite])
             current_programm = cursor.fetchone()
         # REST-API anfragen
 
@@ -73,7 +73,8 @@ def collector():
     # cursor.fetchall()
     # cursor.commit()
     # break
-    except:
+    except Exception as e:
+        print(e)
         print('Error')
         print(satellite_ip_array)
         time.sleep(5)
