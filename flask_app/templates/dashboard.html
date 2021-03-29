@@ -20,40 +20,40 @@
 
 <body>
   <div class="p-2" align="middle">
-    <h3 style="color:green">{% block title %} Automatisiertes Gewächshaus - Dashboard</h3>{% endblock %}
-    <hr>
-    <form method="POST" action="/dashboard">
-      <p>
-        Satellit auswählen:
-        <SELECT name="satellite_id">
-          {% for i in satellite_list %}
-          <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
-          {% endfor %}
-        </SELECT>
-        &nbsp;&nbsp;
-        Programm auswählen:
-        <SELECT name="programm_id">
-          {% for i in programm_list %}
-          <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
-          {% endfor %}
-        </SELECT>
-        &nbsp;&nbsp;
-        Zeitraum auswählen:
-        <SELECT name="selected_date">
-          {% for i in date_span %}
-          <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
-          {% endfor %}
-        </SELECT>
-        &nbsp;&nbsp;
-        <input class="float right" type="submit" name="loadButton" value="Laden">
-      </p>
-    </form>
-    <hr>
+    <h2 style="color:green">{% block title %} Dashboard {% endblock %}</h3>
+      <hr>
+      <form method="POST" action="/dashboard">
+        <p>
+          Satellit auswählen:
+          <SELECT name="satellite_id">
+            {% for i in satellite_list %}
+            <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
+            {% endfor %}
+          </SELECT>
+          &nbsp;&nbsp;
+          Programm auswählen:
+          <SELECT name="programm_id">
+            {% for i in programm_list %}
+            <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
+            {% endfor %}
+          </SELECT>
+          &nbsp;&nbsp;
+          Zeitraum auswählen:
+          <SELECT name="selected_date">
+            {% for i in date_span %}
+            <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
+            {% endfor %}
+          </SELECT>
+          &nbsp;&nbsp;
+          <input class="float right" type="submit" name="loadButton" value="Laden">
+        </p>
+      </form>
+      <hr>
   </div>
 </body>
 
 <body>
-  <h3 align="middle"> {{displayed_satellite}} - {{displayed_programm}} </h3>
+  <h4 align="middle"> {{displayed_satellite}} - {{displayed_programm}} </h4>
   <div class="container-fluid p-4 border" style="position: relative;">
     <div class="row">
       <div class="col-md-6 border">
