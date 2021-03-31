@@ -11,44 +11,46 @@ from functions import get_temperature, get_air_humidity, get_brightness, get_soi
 
 def get_local_time():
 
-    #if needed, overwrite default time server
-    ntptime.host = "0.ch.pool.ntp.org"
+    while True:
+        #if needed, overwrite default time server
+        ntptime.host = "0.ch.pool.ntp.org"
 
-    try:
-        
-        ntptime.settime()
+        try:
+            
+            ntptime.settime()
 
-        return ((time.localtime()[3]) + 1)
-    except:
-        print("Error syncing time")
+            return ((time.localtime()[3]) + 1)
+        except:
+            print("Error syncing time")
 
 
-def control_air_humidity(air_humidity):
+def control_air_humidity(air_humidity, results_object):
     
     while True:
         
-        current_air_humidity = float(get_air_humidity())
+        current_air_humidity = float(results_object.get_result()[1])
         air_humidity = float(air_humidity)
-
-        if air_humidity < current_air_humidity:
+        
+        if air_humidity > current_air_humidity:
             print("start floatie")
             control(25,"open")
         
         else:
             print("stop floatie")
+            servo("open")
             control(25,"close")
+        
+        time.sleep(3600)
 
-        time.sleep(30)
 
-
-def control_temperature(temperature):
+def control_temperature(temperature, results_object):
 
     while True:
         
-        current_temperature = float(get_temperature())
+        current_temperature = float(results_object.get_result()[0])
         temperature = float(temperature)
         
-        if temperature < current_temperature:
+        if temperature > current_temperature:
             print("start heater")
             control(19,"open")
 
@@ -57,10 +59,10 @@ def control_temperature(temperature):
             print("stop heater")
             control(19,"close")
 
+        
+        time.sleep(3600)
 
-        time.sleep(30)
-
-def control_brightness(brightness):
+def control_brightness(brightness, results_object):
     
     while True:
 
@@ -75,41 +77,47 @@ def control_brightness(brightness):
             print("start")
 
             while time.time() < timeout_start + time_to_shine:
-                current_brightness = float(get_brightness())
+                current_brightness = float(results_object.get_result()[2])
                 if current_brightness < 200:
                     print("start light")
                 else:
                     print("stop light")
 
         else:
-            print("schlafen")
             pass
+        
+        time.sleep(3600)
 
-def control_soil_humidity(soil_humidity)
+def control_soil_humidity(soil_humidity, results_object):
 
-    current_soil_humidity = float(get_soil_humidity)
+    
+    soil_humidity = float(soil_humidity)
 
     while True:
+        current_soil_humidity = float(results_object.get_result()[3])
         if current_soil_humidity < soil_humidity:
             print("start pump")
-            sleep(5)
+            time.sleep(5)
             print("stop pumpt")
         else:
             pass
 
-def main(temperature, air_humidity, soil_humidity, brightness):
+        
+        time.sleep(3600)
 
+def main(temperature, air_humidity, soil_humidity, brightness, results_object):
+    
     # initalize temperature thread
-    thread_temperature = Thread(target=control_temperature, args=[temperature])
+    thread_temperature = Thread(target=control_temperature, args=[temperature, results_object])
 
     # initalize air_humidity thread
-    thread_air_humidity = Thread(target=control_air_humidity, args=[air_humidity])
+    thread_air_humidity = Thread(target=control_air_humidity, args=[air_humidity, results_object])
 
     # initalize soil_humidity thread
-    thread_soil_humidity = Thread(target=control_soil_humidity, args=[soil_humidity])
+    thread_soil_humidity = Thread(target=control_soil_humidity, args=[soil_humidity,results_object])
 
      # initalize soil_humidity thread
-    thread_brightness = Thread(target=control_brightness, args=[brightness])
+    thread_brightness = Thread(target=control_brightness, args=[brightness, results_object])
 
     # start air_humidity thread         
     thread_air_humidity.start()

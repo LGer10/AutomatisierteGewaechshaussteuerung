@@ -4,6 +4,7 @@ from time import sleep
 
 def get_temperature():
 
+    print("ig bin temp")
     # define pin
     sensor = dht.DHT11(Pin(21))
 
@@ -22,10 +23,12 @@ def get_temperature():
             return '%3.1f' %temp
         
         except OSError as e:
+            print("eine gute Appetit die Storm")
             pass
     
 def get_air_humidity():
 
+    print("ig bin humi")
     # define pin
     sensor = dht.DHT11(Pin(21))
 
@@ -44,11 +47,12 @@ def get_air_humidity():
             return '%3.1f' %hum
 
         except OSError as e:
+            print("eine gute Appetit die Storm")
             pass
 
 def control(pin,status):
     from machine import Pin
-
+    print("ig bin controloer")
     p = Pin(pin, Pin.OUT)
 
     if(status is "open"):
@@ -58,7 +62,7 @@ def control(pin,status):
         p.value(0)
 
 def get_brightness():
-    
+    print("ig bin hell")
     # define pin
     pot = ADC(Pin(34))
     pot.atten(ADC.ATTN_11DB)
@@ -70,6 +74,7 @@ def get_brightness():
     return(pot_value)
 
 def get_soil_humidity():
+    print("ig bin moisture")
     # voll nass = 1449.0
     # voll trocken = 4095
     
@@ -104,3 +109,10 @@ def get_soil_humidity():
         percent = ((4095 - wert) / 2646 ) * 100
 
         return(percent)
+
+def servo():
+    print("ig bin servo")
+    p4 = machine.Pin(4)
+    servo = machine.PWM(p4,freq=50)
+    # duty for servo is between 40 - 115
+    servo.duty(115)
