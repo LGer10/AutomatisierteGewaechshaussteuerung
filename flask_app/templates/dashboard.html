@@ -20,47 +20,46 @@
 
 <body>
   <div class="p-2" align="middle">
-    <h3 style="color:green">{% block title %} Automatisiertes Gewächshaus - Dashboard</h3>{% endblock %}
-    <hr>
-    <form method="POST" action="/dashboard">
-      <p>
-        Satellit auswählen:
-        <SELECT name="satellite_id">
-          {% for i in satellite_list %}
-          <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
-          {% endfor %}
-        </SELECT>
-        &nbsp;&nbsp;
-        Programm auswählen:
-        <SELECT name="programm_id">
-          {% for i in programm_list %}
-          <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
-          {% endfor %}
-        </SELECT>
-        &nbsp;&nbsp;
-        Zeitraum auswählen:
-        <SELECT name="selected_date">
-          {% for i in date_span %}
-          <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
-          {% endfor %}
-        </SELECT>
-        &nbsp;&nbsp;
-        <input class="float right" type="submit" name="loadButton" value="Laden">
-      </p>
-    </form>
-    <hr>
+    <h2 style="color:green">{% block title %} Dashboard {% endblock %}</h3>
+      <hr>
+      <form method="POST" action="/dashboard">
+        <p>
+          Satellit auswählen:
+          <SELECT name="satellite_id">
+            {% for i in satellite_list %}
+            <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
+            {% endfor %}
+          </SELECT>
+          &nbsp;&nbsp;
+          Programm auswählen:
+          <SELECT name="programm_id">
+            {% for i in programm_list %}
+            <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
+            {% endfor %}
+          </SELECT>
+          &nbsp;&nbsp;
+          Zeitraum auswählen:
+          <SELECT name="selected_date">
+            {% for i in date_span %}
+            <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
+            {% endfor %}
+          </SELECT>
+          &nbsp;&nbsp;
+          <input class="float right" type="submit" name="loadButton" value="Laden">
+        </p>
+      </form>
+      <hr>
   </div>
 </body>
 
 <body>
-  <h3 align="middle"> {{displayed_satellite}} - {{displayed_programm}} </h3>
+  <h4 align="middle"> {{displayed_satellite}} - {{displayed_programm}} </h4>
   <div class="container-fluid p-4 border" style="position: relative;">
     <div class="row">
       <div class="col-md-6 border">
         <canvas id="chart" width="600" height="400"></canvas>
 
         <script>
-
           // get bar chart canvas
 
           let lab
@@ -80,13 +79,28 @@
             ]
           },
             options: {
+            title: {
+              display: true,
+              text: 'Temperatur',
+              position: 'top',
+              fontSize: 20,
+              fontStyle: 'bold'
+            }
+            ,
+            legend: {
+              display: true,
+              position: "bottom",
+              fontStyle: 'bold'
+            },
             responsive: true,
             scales: {
               yAxes: [{
                 id: 'y1',
                 scaleLabel: {
                   display: true,
-                  labelString: 'Temperatur °C'
+                  labelString: '°C',
+                  fontSize: 16,
+                  fontStyle: 'bold'
                 },
                 ticks: {
                   beginAtZero: true,
@@ -97,11 +111,13 @@
               xAxes: [{
                 scaleLabel: {
                   display: true,
-                  labelString: 'Zeitraum'
+                  labelString: 'Zeitraum',
+                  fontSize: 16,
+                  fontStyle: 'bold'
                 },
                 ticks: {
                   autoSkip: true,
-                  maxTicksLimit: 10
+                  maxTicksLimit: 14
                 }
 
               }]
@@ -112,11 +128,14 @@
                 mode: 'horizontal',
                 scaleID: 'y1',
                 value: {{ temperature_value }},
-            borderColor: 'rgb(0, 153, 76)',
+            borderColor: 'rgb(50, 153, 76)',
             borderWidth: 2,
             label: {
               enabled: true,
-              content: 'Idealwert'
+              content: 'Idealwert',
+              backgroundColor: 'rgb(50, 153, 76)',
+              position: 'end',
+              rotation: 45
             }
           }]
     } 
@@ -157,13 +176,28 @@
             ]
 },
             options: {
+            title: {
+              display: true,
+              text: 'Helligkeit',
+              position: 'top',
+              fontSize: 20,
+              fontStyle: 'bold'
+            }
+            ,
+            legend: {
+              display: true,
+              position: "bottom",
+              fontStyle: 'bold'
+            },
             responsive: true,
             scales: {
               yAxes: [{
                 id: 'y1',
                 scaleLabel: {
                   display: true,
-                  labelString: 'Helligkeit h'
+                  labelString: 'Stunden hell',
+                  fontSize: 16,
+                  fontStyle: 'bold'
                 },
                 ticks: {
                   beginAtZero: true,
@@ -173,11 +207,13 @@
               xAxes: [{
                 scaleLabel: {
                   display: true,
-                  labelString: 'Zeitraum'
+                  labelString: 'Zeitraum',
+                  fontSize: 16,
+                  fontStyle: 'bold'
                 },
                 ticks: {
                   autoSkip: true,
-                  maxTicksLimit: 10
+                  maxTicksLimit: 14
                 }
               }]
             },
@@ -191,7 +227,10 @@
             borderWidth: 2,
             label: {
               enabled: true,
-              content: 'Idealwert'
+              content: 'Idealwert',
+              backgroundColor: 'rgb(50, 153, 76)',
+              position: 'end',
+              rotation: 45
             }
           }]
     } 
@@ -237,13 +276,28 @@
             ]
 },
             options: {
+            title: {
+              display: true,
+              text: 'Luftfeuchhtigkeit',
+              position: 'top',
+              fontSize: 20,
+              fontStyle: 'bold'
+            }
+            ,
+            legend: {
+              display: true,
+              position: "bottom",
+              fontStyle: 'bold'
+            },
             responsive: true,
             scales: {
               yAxes: [{
                 id: 'y1',
                 scaleLabel: {
                   display: true,
-                  labelString: 'Luftfeuchtigkeit %'
+                  labelString: '%',
+                  fontSize: 16,
+                  fontStyle: 'bold'
                 },
                 ticks: {
                   beginAtZero: true,
@@ -253,11 +307,13 @@
               xAxes: [{
                 scaleLabel: {
                   display: true,
-                  labelString: 'Zeitraum'
+                  labelString: 'Zeitraum',
+                  fontSize: 16,
+                  fontStyle: 'bold'
                 },
                 ticks: {
                   autoSkip: true,
-                  maxTicksLimit: 10
+                  maxTicksLimit: 14
                 }
               }]
 
@@ -272,7 +328,10 @@
             borderWidth: 2,
             label: {
               enabled: true,
-              content: 'Idealwert'
+              content: 'Idealwert',
+              backgroundColor: 'rgb(50, 153, 76)',
+              position: 'end',
+              rotation: 45
             }
           }]
     } 
@@ -310,18 +369,35 @@
             {% endfor %}],
             label: 'Bodenfeuchtigkeit',
             borderColor: "#3cba9f",
-            fill: false
+            fill: false,        
             }
-            ]
+          ]
 },
             options: {
+            title: {
+              display: true,
+              text: 'Bodenfeuchtigkeit',
+              position: 'top',
+              fontSize: 20,
+              fontStyle: 'bold'
+            }
+            ,
+            legend: {
+              display: true,
+              position: "bottom",
+              fontStyle: 'bold'
+
+            },
             responsive: true,
             scales: {
               yAxes: [{
                 id: 'y1',
                 scaleLabel: {
                   display: true,
-                  labelString: 'Bodenfeuchtigkeit %'
+                  labelString: '%',
+                  fontSize: 16,
+                  fontStyle: 'bold'
+
                 },
                 ticks: {
                   beginAtZero: true,
@@ -331,11 +407,14 @@
               xAxes: [{
                 scaleLabel: {
                   display: true,
-                  labelString: 'Zeitraum'
+                  labelString: 'Zeitraum',
+                  fontSize: 16,
+                  fontStyle: 'bold'
+
                 },
                 ticks: {
                   autoSkip: true,
-                  maxTicksLimit: 10
+                  maxTicksLimit: 14
                 }
               }]
 
@@ -351,7 +430,10 @@
             borderWidth: 2,
             label: {
               enabled: true,
-              content: 'Idealwert'
+              content: 'Idealwert',
+              backgroundColor: 'rgb(50, 153, 76)',
+              position: 'end',
+              rotation: 45
             }
           }]
     } 
