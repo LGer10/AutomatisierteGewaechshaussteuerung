@@ -51,7 +51,8 @@ def collector():
         response = requests.get(
             "http://" + satellite + ":8081/get_data")
         json_file = json.loads(response.text)
-        print(json_file)
+
+        print(temperature)
 
         temperature = json_file["temperature"]
         brightness = json_file["brightness"]
