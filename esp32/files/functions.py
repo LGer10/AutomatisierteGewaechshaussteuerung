@@ -122,9 +122,9 @@ def servo(status):
     p4 = Pin(4)
     servo = PWM(p4,freq=50)
 
-    if(status is "open"):
+    if(status is "open" and servo.duty() is not 40):
         servo.duty(40)
 
-    if(status is "close"):
+    if(status is "close" and servo.duty() is not 115):
         servo.duty(115)
 

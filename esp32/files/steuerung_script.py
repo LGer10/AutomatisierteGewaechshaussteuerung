@@ -36,6 +36,7 @@ def control_air_humidity(air_humidity, results_object):
         
         if air_humidity > current_air_humidity:
             print("start floatie")
+            servo("close")
             control(27,"open")
         
         else:
@@ -55,11 +56,13 @@ def control_temperature(temperature, results_object):
         
         if temperature > current_temperature:
             print("start heater")
+            servo("close")
             control(22,"open")
 
         
         else:
             print("stop heater")
+            servo("open")
             control(22,"close")
 
         
@@ -73,7 +76,8 @@ def control_brightness(brightness, results_object):
         
         brightness = float(brightness)
         
-        if current_time is 8:
+        if current_time is 14:
+        #if current_time is 8:
             
             time_to_shine = 60
             timeout_start = time.time()
@@ -81,14 +85,16 @@ def control_brightness(brightness, results_object):
 
             while time.time() < timeout_start + time_to_shine:
                 current_brightness = float(results_object.get_result()[2])
-                if current_brightness < 200:
+                if current_brightness > 200:
                     print("start light")
                     control(23,"open")
                 else:
                     print("stop light")
                     control(23,"close")
+                
+                time.sleep(60)
 
-            time.sleep(60)
+            
 
         else:
             time.sleep(60)
