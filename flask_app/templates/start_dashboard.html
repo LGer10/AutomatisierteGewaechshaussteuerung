@@ -354,7 +354,7 @@
             type: 'line',
             data: {
               labels: [
-                {% for item in start_dates_list and start_time_list %}
+                {% for item in start_dates_list and item in start_time_list %}
                   '{{ item }}'
           {% endfor %}
                 ],
