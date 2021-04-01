@@ -40,9 +40,9 @@ def dashboard():
 
     cur.execute('SELECT name from satellites where id = 1')
     start_s = cur.fetchone()
-    start_satellite_array = []
-    start_satellite_array.append(start_s[0])
-    start_satellite = start_satellite_array[0]
+    start_satellite = start_s[0]
+    # start_satellite_array.append(start_s[0])
+    #start_satellite = start_satellite_array[0]
 
     cur.execute('SELECT name from programms where id = 1')
     start_p = cur.fetchone()
