@@ -45,7 +45,7 @@ def collector():
             'SELECT current_programm FROM satellites WHERE ip_addr = (%s)', [satellite])
 
     # REST-API anfragen
-	print(current_programm)
+        print(current_programm)
         response = requests.get(
             "http://" + satellite + ":8081/get_data")
         json_file = json.loads(response.text)
