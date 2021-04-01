@@ -1,4 +1,4 @@
-from machine import Pin, ADC
+from machine import Pin, ADC, PWM
 import dht
 from time import sleep
 
@@ -11,6 +11,9 @@ def get_temperature():
     temp = None
 
     while temp is None:
+        
+        sleep(3)
+        
         try:
             
             sleep(3)
@@ -35,6 +38,9 @@ def get_air_humidity():
     hum = None
     
     while hum is None:
+        
+        sleep(3)
+        
         try:
 
             sleep(3)
@@ -56,10 +62,10 @@ def control(pin,status):
     p = Pin(pin, Pin.OUT)
 
     if(status is "open"):
-        p.value(1)
+        p.value(0)
     
     if(status is "close"):
-        p.value(0)
+        p.value(1)
 
 def get_brightness():
     print("ig bin hell")
@@ -110,9 +116,15 @@ def get_soil_humidity():
 
         return(percent)
 
-def servo():
-    print("ig bin servo")
-    p4 = machine.Pin(4)
-    servo = machine.PWM(p4,freq=50)
-    # duty for servo is between 40 - 115
-    servo.duty(115)
+def servo(status):
+
+    # define pin
+    p4 = Pin(4)
+    servo = PWM(p4,freq=50)
+
+    if(status is "open"):
+        servo.duty(40)
+
+    if(status is "close"):
+        servo.duty(115)
+

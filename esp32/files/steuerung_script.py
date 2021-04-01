@@ -7,7 +7,7 @@ from threading import Thread
 #from datetime import datetime
 #from pathlib import Path
 import ntptime
-from functions import get_temperature, get_air_humidity, get_brightness, get_soil_humidity, control
+from functions import get_temperature, get_air_humidity, get_brightness, get_soil_humidity, control, servo
 
 def get_local_time():
 
@@ -19,10 +19,13 @@ def get_local_time():
             
             ntptime.settime()
 
-            return ((time.localtime()[3]) + 1)
+            return ((time.localtime()[3]) + 2)
+            time.sleep(3600)
+
         except:
             print("Error syncing time")
 
+    
 
 def control_air_humidity(air_humidity, results_object):
     
@@ -33,14 +36,14 @@ def control_air_humidity(air_humidity, results_object):
         
         if air_humidity > current_air_humidity:
             print("start floatie")
-            control(25,"open")
+            control(27,"open")
         
         else:
             print("stop floatie")
             servo("open")
-            control(25,"close")
+            control(27,"close")
         
-        time.sleep(3600)
+        time.sleep(60)
 
 
 def control_temperature(temperature, results_object):
@@ -52,15 +55,15 @@ def control_temperature(temperature, results_object):
         
         if temperature > current_temperature:
             print("start heater")
-            control(19,"open")
+            control(22,"open")
 
         
         else:
             print("stop heater")
-            control(19,"close")
+            control(22,"close")
 
         
-        time.sleep(3600)
+        time.sleep(60)
 
 def control_brightness(brightness, results_object):
     
@@ -80,13 +83,18 @@ def control_brightness(brightness, results_object):
                 current_brightness = float(results_object.get_result()[2])
                 if current_brightness < 200:
                     print("start light")
+                    control(23,"open")
                 else:
                     print("stop light")
+                    control(23,"close")
+
+            time.sleep(60)
 
         else:
+            time.sleep(60)
             pass
         
-        time.sleep(3600)
+
 
 def control_soil_humidity(soil_humidity, results_object):
 
@@ -97,8 +105,10 @@ def control_soil_humidity(soil_humidity, results_object):
         current_soil_humidity = float(results_object.get_result()[3])
         if current_soil_humidity < soil_humidity:
             print("start pump")
+            control(25,"open")
             time.sleep(5)
-            print("stop pumpt")
+            print("stop pump")
+            control(25,"close")
         else:
             pass
 

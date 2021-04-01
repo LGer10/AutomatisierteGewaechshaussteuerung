@@ -84,7 +84,7 @@ def collect(results):
         results[2]= get_brightness()
         results[3]= get_soil_humidity()
         results_object.set_result(results)
-        time.sleep(300)
+        time.sleep(30)
     
 
 
