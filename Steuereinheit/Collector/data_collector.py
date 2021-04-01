@@ -63,6 +63,7 @@ def collector():
         (select id from satellites where ip_addr = (%s) and current_programm = (%s))''', [satellite, current_programm])
 
         id_satellite_programm = cursor.fetchone()
+        id_satellite_programm = id_satellite_programm[0]
 
         cursor.execute('''INSERT INTO sensordata 
         (id_satellite_programm, date, time, temperature, brightness, airhumidity, soilhumidity) 
