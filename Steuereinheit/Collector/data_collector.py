@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 # data collector script | Automatisiertes Gewächshaus | mit lärsu
 
 # Klassen laden
