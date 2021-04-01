@@ -102,7 +102,7 @@ def dashboard():
     start_brightness = cur.fetchall()
     start_brightness_list = []
     for index in range(len(start_brightness)):
-        bstart_rightness_list.append(start_brightness[index][0])
+        start_brightness_list.append(start_brightness[index][0])
 
     cur.execute('''SELECT airhumidity FROM sensordata where date = (%s) and id_satellite_programm in 
     (SELECT id FROM satellite_programm where id_satellite = 1 
