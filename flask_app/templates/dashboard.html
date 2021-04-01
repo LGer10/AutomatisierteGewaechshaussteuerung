@@ -81,14 +81,10 @@
             options: {
             tooltips: {
               callbacks: {
-                label: function (tooltipItem, data) {
-                  var label = data.datasets[tooltipItem.datasetIndex].label || '';
-
-                  if (label) {
-                    label += 'Zeit';
-                  }
-
-                  return label;
+                label: function (tooltipItems, data) {
+                  var labelText = ['Temperatur: ' + tooltipItems.yLabel];
+                  multistringText.push('Zeit: ' + '23:25:00');
+                  return multistringText;
                 }
               }
 
