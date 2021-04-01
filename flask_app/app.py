@@ -191,7 +191,7 @@ def dashboard():
         cur.execute('''SELECT time FROM sensordata where date >= (SELECT date FROM sensordata where id = (%s)) and id_satellite_programm in 
         (SELECT id FROM satellite_programm where id_satellite = (%s) 
         and id_programm = (%s))''', [selected_date, satellite_id, programm_id])
-        times = cur.fetchone()
+        times = cur.fetchall()
         times_list = []
         for index in range(len(times)):
             times_list.append(times[index][0])
