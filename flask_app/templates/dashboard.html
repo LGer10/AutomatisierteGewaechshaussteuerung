@@ -70,20 +70,22 @@
               labels: [{% for item in dates_list %}'{{ item }}', {% endfor %}],
             datasets: [{
               data: [
-                {% for item in temperature_list %}{{ item }}, {% endfor %}],
-            label: 'Temperatur',
+                {% for item in temperature_list %} { y: {{ item }},}{% endfor %}]
+                {% for time in times_list %} { time: '{{ time }}', } {% endfor %}]
+                ,
+          label: 'Temperatur',
             fill: false,
-            borderColor: "#c45850"
+              borderColor: "#c45850"
 
                }
             ]
           },
-            options: {
+          options: {
             tooltips: {
               callbacks: {
                 label: function (tooltipItems, data) {
                   var labelText = ['Temperatur: ' + tooltipItems.yLabel];
-                  labelText.push('Zeit: ' + '23:25:00');
+                  labelText.push('Zeit: ' + data['datasets'][tooltipItems.datasetIndex]['data'][tooltipItems.index].time);
                   return labelText;
                 }
               }
@@ -91,19 +93,19 @@
             },
             title: {
               display: true,
-              text: 'Temperatur',
-              position: 'top',
-              fontSize: 20,
-              fontStyle: 'bold'
+                text: 'Temperatur',
+                  position: 'top',
+                    fontSize: 20,
+                      fontStyle: 'bold'
             }
             ,
             legend: {
               display: true,
-              position: "bottom",
-              fontStyle: 'bold'
+                position: "bottom",
+                  fontStyle: 'bold'
             },
             responsive: true,
-            scales: {
+              scales: {
               yAxes: [{
                 id: 'y1',
                 scaleLabel: {
@@ -118,19 +120,19 @@
 
                 }
               }],
-              xAxes: [{
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Zeitraum',
-                  fontSize: 16,
-                  fontStyle: 'bold'
-                },
-                ticks: {
-                  autoSkip: true,
-                  maxTicksLimit: 14
-                }
+                xAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Zeitraum',
+                    fontSize: 16,
+                    fontStyle: 'bold'
+                  },
+                  ticks: {
+                    autoSkip: true,
+                    maxTicksLimit: 14
+                  }
 
-              }]
+                }]
             },
             annotation: {
               annotations: [{
@@ -139,13 +141,13 @@
                 scaleID: 'y1',
                 value: {{ temperature_value }},
             borderColor: 'rgb(50, 153, 76)',
-            borderWidth: 2,
-            label: {
+              borderWidth: 2,
+                label: {
               enabled: true,
-              content: 'Idealwert',
-              backgroundColor: 'rgb(50, 153, 76)',
-              position: 'end',
-              rotation: 45
+                content: 'Idealwert',
+                  backgroundColor: 'rgb(50, 153, 76)',
+                    position: 'end',
+                      rotation: 45
             }
           }]
     } 

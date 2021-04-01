@@ -46,60 +46,59 @@ def dashboard():
 
     cur.execute('SELECT name from programms where id = 1')
     start_p = cur.fetchone()
-    start_programm_array = []
-    start_programm_array.append(start_p[0])
-    start_programm = start_programm_array[0]
+    start_programm = start_p[0]
+    # start_programm_array.append(start_p[0])
+    #start_programm = start_programm_array[0]
 
     cur.execute('''SELECT value from programm_parameter where id_programm = 1 and id_parameter in
         (select id from parameters where name = 'Temperatur')''')
     start_temperature_v = cur.fetchone()
-    start_temperature_value_array = []
-    start_temperature_value_array.append(start_temperature_v[0])
-    start_temperature_value = start_temperature_value_array[0]
+    start_temperature_value = start_temperature_v[0]
+    # start_temperature_value_array.append(start_temperature_v[0])
+    #start_temperature_value = start_temperature_value_array[0]
 
     cur.execute('''SELECT value from programm_parameter where id_programm = 1 and id_parameter in
         (select id from parameters where name = 'Helligkeit')''')
     start_brightness_v = cur.fetchone()
-    start_brightness_value_array = []
-    start_brightness_value_array.append(start_brightness_v[0])
-    start_brightness_value = start_brightness_value_array[0]
+    start_brightness_value = start_brightness_v[0]
+    # start_brightness_value_array.append(start_brightness_v[0])
+    #start_brightness_value = start_brightness_value_array[0]
 
     cur.execute('''SELECT value from programm_parameter where id_programm = 1 and id_parameter in
         (select id from parameters where name = 'Luftfeuchtigkeit')''')
     start_airhumidity_v = cur.fetchone()
-    start_airhumidity_value_array = []
-    start_airhumidity_value_array.append(start_airhumidity_v[0])
-    start_airhumidity_value = start_airhumidity_value_array[0]
+    start_airhumidity_value = start_airhumidity_v[0]
+    # start_airhumidity_value_array.append(start_airhumidity_v[0])
+    #start_airhumidity_value = start_airhumidity_value_array[0]
 
     cur.execute('''SELECT value from programm_parameter where id_programm = 1 and id_parameter in
         (select id from parameters where name = 'Bodenfeuchtigkeit')''')
     start_soilhumidity_v = cur.fetchone()
-    start_soilhumidity_value_array = []
-    start_soilhumidity_value_array.append(start_soilhumidity_v[0])
-    start_soilhumidity_value = start_soilhumidity_value_array[0]
+    start_soilhumidity_value = start_soilhumidity_v[0]
+    # start_soilhumidity_value_array.append(start_soilhumidity_v[0])
+    #start_soilhumidity_value = start_soilhumidity_value_array[0]
 
     cur.execute('''SELECT date FROM sensordata where date = (SELECT max(date) FROM sensordata where id_satellite_programm in
         (SELECT id FROM satellite_programm where id_satellite = 1
         and id_programm = 1)) and id_satellite_programm in
         (SELECT id FROM satellite_programm where id_satellite = 1
         and id_programm = 1)''')
-    start_dates = cur.fetchall()
-    start_dates_list = []
+    start_dates = cur.fetchone()
+    #start_dates_list = []
 
-    for index in range(len(start_dates)):
-        start_dates_list.append(start_dates[index][0])
-    start_date = start_dates_list[0]
+    # for index in range(len(start_dates)):
+    #   start_dates_list.append(start_dates[index][0])
+    start_date = start_dates[0]
 
     cur.execute('''SELECT time FROM sensordata where date = (SELECT max(date) FROM sensordata where id_satellite_programm in
         (SELECT id FROM satellite_programm where id_satellite = 1
         and id_programm = 1)) and id_satellite_programm in
         (SELECT id FROM satellite_programm where id_satellite = 1
         and id_programm = 1)''')
-    start_time = cur.fetchall()
-    start_time_list = []
+    start_time = cur.fetchone()
 
-    for index in range(len(start_dates)):
-        start_time_list.append(start_time[index][0])
+    # for index in range(len(start_dates)):
+    #   start_time_list.append(start_time[index][0])
 
     cur.execute('''SELECT temperature FROM sensordata where date = (%s) and id_satellite_programm in 
     (SELECT id FROM satellite_programm where id_satellite = 1 
@@ -189,6 +188,14 @@ def dashboard():
         for index in range(len(dates)):
             dates_list.append(dates[index][0])
 
+        cur.execute('''SELECT time FROM sensordata where date >= (SELECT date FROM sensordata where id = (%s)) and id_satellite_programm in 
+        (SELECT id FROM satellite_programm where id_satellite = (%s) 
+        and id_programm = (%s))''', [selected_date, satellite_id, programm_id])
+        times = cur.fetchone()
+        times_list = []
+        for index in range(len(times)):
+            times_list.append(times[index][0])
+
         cur.execute('''SELECT temperature FROM sensordata where date >= (SELECT date from sensordata WHERE 
         id = (%s)) and id_satellite_programm in 
         (SELECT id FROM satellite_programm where id_satellite = (%s) 
@@ -227,7 +234,7 @@ def dashboard():
 
         cur.close()
 
-        return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span, temperature_list=temperature_list, dates_list=dates_list, brightness_list=brightness_list, airhumidity_list=airhumidity_list, soilhumidity_list=soilhumidity_list, displayed_satellite=displayed_satellite, displayed_programm=displayed_programm, temperature_value=temperature_value, brightness_value=brightness_value, airhumidity_value=airhumidity_value, soilhumidity_value=soilhumidity_value)
+        return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span, temperature_list=temperature_list, dates_list=dates_list, times_list=times_list, brightness_list=brightness_list, airhumidity_list=airhumidity_list, soilhumidity_list=soilhumidity_list, displayed_satellite=displayed_satellite, displayed_programm=displayed_programm, temperature_value=temperature_value, brightness_value=brightness_value, airhumidity_value=airhumidity_value, soilhumidity_value=soilhumidity_value)
 
     return render_template('start_dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span, start_satellite=start_satellite, start_programm=start_programm, start_dates_list=start_dates_list, start_time_list=start_time_list, start_temperature_value=start_temperature_value, start_brightness_value=start_brightness_value, start_airhumidity_value=start_airhumidity_value, start_soilhumidity_value=start_soilhumidity_value, start_temperature_list=start_temperature_list, start_brightness_list=start_brightness_list, start_airhumidity_list=start_airhumidity_list, start_soilhumidity_list=start_soilhumidity_list)
 
