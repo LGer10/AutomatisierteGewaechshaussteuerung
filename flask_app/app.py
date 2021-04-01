@@ -75,7 +75,7 @@ def dashboard():
         (select id from parameters where name = 'Bodenfeuchtigkeit')''')
     start_soilhumidity_v = cur.fetchone()
     start_soilhumidity_value_array = []
-    start_soilhumidity_value_array.append(soilhumidity_v[0])
+    start_soilhumidity_value_array.append(start_soilhumidity_v[0])
     start_soilhumidity_value = soilhumidity_value_array[0]
 
     cur.execute('''SELECT date FROM sensordata where date = (SELECT max(date) FROM sensordata where id_satellite_programm in
