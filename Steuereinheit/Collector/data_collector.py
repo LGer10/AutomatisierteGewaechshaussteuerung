@@ -58,6 +58,12 @@ def collector():
         air_humidity = json_file["air_humidity"]
 
         print(temperature)
+        print(brightness)
+        print(air_humidity)
+        print(soil_humidity)
+
+        if brightness >= 1000:
+            brightness = 0.5
 
         cursor.execute('''SELECT id from satellite_programm where id_satellite in 
         (select id from satellites where ip_addr = (%s) and current_programm = (%s))''', [satellite, current_programm])
