@@ -53,7 +53,7 @@ def collector():
 
         temperature = json_file["temperature"]
         brightness_hours = json_file["brightness_hours"]
-        soil_humidity = json_file["Soil Humidity"]
+        soil_humidity = json_file["soil_humidity"]
         air_humidity = json_file["air_humidity"]
 
         cursor.execute('''SELECT id from satellite_programm where id_satellite in 
