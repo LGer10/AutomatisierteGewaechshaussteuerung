@@ -23,7 +23,7 @@ except:
 # Satelliten aus DB auslesen
 cursor = connection.cursor()
 
-cursor.execute("SELECT ip_addr FROM satellites where ip_addr = '10.0.16.142'")
+cursor.execute("SELECT ip_addr FROM satellites where id = 6")
 
 # Variablen in Array speichern
 
