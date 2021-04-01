@@ -67,7 +67,7 @@ def collector():
         (id_satellite_programm, date, time, temperature, brightness, airhumidity, soilhumidity) 
         VALUES ((%s), current_date(), current_time(), (%s), (%s), (%s), (%s))''', [id_satellite_programm, temperature, brightness, air_humidity, soil_humidity])
 
-        mysql.connection.commit()
+        connection.commit()
         cursor.close()
 
     #cursor.execute("insert into sensordata (date, time, id_satellite_programm, temperature, airhumidity) values (%s, %s, '1', %s, %s), (current_date, current_time, temperature, air_humidity)")
