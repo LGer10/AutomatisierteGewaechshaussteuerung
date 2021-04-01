@@ -70,15 +70,20 @@
               labels: [{% for item in dates_list %}'{{ item }}', {% endfor %}],
             datasets: [{
               data: [
-                {% for item in temperature_list %} { y: {{ item }}, }
-            {% for time in times_list %} { time: '{{ time }}', } {% endfor %}]
-          {% endfor %}]
-                ,
-          label: 'Temperatur',
-            fill: false,
-              borderColor: "#c45850"
+                {% for item in dashboard_point_label %}
+                                {% for x in row %}
 
-               }
+          {
+            { { item } }, { { { x } }, }
+            {% endfor %}]
+            {% endfor %}]
+
+                ,
+            label: 'Temperatur',
+              fill: false,
+                borderColor: "#c45850"
+
+          }
             ]
           },
           options: {
