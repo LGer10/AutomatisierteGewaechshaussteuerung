@@ -23,7 +23,7 @@ except:
 # Satelliten aus DB auslesen
 cursor = connection.cursor()
 
-cursor.execute("SELECT ip_addr FROM satellites where id = 6")
+cursor.execute("SELECT ip_addr FROM satellites where id = 7")
 
 # Variablen in Array speichern
 
@@ -43,16 +43,16 @@ def collector():
         # Aktuelle geladenes Programm abfragen
         cursor.execute(
             'SELECT current_programm FROM satellites WHERE ip_addr = (%s)', [satellite])
-        current_programm = cursor.fetchone()
-    # REST-API anfragen
 
+    # REST-API anfragen
+	print(current_programm)
         response = requests.get(
             "http://" + satellite + ":8081/get_data")
         json_file = json.loads(response.text)
         print(json_file)
 
         temperature = json_file["temperature"]
-        brightness_hours = json_file["brightness_hours"]
+        brightness = json_file["brightness"]
         soil_humidity = json_file["soil_humidity"]
         air_humidity = json_file["air_humidity"]
 
