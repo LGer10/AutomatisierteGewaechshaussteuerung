@@ -80,7 +80,9 @@ def dashboard():
 
     cur.execute('''SELECT date FROM sensordata where date = (SELECT max(date) FROM sensordata where id_satellite_programm in
         (SELECT id FROM satellite_programm where id_satellite = 1
-        and id_programm = 1))''')
+        and id_programm = 1)) and id_satellite_programm in
+        (SELECT id FROM satellite_programm where id_satellite = 1
+        and id_programm = 1)''')
     start_dates = cur.fetchall()
     start_dates_list = []
 
@@ -90,7 +92,9 @@ def dashboard():
 
     cur.execute('''SELECT time FROM sensordata where date = (SELECT max(date) FROM sensordata where id_satellite_programm in
         (SELECT id FROM satellite_programm where id_satellite = 1
-        and id_programm = 1))''')
+        and id_programm = 1)) and id_satellite_programm in
+        (SELECT id FROM satellite_programm where id_satellite = 1
+        and id_programm = 1)''')
     start_time = cur.fetchall()
     start_time_list = []
 

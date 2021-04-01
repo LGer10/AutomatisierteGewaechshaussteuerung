@@ -355,9 +355,9 @@
             data: {
               labels: [
                 {% for item in start_dates_list %}
-                  '{{ item }}',
+                  '{{ item }}' ' '
                   {% for item in start_time_list %}
-          '{{ item }}',
+          '{{ item }}',,
             {% endfor %}
           {% endfor %}
                 ],
