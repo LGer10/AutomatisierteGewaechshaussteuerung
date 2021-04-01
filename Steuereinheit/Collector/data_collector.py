@@ -21,7 +21,7 @@ except:
     sys.exit(0)
 
 # Satelliten aus DB auslesen
-cursor = connection.cursor()
+cursor = connection.cursor(buffered=True)
 
 cursor.execute("SELECT ip_addr FROM satellites where id = 7")
 
