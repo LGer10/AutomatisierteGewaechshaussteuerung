@@ -52,12 +52,12 @@ def collector():
             "http://" + satellite + ":8081/get_data")
         json_file = json.loads(response.text)
 
-        print(temperature)
-
         temperature = json_file["temperature"]
         brightness = json_file["brightness"]
         soil_humidity = json_file["soil_humidity"]
         air_humidity = json_file["air_humidity"]
+
+        print(temperature)
 
         cursor.execute('''SELECT id from satellite_programm where id_satellite in 
         (select id from satellites where ip_addr = (%s) and current_programm = (%s))''', [satellite, current_programm])
