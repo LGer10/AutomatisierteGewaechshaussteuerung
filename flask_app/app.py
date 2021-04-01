@@ -38,6 +38,88 @@ def dashboard():
         'SELECT id, date from sensordata where date >= (select  max(date) - 7) group by date')
     date_span = cur.fetchall()
 
+    cur.execute('SELECT name from satellites where id = 1')
+    start_s = cur.fetchone()
+    start_satellite_array = []
+    start_satellite_array.append(start_s[0])
+    start_satellite = start_satellite_array[0]
+
+    cur.execute('SELECT name from programms where id = 1')
+    start_p = cur.fetchone()
+    start_programm_array = []
+    start_programm_array.append(start_p[0])
+    start_programm = start_programm_array[0]
+
+    cur.execute('''SELECT value from programm_parameter where id_programm = 1 and id_parameter in
+        (select id from parameters where name = 'Temperatur')''')
+    start_temperature_v = cur.fetchone()
+    start_temperature_value_array = []
+    start_temperature_value_array.append(start_temperature_v[0])
+    start_temperature_value = start_temperature_value_array[0]
+
+    cur.execute('''SELECT value from programm_parameter where id_programm = 1 and id_parameter in
+        (select id from parameters where name = 'Helligkeit')''')
+    start_brightness_v = cur.fetchone()
+    start_brightness_value_array = []
+    start_brightness_value_array.append(start_brightness_v[0])
+    start_brightness_value = start_brightness_value_array[0]
+
+    cur.execute('''SELECT value from programm_parameter where id_programm = 1 and id_parameter in
+        (select id from parameters where name = 'Luftfeuchtigkeit')''')
+    start_airhumidity_v = cur.fetchone()
+    start_airhumidity_value_array = []
+    start_airhumidity_value_array.append(start_airhumidity_v[0])
+    start_airhumidity_value = start_airhumidity_value_array[0]
+
+    cur.execute('''SELECT value from programm_parameter where id_programm = 1 and id_parameter in
+        (select id from parameters where name = 'Bodenfeuchtigkeit')''')
+    start_soilhumidity_v = cur.fetchone()
+    start_soilhumidity_value_array = []
+    start_soilhumidity_value_array.append(soilhumidity_v[0])
+    start_soilhumidity_value = soilhumidity_value_array[0]
+
+    cur.execute('''SELECT date FROM sensordata where date = (SELECT max(date) FROM sensordata where id_satellite_programm in
+        (SELECT id FROM satellite_programm where id_satellite = 1
+        and id_programm = 1))''')
+    start_dates = cur.fetchall()
+    start_dates_list = []
+    start_date = start_dates_list[0]
+
+    for index in range(len(start_dates)):
+        start_dates_list.append(start_dates[index][0])
+
+    cur.execute('''SELECT temperature FROM sensordata where date = (%s) and id_satellite_programm in 
+    (SELECT id FROM satellite_programm where id_satellite = 1 
+    and id_programm = 1)''', [start_date])
+    start_temperature = cur.fetchall()
+    start_temperature_list = []
+    for index in range(len(start_temperature)):
+        start_temperature_list.append(start_temperature[index][0])
+
+    cur.execute('''SELECT brightness FROM sensordata where date = (%s) and id_satellite_programm in 
+    (SELECT id FROM satellite_programm where id_satellite = 1 
+    and id_programm = 1)''', [start_date])
+    start_brightness = cur.fetchall()
+    start_brightness_list = []
+    for index in range(len(start_brightness)):
+        bstart_rightness_list.append(start_brightness[index][0])
+
+    cur.execute('''SELECT airhumidity FROM sensordata where date = (%s) and id_satellite_programm in 
+    (SELECT id FROM satellite_programm where id_satellite = 1 
+    and id_programm = 1)''', [start_date])
+    start_airhumidity = cur.fetchall()
+    start_airhumidity_list = []
+    for index in range(len(start_airhumidity)):
+        start_airhumidity_list.append(start_airhumidity[index][0])
+
+    cur.execute('''SELECT soilhimidity FROM sensordata where date = (%s) and id_satellite_programm in 
+    (SELECT id FROM satellite_programm where id_satellite = 1 
+    and id_programm = 1)''', [start_date])
+    start_soilhumidity = cur.fetchall()
+    start_soilhumidity_list = []
+    for index in range(len(start_soilhumidity)):
+        start_soilhumidity_list.append(start_soilhumidity[index][0])
+
     if request.method == 'POST' and request.form['loadButton'] == 'Laden':
         satellite_id = request.form['satellite_id']
         programm_id = request.form['programm_id']
@@ -134,7 +216,7 @@ def dashboard():
 
         return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span, temperature_list=temperature_list, dates_list=dates_list, brightness_list=brightness_list, airhumidity_list=airhumidity_list, soilhumidity_list=soilhumidity_list, displayed_satellite=displayed_satellite, displayed_programm=displayed_programm, temperature_value=temperature_value, brightness_value=brightness_value, airhumidity_value=airhumidity_value, soilhumidity_value=soilhumidity_value)
 
-    return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span)
+    return render_template('start_dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span, start_satellite=start_satellite, start_programm=start_programm, start_dates_list=start_dates_list, start_temperature_value=start_temperature_value, start_brightness_value=start_brightness_value, start_airhumidity_value, start_airhumidity_value, start_soilhumidity_value=start_soilhumidity_value, start_temperature_list=start_temperature_list, start_brightness_list=start_brightness_list, start_airhumidity_list=start_airhumidity_list, start_soilhumidity_list=start_soilhumidity_list)
 
 
 # Adminseite
