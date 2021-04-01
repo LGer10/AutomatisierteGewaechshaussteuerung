@@ -83,10 +83,10 @@ def dashboard():
         and id_programm = 1))''')
     start_dates = cur.fetchall()
     start_dates_list = []
-    start_date = start_dates_list[0]
 
     for index in range(len(start_dates)):
         start_dates_list.append(start_dates[index][0])
+    start_date = start_dates_list[0]
 
     cur.execute('''SELECT temperature FROM sensordata where date = (%s) and id_satellite_programm in 
     (SELECT id FROM satellite_programm where id_satellite = 1 
