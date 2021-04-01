@@ -70,8 +70,9 @@
               labels: [{% for item in dates_list %}'{{ item }}', {% endfor %}],
             datasets: [{
               data: [
-                {% for item in temperature_list %} { y: {{ item }},}{% endfor %}]
-                {% for time in times_list %} { time: '{{ time }}', } {% endfor %}]
+                {% for item in temperature_list %} { y: {{ item }}, }
+            {% for time in times_list %} { time: '{{ time }}', } {% endfor %}]
+          {% endfor %}]
                 ,
           label: 'Temperatur',
             fill: false,
