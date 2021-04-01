@@ -355,10 +355,10 @@
             data: {
               labels: [
                 {% for date in start_dates_list %}
-                  {% for time in start_time_list %}
+                                {% if date = start_dates_list[0] %}
+          {% for time in start_time_list %}
           '{{ date }} {{ time }}',
             {% endfor %}
-          break
           {% endfor %}
                 ],
 
