@@ -112,7 +112,7 @@ def dashboard():
     for index in range(len(start_airhumidity)):
         start_airhumidity_list.append(start_airhumidity[index][0])
 
-    cur.execute('''SELECT soilhimidity FROM sensordata where date = (%s) and id_satellite_programm in 
+    cur.execute('''SELECT soilhumidity FROM sensordata where date = (%s) and id_satellite_programm in 
     (SELECT id FROM satellite_programm where id_satellite = 1 
     and id_programm = 1)''', [start_date])
     start_soilhumidity = cur.fetchall()
