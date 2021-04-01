@@ -196,6 +196,14 @@ def dashboard():
         for index in range(len(times)):
             times_list.append(times[index][0])
 
+        dashboard_point_label = [][]
+
+        for x in dates_list:
+            dashboard_point_label.append[x][]
+
+        for y in times_list:
+            dashboard_point_label.append[][y]
+
         cur.execute('''SELECT temperature FROM sensordata where date >= (SELECT date from sensordata WHERE 
         id = (%s)) and id_satellite_programm in 
         (SELECT id FROM satellite_programm where id_satellite = (%s) 
@@ -234,7 +242,7 @@ def dashboard():
 
         cur.close()
 
-        return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span, temperature_list=temperature_list, dates_list=dates_list, times_list=times_list, brightness_list=brightness_list, airhumidity_list=airhumidity_list, soilhumidity_list=soilhumidity_list, displayed_satellite=displayed_satellite, displayed_programm=displayed_programm, temperature_value=temperature_value, brightness_value=brightness_value, airhumidity_value=airhumidity_value, soilhumidity_value=soilhumidity_value)
+        return render_template('dashboard.html', dashboard_point_label=dashboard_point_label, satellite_list=satellite_list, programm_list=programm_list, date_span=date_span, temperature_list=temperature_list, dates_list=dates_list, times_list=times_list, brightness_list=brightness_list, airhumidity_list=airhumidity_list, soilhumidity_list=soilhumidity_list, displayed_satellite=displayed_satellite, displayed_programm=displayed_programm, temperature_value=temperature_value, brightness_value=brightness_value, airhumidity_value=airhumidity_value, soilhumidity_value=soilhumidity_value)
 
     return render_template('start_dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span, start_satellite=start_satellite, start_programm=start_programm, start_date=start_date, start_time=start_time, start_temperature_value=start_temperature_value, start_brightness_value=start_brightness_value, start_airhumidity_value=start_airhumidity_value, start_soilhumidity_value=start_soilhumidity_value, start_temperature_list=start_temperature_list, start_brightness_list=start_brightness_list, start_airhumidity_list=start_airhumidity_list, start_soilhumidity_list=start_soilhumidity_list)
 
