@@ -86,6 +86,7 @@ def dashboard():
 
     for index in range(len(start_dates)):
         start_dates_list.append(start_dates[index][0])
+    start_date = start_dates_list[0]
 
     cur.execute('''SELECT time FROM sensordata where date = (SELECT max(date) FROM sensordata where id_satellite_programm in
         (SELECT id FROM satellite_programm where id_satellite = 1
