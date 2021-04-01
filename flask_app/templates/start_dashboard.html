@@ -355,7 +355,7 @@
             data: {
               labels: [
                 {% for date in start_dates_list %}
-                                {% if forloop.first %}
+                                {% if loop.first %}
           {% for time in start_time_list %}
           '{{ date }} {{ time }}',
             {% endfor %}
