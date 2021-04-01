@@ -356,40 +356,43 @@
               labels: [
                 {% for item in start_dates_list %}
                   '{{ item }}',
- {% endfor %}
+                  {% for item in start_time_list %}
+          '{{ item }}',
+            {% endfor %}
+          {% endfor %}
                 ],
 
-            datasets : [{
+          datasets: [{
 
-              data: [
-                {% for item in start_soilhumidity_list %}
+            data: [
+              {% for item in start_soilhumidity_list %}
             {{ item }},
 
 
-            {% endfor %}],
+          {% endfor %}],
             label: 'Bodenfeuchtigkeit',
-            borderColor: "#3cba9f",
-            fill: false,        
+              borderColor: "#3cba9f",
+                fill: false,        
             }
           ]
 },
-            options: {
+          options: {
             title: {
               display: true,
-              text: 'Bodenfeuchtigkeit',
-              position: 'top',
-              fontSize: 20,
-              fontStyle: 'bold'
+                text: 'Bodenfeuchtigkeit',
+                  position: 'top',
+                    fontSize: 20,
+                      fontStyle: 'bold'
             }
             ,
             legend: {
               display: true,
-              position: "bottom",
-              fontStyle: 'bold'
+                position: "bottom",
+                  fontStyle: 'bold'
 
             },
             responsive: true,
-            scales: {
+              scales: {
               yAxes: [{
                 id: 'y1',
                 scaleLabel: {
@@ -404,19 +407,19 @@
                   max: 100
                 }
               }],
-              xAxes: [{
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Zeitraum',
-                  fontSize: 16,
-                  fontStyle: 'bold'
+                xAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Zeitraum',
+                    fontSize: 16,
+                    fontStyle: 'bold'
 
-                },
-                ticks: {
-                  autoSkip: true,
-                  maxTicksLimit: 14
-                }
-              }]
+                  },
+                  ticks: {
+                    autoSkip: true,
+                    maxTicksLimit: 14
+                  }
+                }]
 
             },
 
@@ -427,14 +430,14 @@
                 scaleID: 'y1',
                 value: {{ start_soilhumidity_value }},
             borderColor: 'rgb(0, 153, 76)',
-            borderWidth: 2,
-            label: {
+              borderWidth: 2,
+                label: {
               enabled: true,
-              content: 'Idealwert',
+                content: 'Idealwert',
 
-              backgroundColor: 'rgb(50, 153, 76)',
-              position: 'end',
-              rotation: 45
+                  backgroundColor: 'rgb(50, 153, 76)',
+                    position: 'end',
+                      rotation: 45
             }
           }]
     } 
