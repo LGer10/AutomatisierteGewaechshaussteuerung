@@ -44,6 +44,7 @@ def collector():
         cursor.execute(
             'SELECT current_programm FROM satellites WHERE ip_addr = (%s)', [satellite])
         current_programm = cursor.fetchone()
+        current_programm = current_programm[0]
 
     # REST-API anfragen
         print(current_programm)
