@@ -70,7 +70,7 @@
               labels: [{% for item in dates_list %}'{{ item }}', {% endfor %}],
             datasets: [{
               data: [
-                {% for time in temperature_list %}                            
+                {% for item in temperature_list %}                            
                 { { item } },
             {% endfor %}]
 
@@ -87,44 +87,47 @@
             tooltips: {
               callbacks: {
                 label: function (tooltipItems, data) {
-                  for i in times_list:
-                    var labelText = ['Temperatur: ' + tooltipItems.yLabel];
-                  labelText.push('Datum: ' + tooltipItems.xLabel)
-                  labelText.push('Zeit: ' + i);
-                  return labelText;
+                  for (i = 0; i <= {{ times_list.length }}; i++) {
+            var labelText = ['Temperatur: ' + tooltipItems.yLabel];
+            labelText.push('Datum: ' + tooltipItems.xLabel);
+            labelText.push('Zeit: ' + {{ times_list[i] }} );
+                  }
+
+          return labelText;
+
                 }
               }
 
             },
-            title: {
-              display: true,
+          title: {
+            display: true,
               text: 'Temperatur',
-              position: 'top',
-              fontSize: 20,
-              fontStyle: 'bold'
-            }
+                position: 'top',
+                  fontSize: 20,
+                    fontStyle: 'bold'
+          }
             ,
-            legend: {
-              display: true,
+          legend: {
+            display: true,
               position: "bottom",
-              fontStyle: 'bold'
-            },
-            responsive: true,
+                fontStyle: 'bold'
+          },
+          responsive: true,
             scales: {
-              yAxes: [{
-                id: 'y1',
-                scaleLabel: {
-                  display: true,
-                  labelString: '°C',
-                  fontSize: 16,
-                  fontStyle: 'bold'
-                },
-                ticks: {
-                  beginAtZero: true,
-                  max: 40
+            yAxes: [{
+              id: 'y1',
+              scaleLabel: {
+                display: true,
+                labelString: '°C',
+                fontSize: 16,
+                fontStyle: 'bold'
+              },
+              ticks: {
+                beginAtZero: true,
+                max: 40
 
-                }
-              }],
+              }
+            }],
               xAxes: [{
                 scaleLabel: {
                   display: true,
@@ -138,22 +141,22 @@
                 }
 
               }]
-            },
-            annotation: {
-              annotations: [{
-                type: 'line',
-                mode: 'horizontal',
-                scaleID: 'y1',
-                value: {{ temperature_value }},
-            borderColor: 'rgb(50, 153, 76)',
+          },
+          annotation: {
+            annotations: [{
+              type: 'line',
+              mode: 'horizontal',
+              scaleID: 'y1',
+              value: {{ temperature_value }},
+          borderColor: 'rgb(50, 153, 76)',
             borderWidth: 2,
-            label: {
-              enabled: true,
+              label: {
+            enabled: true,
               content: 'Idealwert',
-              backgroundColor: 'rgb(50, 153, 76)',
-              position: 'end',
-              rotation: 45
-            }
+                backgroundColor: 'rgb(50, 153, 76)',
+                  position: 'end',
+                    rotation: 45
+          }
           }]
     } 
    }
