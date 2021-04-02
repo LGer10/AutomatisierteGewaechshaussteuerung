@@ -71,7 +71,7 @@
             datasets: [{
               data: [
                 {% for item in temperature_list %}
-            {{ item }},
+            {{ item[0] }},
 
             {% endfor %}],
 
@@ -158,11 +158,7 @@
           new Chart(document.getElementById("chart1"), {
             type: 'line',
             data: {
-              labels: [
-                {% for item in dates_list %}
-                  '{{ item }}',
- {% endfor %}
-                ],
+              labels: [{% for row in dates %}'{{ row[0] }}, {{ row[1] }}', {% endfor %}],
 
             datasets : [{
               data: [
@@ -204,7 +200,7 @@
                 },
                 ticks: {
                   beginAtZero: true,
-                  max: 12
+                  max: 
                 }
               }],
               xAxes: [{
@@ -256,12 +252,7 @@
           new Chart(document.getElementById("chart2"), {
             type: 'line',
             data: {
-              labels: [
-                {% for item in dates_list %}
-                  '{{ item }}',
- {% endfor %}
-                ],
-
+              labels: [{% for row in dates %}'{{ row[0] }}, {{ row[1] }}', {% endfor %}],
             datasets : [{
 
               data: [
@@ -357,11 +348,7 @@
           new Chart(document.getElementById("chart3"), {
             type: 'line',
             data: {
-              labels: [
-                {% for item in dates_list %}
-                  '{{ item }}',
- {% endfor %}
-                ],
+              labels: [{% for row in dates %}'{{ row[0] }}, {{ row[1] }}', {% endfor %}],
 
             datasets : [{
 

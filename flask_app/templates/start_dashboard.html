@@ -104,7 +104,6 @@
                 },
                 ticks: {
                   beginAtZero: true,
-                  max: 40
 
                 }
               }],
@@ -153,11 +152,8 @@
           new Chart(document.getElementById("chart1"), {
             type: 'line',
             data: {
-              labels: [
-                {% for item in start_dates_list %}
-                  '{{ item }}',
- {% endfor %}
-                ],
+              labels: [{% for row in start_datetime %} '{{ row[0] }}, {{ row[1] }}',  {% endfor %}],
+
 
             datasets : [{
               data: [
@@ -199,7 +195,7 @@
                 },
                 ticks: {
                   beginAtZero: true,
-                  max: 12
+                  max: 
                 }
               }],
               xAxes: [{
@@ -249,11 +245,8 @@
           new Chart(document.getElementById("chart2"), {
             type: 'line',
             data: {
-              labels: [
-                {% for item in start_dates_list %}
-                  '{{ item }}',
- {% endfor %}
-                ],
+              labels: [{% for row in start_datetime %} '{{ row[0] }}, {{ row[1] }}',  {% endfor %}],
+
 
             datasets : [{
 
@@ -351,47 +344,39 @@
             type: 'line',
             data: {
               labels: [
-                {% for date in start_dates_list %}
-                                {% if loop.first %}
-          {% for time in start_time_list %}
-          '{{ date }} {{ time }}',
-            {% endfor %}
-          {% endif %}
+                [{% for row in start_datetime %} '{{ row[0] }}, {{ row[1] }}',  {% endfor %}],
 
-          {% endfor %}
-                ],
+            datasets: [{
 
-          datasets: [{
-
-            data: [
-              {% for item in start_soilhumidity_list %}
+              data: [
+                {% for item in start_soilhumidity_list %}
             {{ item }},
 
 
-          {% endfor %}],
+            {% endfor %}],
             label: 'Bodenfeuchtigkeit',
-              borderColor: "#3cba9f",
-                fill: false,        
+            borderColor: "#3cba9f",
+            fill: false,        
             }
           ]
 },
-          options: {
+            options: {
             title: {
               display: true,
-                text: 'Bodenfeuchtigkeit',
-                  position: 'top',
-                    fontSize: 20,
-                      fontStyle: 'bold'
+              text: 'Bodenfeuchtigkeit',
+              position: 'top',
+              fontSize: 20,
+              fontStyle: 'bold'
             }
             ,
             legend: {
               display: true,
-                position: "bottom",
-                  fontStyle: 'bold'
+              position: "bottom",
+              fontStyle: 'bold'
 
             },
             responsive: true,
-              scales: {
+            scales: {
               yAxes: [{
                 id: 'y1',
                 scaleLabel: {
@@ -406,19 +391,19 @@
                   max: 100
                 }
               }],
-                xAxes: [{
-                  scaleLabel: {
-                    display: true,
-                    labelString: 'Zeitraum',
-                    fontSize: 16,
-                    fontStyle: 'bold'
+              xAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Zeitraum',
+                  fontSize: 16,
+                  fontStyle: 'bold'
 
-                  },
-                  ticks: {
-                    autoSkip: true,
-                    maxTicksLimit: 20
-                  }
-                }]
+                },
+                ticks: {
+                  autoSkip: true,
+                  maxTicksLimit: 20
+                }
+              }]
 
             },
 
@@ -429,13 +414,13 @@
                 scaleID: 'y1',
                 value: {{ start_soilhumidity_value }},
             borderColor: 'rgb(0, 153, 76)',
-              borderWidth: 2,
-                label: {
+            borderWidth: 2,
+            label: {
               enabled: true,
-                content: 'Idealwert',
+              content: 'Idealwert',
 
-                  backgroundColor: 'rgb(50, 153, 76)',
-                   
+              backgroundColor: 'rgb(50, 153, 76)',
+
             }
           }]
     } 
