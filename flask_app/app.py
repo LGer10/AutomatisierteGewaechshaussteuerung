@@ -101,7 +101,7 @@ def dashboard():
 
     cur.execute('''SELECT temperature FROM sensordata where date = (%s) and id_satellite_programm in 
     (SELECT id FROM satellite_programm where id_satellite = 1 
-    and id_programm = 1)''', [start_datetime[0]])
+    and id_programm = 1)''', [start_datetime[0][0]])
     start_temperature = cur.fetchall()
     start_temperature_list = []
     for index in range(len(start_temperature)):
@@ -109,7 +109,7 @@ def dashboard():
 
     cur.execute('''SELECT brightness FROM sensordata where date = (%s) and id_satellite_programm in 
     (SELECT id FROM satellite_programm where id_satellite = 1 
-    and id_programm = 1)''', [start_datetime[0]])
+    and id_programm = 1)''', [start_datetime[0][0]])
     start_brightness = cur.fetchall()
     start_brightness_list = []
     for index in range(len(start_brightness)):
@@ -117,7 +117,7 @@ def dashboard():
 
     cur.execute('''SELECT airhumidity FROM sensordata where date = (%s) and id_satellite_programm in 
     (SELECT id FROM satellite_programm where id_satellite = 1 
-    and id_programm = 1)''', [start_datetime[0]])
+    and id_programm = 1)''', [start_datetime[0][0]])
     start_airhumidity = cur.fetchall()
     start_airhumidity_list = []
     for index in range(len(start_airhumidity)):
@@ -125,7 +125,7 @@ def dashboard():
 
     cur.execute('''SELECT soilhumidity FROM sensordata where date = (%s) and id_satellite_programm in 
     (SELECT id FROM satellite_programm where id_satellite = 1 
-    and id_programm = 1)''', [start_datetime[0]])
+    and id_programm = 1)''', [start_datetime[0][0]])
     start_soilhumidity = cur.fetchall()
     start_soilhumidity_list = []
     for index in range(len(start_soilhumidity)):
