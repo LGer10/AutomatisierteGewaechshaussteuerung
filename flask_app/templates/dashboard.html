@@ -74,91 +74,91 @@
             {{ item }},
 
             {% endfor %}],
+            {% for item in times_list %} { { item } } {% endfor %},
 
 
 
-            label: 'Temperatur',
+          label: 'Temperatur',
             fill: false,
-            borderColor: "#c45850"
+              borderColor: "#c45850"
 
           }
             ]
           },
-            options: {
+          options: {
             tooltips: {
               callbacks: {
                 label: function (tooltipItems, data) {
 
                   var labelText = ['Temperatur: ' + tooltipItems.yLabel];
                   labelText.push('Datum: ' + tooltipItems.xLabel);
-                  labelText.push('Zeit: ' + {% for item in times_list %} {{ item }} {% endfor %}
-          );
-                  }
-
-          return labelText;
 
                 }
+
+                return labelText;
+
               }
+
 
             },
-          title: {
-            display: true,
-              text: 'Temperatur',
-                position: 'top',
-                  fontSize: 20,
-                    fontStyle: 'bold'
-          }
+            title: {
+              display: true,
+                text: 'Temperatur',
+                  position: 'top',
+                    fontSize: 20,
+                      fontStyle: 'bold'
+            }
             ,
-          legend: {
-            display: true,
-              position: "bottom",
-                fontStyle: 'bold'
-          },
-          responsive: true,
-            scales: {
-            yAxes: [{
-              id: 'y1',
-              scaleLabel: {
-                display: true,
-                labelString: '°C',
-                fontSize: 16,
-                fontStyle: 'bold'
-              },
-              ticks: {
-                beginAtZero: true,
-                max: 40
-
-              }
-            }],
-              xAxes: [{
+            legend: {
+              display: true,
+                position: "bottom",
+                  fontStyle: 'bold'
+            },
+            responsive: true,
+              scales: {
+              yAxes: [{
+                id: 'y1',
                 scaleLabel: {
                   display: true,
-                  labelString: 'Zeitraum',
+                  labelString: '°C',
                   fontSize: 16,
                   fontStyle: 'bold'
                 },
                 ticks: {
-                  autoSkip: true,
-                  maxTicksLimit: 14
-                }
+                  beginAtZero: true,
+                  max: 40
 
-              }]
-          },
-          annotation: {
-            annotations: [{
-              type: 'line',
-              mode: 'horizontal',
-              scaleID: 'y1',
-              value: {{ temperature_value }},
-          borderColor: 'rgb(50, 153, 76)',
-            borderWidth: 2,
-              label: {
-            enabled: true,
-              content: 'Idealwert',
-                backgroundColor: 'rgb(50, 153, 76)',
-                  position: 'end',
-                    rotation: 45
-          }
+                }
+              }],
+                xAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Zeitraum',
+                    fontSize: 16,
+                    fontStyle: 'bold'
+                  },
+                  ticks: {
+                    autoSkip: true,
+                    maxTicksLimit: 14
+                  }
+
+                }]
+            },
+            annotation: {
+              annotations: [{
+                type: 'line',
+                mode: 'horizontal',
+                scaleID: 'y1',
+                value: {{ temperature_value }},
+            borderColor: 'rgb(50, 153, 76)',
+              borderWidth: 2,
+                label: {
+              enabled: true,
+                content: 'Idealwert',
+                  backgroundColor: 'rgb(50, 153, 76)',
+                    position: 'end',
+                      rotation: 45
+            }
           }]
     } 
    }
