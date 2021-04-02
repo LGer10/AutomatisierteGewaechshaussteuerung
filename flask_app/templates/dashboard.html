@@ -88,14 +88,14 @@
             tooltips: {
               callbacks: {
                 label: function (tooltipItems, data) {
-                  for (i = 0; i <= {{ times_list| length }
-              }; i++) {
-            var labelText = ['Temperatur: ' + tooltipItems.yLabel];
-            labelText.push('Datum: ' + tooltipItems.xLabel);
-            labelText.push('Zeit: ' + {{ times_list[i] }} );
+                  {% for item in times_list %}
+                  var labelText = ['Temperatur: ' + tooltipItems.yLabel];
+                  labelText.push('Datum: ' + tooltipItems.xLabel);
+                  labelText.push('Zeit: ' + {{ item }} );
                   }
 
           return labelText;
+          {% endfor %}]
 
                 }
               }
