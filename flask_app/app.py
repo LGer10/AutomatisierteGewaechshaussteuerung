@@ -26,79 +26,78 @@ def home():
 
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
+    # Default method is GET, if nothing else is declared
+
+    # Connection-Cursor to MySQL database
     cur = mysql.connection.cursor()
 
+    # SQL statement to fetch all available satellites in MySQL database orderd by ID
+    # cur.fetchall() generates a tupel with all selected rows from MySQl database
     cur.execute('SELECT id, name FROM satellites')
     satellite_list = cur.fetchall()
 
+    # SQL statement to fetch all available programms in MySQL database orderd by ID
     cur.execute('SELECT id, name FROM programms')
     programm_list = cur.fetchall()
 
+    # SQL statement to fetch dates of the last 7 days in MySQL database orderd by ID and group by date to only show distinct dates
     cur.execute(
         'SELECT id, date from sensordata where date >= (select  max(date) - 7) group by date')
     date_span = cur.fetchall()
 
+    # By entering the dashboard via GET-request, data from the last day inserted into the MySQL database
+    # and from the satellite with ID = 1 and programm with ID = 1 should automatically be displayed
+
+    # SQL statement to select satellite and programm with ID = 1
+    # cur-fetchone() generates a tupel of all data in one MySQL row, as only one satellite ad one programm is selected
+    # the object can be called as [0] object of the tupel
+
+    # start satellite
     cur.execute('SELECT name from satellites where id = 1')
     start_s = cur.fetchone()
     start_satellite = start_s[0]
-    # start_satellite_array.append(start_s[0])
-    #start_satellite = start_satellite_array[0]
 
+    # start programm
     cur.execute('SELECT name from programms where id = 1')
     start_p = cur.fetchone()
     start_programm = start_p[0]
-    # start_programm_array.append(start_p[0])
-    #start_programm = start_programm_array[0]
 
+    # SQL statement to select the ideal value of the parameters from programm with ID = 1
+    # This value is needed to dispaly the ideal value in the charts of the dashboard
+
+    # ideal value temperature
     cur.execute('''SELECT value from programm_parameter where id_programm = 1 and id_parameter in
-        (select id from parameters where name = 'Temperatur')''')
+    (select id from parameters where name = 'Temperatur')''')
     start_temperature_v = cur.fetchone()
     start_temperature_value = start_temperature_v[0]
-    # start_temperature_value_array.append(start_temperature_v[0])
-    #start_temperature_value = start_temperature_value_array[0]
 
+    # ideal value brighteness
     cur.execute('''SELECT value from programm_parameter where id_programm = 1 and id_parameter in
         (select id from parameters where name = 'Helligkeit')''')
     start_brightness_v = cur.fetchone()
     start_brightness_value = start_brightness_v[0]
-    # start_brightness_value_array.append(start_brightness_v[0])
-    #start_brightness_value = start_brightness_value_array[0]
 
+    # ideal value airhumidity
     cur.execute('''SELECT value from programm_parameter where id_programm = 1 and id_parameter in
         (select id from parameters where name = 'Luftfeuchtigkeit')''')
     start_airhumidity_v = cur.fetchone()
     start_airhumidity_value = start_airhumidity_v[0]
-    # start_airhumidity_value_array.append(start_airhumidity_v[0])
-    #start_airhumidity_value = start_airhumidity_value_array[0]
 
+    # ideal value soilhumidity
     cur.execute('''SELECT value from programm_parameter where id_programm = 1 and id_parameter in
         (select id from parameters where name = 'Bodenfeuchtigkeit')''')
     start_soilhumidity_v = cur.fetchone()
     start_soilhumidity_value = start_soilhumidity_v[0]
-    # start_soilhumidity_value_array.append(start_soilhumidity_v[0])
-    #start_soilhumidity_value = start_soilhumidity_value_array[0]
 
-    cur.execute('''SELECT date FROM sensordata where date = (SELECT max(date) FROM sensordata where id_satellite_programm in
+    # To only display datapoints from the last inserted day into MySQL database with satellite and programm ID = 1,
+    # date and time are selected where date is the highest date available with satellite and programm ID = 1
+    # and where satellite and programm ID = 1
+    cur.execute('''SELECT date, time FROM sensordata where date = (SELECT max(date) FROM sensordata where id_satellite_programm in
         (SELECT id FROM satellite_programm where id_satellite = 1
         and id_programm = 1)) and id_satellite_programm in
         (SELECT id FROM satellite_programm where id_satellite = 1
         and id_programm = 1)''')
-    start_dates = cur.fetchone()
-    #start_dates_list = []
-
-    # for index in range(len(start_dates)):
-    #   start_dates_list.append(start_dates[index][0])
-    start_date = start_dates[0]
-
-    cur.execute('''SELECT time FROM sensordata where date = (SELECT max(date) FROM sensordata where id_satellite_programm in
-        (SELECT id FROM satellite_programm where id_satellite = 1
-        and id_programm = 1)) and id_satellite_programm in
-        (SELECT id FROM satellite_programm where id_satellite = 1
-        and id_programm = 1)''')
-    start_time = cur.fetchone()
-
-    # for index in range(len(start_dates)):
-    #   start_time_list.append(start_time[index][0])
+    start_datetime = cur.fetchall()
 
     cur.execute('''SELECT temperature FROM sensordata where date = (%s) and id_satellite_programm in 
     (SELECT id FROM satellite_programm where id_satellite = 1 
@@ -236,7 +235,7 @@ def dashboard():
 
         return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span, temperature_list=temperature_list, dates_list=dates_list, times_list=times_list, brightness_list=brightness_list, airhumidity_list=airhumidity_list, soilhumidity_list=soilhumidity_list, displayed_satellite=displayed_satellite, displayed_programm=displayed_programm, temperature_value=temperature_value, brightness_value=brightness_value, airhumidity_value=airhumidity_value, soilhumidity_value=soilhumidity_value)
 
-    return render_template('start_dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span, start_satellite=start_satellite, start_programm=start_programm, start_date=start_date, start_time=start_time, start_temperature_value=start_temperature_value, start_brightness_value=start_brightness_value, start_airhumidity_value=start_airhumidity_value, start_soilhumidity_value=start_soilhumidity_value, start_temperature_list=start_temperature_list, start_brightness_list=start_brightness_list, start_airhumidity_list=start_airhumidity_list, start_soilhumidity_list=start_soilhumidity_list)
+    return render_template('start_dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span, start_satellite=start_satellite, start_programm=start_programm, start_datetime=start_datetime, start_temperature_value=start_temperature_value, start_brightness_value=start_brightness_value, start_airhumidity_value=start_airhumidity_value, start_soilhumidity_value=start_soilhumidity_value, start_temperature_list=start_temperature_list, start_brightness_list=start_brightness_list, start_airhumidity_list=start_airhumidity_list, start_soilhumidity_list=start_soilhumidity_list)
 
 
 # Adminseite

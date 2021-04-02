@@ -67,7 +67,7 @@
           new Chart(document.getElementById("chart"), {
             type: 'line',
             data: {
-              labels: [{% for item in start_dates_list %}'{{ item }}', {% endfor %}],
+              labels: [{% for row in start_datetime %} '{{ row[0], row[1] }}', {% endfor %}],
             datasets: [{
               data: [
                 {% for item in start_temperature_list %}{{ item }}, {% endfor %}],
@@ -117,7 +117,7 @@
                 },
                 ticks: {
                   autoSkip: true,
-                  maxTicksLimit: 14
+                  maxTicksLimit: 20
                 }
 
               }]
@@ -134,8 +134,6 @@
               enabled: true,
               content: 'Idealwert',
               backgroundColor: 'rgb(50, 153, 76)',
-              position: 'end',
-              rotation: 45
             }
           }]
     } 
@@ -213,7 +211,7 @@
                 },
                 ticks: {
                   autoSkip: true,
-                  maxTicksLimit: 14
+                  maxTicksLimit: 20
                 }
               }]
             },
@@ -229,8 +227,7 @@
               enabled: true,
               content: 'Idealwert',
               backgroundColor: 'rgb(50, 153, 76)',
-              position: 'end',
-              rotation: 45
+
             }
           }]
     } 
@@ -313,7 +310,7 @@
                 },
                 ticks: {
                   autoSkip: true,
-                  maxTicksLimit: 14
+                  maxTicksLimit: 20
                 }
               }]
 
@@ -419,7 +416,7 @@
                   },
                   ticks: {
                     autoSkip: true,
-                    maxTicksLimit: 14
+                    maxTicksLimit: 20
                   }
                 }]
 
@@ -438,8 +435,7 @@
                 content: 'Idealwert',
 
                   backgroundColor: 'rgb(50, 153, 76)',
-                    position: 'end',
-                      rotation: 45
+                   
             }
           }]
     } 
