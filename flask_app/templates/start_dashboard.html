@@ -332,8 +332,8 @@
           new Chart(document.getElementById("chart3"), {
             type: 'line',
             data: {
-              labels: [
-                [{% for row in start_dates %} '{{ row[0] }}, {{ row[1] }}',  {% endfor %}],
+              labels: [{% for row in start_dates %} '{{ row[0] }}, {{ row[1] }}',  {% endfor %}],
+
 
             datasets : [{
 
@@ -343,7 +343,7 @@
 
             {% endfor %}],
 
-            label: 'Luftfeuchhtigkeit',
+            label: 'Bodenfeuchtigkeit',
             borderColor: "#3e95cd",
             fill: false
 
