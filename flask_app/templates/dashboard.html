@@ -53,7 +53,7 @@
 </body>
 
 <body>
-  <h4 align="middle"> {{displayed_satellite}} - {{displayed_programm}} </h4>
+  <h4 align="middle" style="background-color: lightgrey;"> {{displayed_satellite[0]}} - {{displayed_programm[0]}} </h4>
   <div class="container-fluid p-4 border" style="position: relative;">
     <div class="row">
       <div class="col-md-6 border">
@@ -130,7 +130,7 @@
                 type: 'line',
                 mode: 'horizontal',
                 scaleID: 'y1',
-                value: {{ temperature_value }},
+                value: {{ temperature_value[0] }},
             borderColor: 'rgb(50, 153, 76)',
             borderWidth: 2,
             borderDash: [10, 5],
@@ -161,8 +161,8 @@
 
             datasets : [{
               data: [
-                {% for item in brightness_list %}
-            {{ item }},
+                {% for item in brightness %}
+            {{ item[0] }},
 
             {% endfor %}],
 
@@ -199,7 +199,6 @@
                 },
                 ticks: {
                   beginAtZero: true,
-                  max: 
                 }
               }],
               xAxes: [{
@@ -220,7 +219,7 @@
                 type: 'line',
                 mode: 'horizontal',
                 scaleID: 'y1',
-                value: {{ brightness_value }},
+                value: {{ brightness_value[0] }},
             borderColor: 'rgb(0, 153, 76)',
             borderWidth: 2,
             borderDash: [10, 5],
@@ -255,8 +254,8 @@
             datasets : [{
 
               data: [
-                {% for item in airhumidity_list %}
-            {{ item }},
+                {% for item in airhumidity %}
+            {{ item[0] }},
 
 
             {% endfor %}],
@@ -317,7 +316,7 @@
                 type: 'line',
                 mode: 'horizontal',
                 scaleID: 'y1',
-                value: {{ airhumidity_value }},
+                value: {{ airhumidity_value[0] }},
             borderColor: 'rgb(0, 153, 76)',
             borderWidth: 2,
             borderDash: [10, 5],
@@ -352,8 +351,8 @@
             datasets : [{
 
               data: [
-                {% for item in soilhumidity_list %}
-            {{ item }},
+                {% for item in soilhumidity %}
+            {{ item[0] }},
 
 
             {% endfor %}],
@@ -415,7 +414,7 @@
                 type: 'line',
                 mode: 'horizontal',
                 scaleID: 'y1',
-                value: {{ soilhumidity_value }},
+                value: {{ soilhumidity_value[0] }},
             borderColor: 'rgb(0, 153, 76)',
             borderWidth: 2,
             borderDash: [10, 5],

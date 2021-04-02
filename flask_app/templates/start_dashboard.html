@@ -53,7 +53,7 @@
 </body>
 
 <body>
-  <h4 align="middle"> {{start_satellite}} - {{start_programm}} </h4>
+  <h4 align="middle"> {{start_satellite[0]}} - {{start_programm[0]}} </h4>
   <div class="container-fluid p-4 border" style="position: relative;">
     <div class="row">
       <div class="col-md-6 border">
@@ -70,7 +70,7 @@
               labels: [{% for row in start_datetime %} '{{ row[0] }}, {{ row[1] }}',  {% endfor %}],
             datasets: [{
               data: [
-                {% for item in start_temperature_list %}{{ item }}, {% endfor %}],
+                {% for item in start_temperature %} {{ item[0] }}, {% endfor %}],
             label: 'Temperatur',
             fill: false,
             borderColor: "#c45850"
@@ -126,7 +126,7 @@
                 type: 'line',
                 mode: 'horizontal',
                 scaleID: 'y1',
-                value: {{ start_temperature_value }},
+                value: {{ start_temperature_value[0] }},
             borderColor: 'rgb(50, 153, 76)',
             borderWidth: 2,
             label: {
@@ -157,10 +157,7 @@
 
             datasets : [{
               data: [
-                {% for item in start_brightness_list %}
-            {{ item }},
-
-            {% endfor %}],
+                {% for item in start_brightness %} {{ item[0] }}, {% endfor %}],
 
             label: 'Helligkeit',
             fill: false,
@@ -216,7 +213,7 @@
                 type: 'line',
                 mode: 'horizontal',
                 scaleID: 'y1',
-                value: {{ start_brightness_value }},
+                value: {{ start_brightness_value[0] }},
             borderColor: 'rgb(0, 153, 76)',
             borderWidth: 2,
             label: {
@@ -251,16 +248,14 @@
             datasets : [{
 
               data: [
-                {% for item in start_airhumidity_list %}
-            {{ item }},
+                {% for item in start_airhumidity %}
+            {{ item[0] }},
 
 
             {% endfor %}],
             label: 'Luftfeuchhtigkeit',
             borderColor: "#3e95cd",
             fill: false
-
-            
 
             }
             ]
@@ -313,15 +308,13 @@
                 type: 'line',
                 mode: 'horizontal',
                 scaleID: 'y1',
-                value: {{ start_airhumidity_value }},
+                value: {{ start_airhumidity_value[0] }},
             borderColor: 'rgb(0, 153, 76)',
             borderWidth: 2,
             label: {
               enabled: true,
               content: 'Idealwert',
               backgroundColor: 'rgb(50, 153, 76)',
-              position: 'end',
-              rotation: 45
             }
           }]
     } 
@@ -337,9 +330,6 @@
 
         <script>
 
-
-
-
           new Chart(document.getElementById("chart3"), {
             type: 'line',
             data: {
@@ -349,8 +339,8 @@
             datasets: [{
 
               data: [
-                {% for item in start_soilhumidity_list %}
-            {{ item }},
+                {% for item in start_soilhumidity %}
+            {{ item[0] }},
 
 
             {% endfor %}],
@@ -412,7 +402,7 @@
                 type: 'line',
                 mode: 'horizontal',
                 scaleID: 'y1',
-                value: {{ start_soilhumidity_value }},
+                value: {{ start_soilhumidity_value[0] }},
             borderColor: 'rgb(0, 153, 76)',
             borderWidth: 2,
             label: {
