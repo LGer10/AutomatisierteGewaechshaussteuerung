@@ -67,7 +67,7 @@
           new Chart(document.getElementById("chart"), {
             type: 'line',
             data: {
-              labels: [{% for row in start_datetime %} '{{ row[0] }}, {{ row[1] }}',  {% endfor %}],
+              labels: [{% for row in start_dates %} '{{ row[0] }}, {{ row[1] }}',  {% endfor %}],
             datasets: [{
               data: [
                 {% for item in start_temperature %} {{ item[0] }}, {% endfor %}],
@@ -152,7 +152,7 @@
           new Chart(document.getElementById("chart1"), {
             type: 'line',
             data: {
-              labels: [{% for row in start_datetime %} '{{ row[0] }}, {{ row[1] }}',  {% endfor %}],
+              labels: [{% for row in start_dates %} '{{ row[0] }}, {{ row[1] }}',  {% endfor %}],
 
 
             datasets : [{
@@ -242,7 +242,7 @@
           new Chart(document.getElementById("chart2"), {
             type: 'line',
             data: {
-              labels: [{% for row in start_datetime %} '{{ row[0] }}, {{ row[1] }}',  {% endfor %}],
+              labels: [{% for row in start_dates %} '{{ row[0] }}, {{ row[1] }}',  {% endfor %}],
 
 
             datasets : [{
@@ -334,7 +334,7 @@
             type: 'line',
             data: {
               labels: [
-                [{% for row in start_datetime %} '{{ row[0] }}, {{ row[1] }}',  {% endfor %}],
+                [{% for row in start_dates %} '{{ row[0] }}, {{ row[1] }}',  {% endfor %}],
 
             datasets: [{
 

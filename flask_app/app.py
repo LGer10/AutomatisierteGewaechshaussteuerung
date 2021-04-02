@@ -93,26 +93,26 @@ def dashboard():
         and id_programm = 1)) and id_satellite_programm in
         (SELECT id FROM satellite_programm where id_satellite = 1
         and id_programm = 1)''')
-    start_datetime = cur.fetchall()
+    start_dates = cur.fetchall()
 
     cur.execute('''SELECT temperature FROM sensordata where date = (%s) and id_satellite_programm in 
     (SELECT id FROM satellite_programm where id_satellite = 1 
-    and id_programm = 1)''', [start_datetime[0][0]])
+    and id_programm = 1)''', [start_dates[0][0]])
     start_temperature = cur.fetchall()
 
     cur.execute('''SELECT brightness FROM sensordata where date = (%s) and id_satellite_programm in 
     (SELECT id FROM satellite_programm where id_satellite = 1 
-    and id_programm = 1)''', [start_datetime[0][0]])
+    and id_programm = 1)''', [start_dates[0][0]])
     start_brightness = cur.fetchall()
 
     cur.execute('''SELECT airhumidity FROM sensordata where date = (%s) and id_satellite_programm in 
     (SELECT id FROM satellite_programm where id_satellite = 1 
-    and id_programm = 1)''', [start_datetime[0][0]])
+    and id_programm = 1)''', [start_dates[0][0]])
     start_airhumidity = cur.fetchall()
 
     cur.execute('''SELECT soilhumidity FROM sensordata where date = (%s) and id_satellite_programm in 
     (SELECT id FROM satellite_programm where id_satellite = 1 
-    and id_programm = 1)''', [start_datetime[0][0]])
+    and id_programm = 1)''', [start_dates[0][0]])
     start_soilhumidity = cur.fetchall()
 
     if request.method == 'POST' and request.form['loadButton'] == 'Laden':
