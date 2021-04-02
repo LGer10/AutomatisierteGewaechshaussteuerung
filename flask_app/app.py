@@ -55,12 +55,10 @@ def dashboard():
     # start satellite
     cur.execute('SELECT name from satellites where id = 1')
     start_s = cur.fetchone()
-    start_satellite = start_s[0]
 
     # start programm
     cur.execute('SELECT name from programms where id = 1')
     start_p = cur.fetchone()
-    start_programm = start_p[0]
 
     # SQL statement to select the ideal value of the parameters from programm with ID = 1
     # This value is needed to dispaly the ideal value in the charts of the dashboard
