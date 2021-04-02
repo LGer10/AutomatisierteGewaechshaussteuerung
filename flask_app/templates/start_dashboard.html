@@ -335,7 +335,7 @@
               labels: [
                 [{% for row in start_dates %} '{{ row[0] }}, {{ row[1] }}',  {% endfor %}],
 
-            datasets: [{
+            datasets : [{
 
               data: [
                 {% for item in start_soilhumidity %}
@@ -343,11 +343,12 @@
 
             {% endfor %}],
 
-            label: 'Bodenfeuchtigkeit',
-            borderColor: "#3cba9f",
-            fill: false,        
+            label: 'Luftfeuchhtigkeit',
+            borderColor: "#3e95cd",
+            fill: false
+
             }
-          ]
+            ]
 },
             options: {
             title: {
