@@ -67,7 +67,7 @@
           new Chart(document.getElementById("chart"), {
             type: 'line',
             data: {
-              labels: [{% for row in dates %}'{{ row[0] }}, {{ row[1] }}', {% endfor %}],
+              labels: [{% for row in dates %} '{{ row[0] }}, {{ row[1] }}', {% endfor %}],
             datasets: [{
               data: [
                 {% for item in temperature %}
@@ -96,7 +96,6 @@
               position: "bottom",
               fontStyle: 'bold'
             },
-            responsive: true,
             scales: {
               yAxes: [{
                 id: 'y1',
@@ -187,7 +186,6 @@
               position: "bottom",
               fontStyle: 'bold'
             },
-            responsive: true,
             scales: {
               yAxes: [{
                 id: 'y1',
@@ -282,7 +280,6 @@
               position: "bottom",
               fontStyle: 'bold'
             },
-            responsive: true,
             scales: {
               yAxes: [{
                 id: 'y1',
@@ -377,7 +374,6 @@
               fontStyle: 'bold'
 
             },
-            responsive: true,
             scales: {
               yAxes: [{
                 id: 'y1',
