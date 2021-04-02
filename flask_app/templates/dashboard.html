@@ -73,8 +73,10 @@
                 {% for item in temperature_list %}
             {{ item }},
 
-            {% endfor %}],
-            {% for item in times_list %} { { item } } {% endfor %},
+            {% endfor %},
+            {% for time in times_list %} '{ { time } }'
+          {% endfor %}
+            ],
 
 
 
