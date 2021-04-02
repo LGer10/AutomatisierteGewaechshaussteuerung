@@ -67,7 +67,7 @@
           new Chart(document.getElementById("chart"), {
             type: 'line',
             data: {
-              labels: [{% for row in start_datetime %} '{{ row[0][1] }}', {% endfor %}],
+              labels: [{% for row in start_datetime %} '{{ row[0] }}', '{{ row[1] }}',  {% endfor %}],
             datasets: [{
               data: [
                 {% for item in start_temperature_list %}{{ item }}, {% endfor %}],
