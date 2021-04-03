@@ -267,14 +267,14 @@ def admin():
 			join programm_parameter pp on p.id = pp.id_parameter
 			join programms pr on pr.id = pp.id_programm where pr.id = (%s)''', [programm_id])
 
-            # close MySQL database cursor
-            cur.close()
-
             programm_values = cur.fetchone()
             temperature_value = programm_values[0]
             brightness_value = programm_values[1]
             airhumidity_value = programm_values[2]
             soilhumidity_value = programm_values[3]
+
+            # close MySQL database cursor
+            cur.close()
 
             url = f'''http://"{ip_addr}:8081/post_data?temperature={temperature_value}&brightness={brightness_value}
             &air_humidity={airhumidity_value}&soil_humidity={soilhumidity_value}'''
