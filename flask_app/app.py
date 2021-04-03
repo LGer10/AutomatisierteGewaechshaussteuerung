@@ -107,25 +107,25 @@ def dashboard():
     cur.execute('''SELECT temperature FROM sensordata where date = (%s) and id_satellite_programm in 
     (SELECT id FROM satellite_programm where id_satellite = 1 
     and id_programm = 1)''', [start_dates[0][0]])
-    start_temperature = cur.fetchone()
+    start_temperature = cur.fetchall()
 
     # brightness where date = startdate
     cur.execute('''SELECT brightness FROM sensordata where date = (%s) and id_satellite_programm in 
     (SELECT id FROM satellite_programm where id_satellite = 1 
     and id_programm = 1)''', [start_dates[0][0]])
-    start_brightness = cur.fetchone()
+    start_brightness = cur.fetchall()
 
     # airhumidity where date = startdate
     cur.execute('''SELECT airhumidity FROM sensordata where date = (%s) and id_satellite_programm in 
     (SELECT id FROM satellite_programm where id_satellite = 1 
     and id_programm = 1)''', [start_dates[0][0]])
-    start_airhumidity = cur.fetchone()
+    start_airhumidity = cur.fetchall()
 
     # soilhumidity where date = startdate
     cur.execute('''SELECT soilhumidity FROM sensordata where date = (%s) and id_satellite_programm in 
     (SELECT id FROM satellite_programm where id_satellite = 1 
     and id_programm = 1)''', [start_dates[0][0]])
-    start_soilhumidity = cur.fetchone()
+    start_soilhumidity = cur.fetchall()
 
     # close MySQL database cursor
     cur.close()
@@ -187,28 +187,28 @@ def dashboard():
         id = (%s)) and id_satellite_programm in 
         (SELECT id FROM satellite_programm where id_satellite = (%s) 
         and id_programm = (%s))''', [selected_date_id, satellite_id, programm_id])
-        temperature = cur.fetchone()
+        temperature = cur.fetchall()
 
         # SQL statement to select brightness from selected values in dropdown fields
         cur.execute('''SELECT brightness FROM sensordata where date >= (SELECT date from sensordata WHERE 
         id = (%s)) and id_satellite_programm in 
         (select id from satellite_programm where id_satellite = (%s) 
         and id_programm = (%s))''', [selected_date_id, satellite_id, programm_id])
-        brightness = cur.fetchone()
+        brightness = cur.fetchall()
 
         # SQL statement to select airhumidity from selected values in dropdown fields
         cur.execute('''SELECT airhumidity FROM sensordata where date >= (SELECT date from sensordata WHERE 
         id = (%s)) and id_satellite_programm in 
         (select id from satellite_programm where id_satellite = (%s) 
         and id_programm = (%s))''', [selected_date_id, satellite_id, programm_id])
-        airhumidity = cur.fetchone()
+        airhumidity = cur.fetchall()
 
         # SQL statement to select soilhumidity from selected values in dropdown fields
         cur.execute('''SELECT soilhumidity FROM sensordata where date >= (SELECT date from sensordata WHERE 
         id = (%s)) and id_satellite_programm in 
         (select id from satellite_programm where id_satellite = (%s) 
         and id_programm = (%s))''', [selected_date_id, satellite_id, programm_id])
-        soilhumidity = cur.fetchone()
+        soilhumidity = cur.fetchall()
 
         # close MySQL database cursor
         cur.close()
