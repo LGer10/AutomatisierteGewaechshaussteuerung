@@ -245,7 +245,7 @@ def admin():
         if request.form['Button'] == 'Programm laden':
             # request.form gets seected values in dropdown fields
             satellite_id = request.form['satellite_id']
-            programm_id = request.form['satellite_id']
+            programm_id = request.form['programm_id']
 
             # connection-cursor to MySQL database
             cur = mysql.connection.cursor()
