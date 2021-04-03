@@ -256,16 +256,18 @@ def admin():
             # commit updated table
             mysql.connection.commit()
 
+            # get ip-adress from selected satellite in dropdown field
             cur.execute(
                 'SELECT ip_addr from satellites WHERE id = (%s)', satellite_id)
             ip_addr = cur.fetchone()
             ip_addr = ip_addr[0]
 
-            #
+            # select parameter values from selected programm
             cur.execute('''select pp.value from parameters p
 			join programm_parameter pp on p.id = pp.id_parameter
 			join programms pr on pr.id = pp.id_programm where pr.id = (%s)''', [p_id])
 
+            # close MySQL database cursor
             cur.close()
 
             programm_values = cur.fetchone()
@@ -274,7 +276,8 @@ def admin():
             airhumidity_value = programm_values[2]
             soilhumidity_value = programm_values[3]
 
-            url = "http://" + ip_addr + ": 8081/post_data?temperature=" + temperature_value + "&brightness=" + brightness_value + "&air_humidity=" + airhumidity_value + "& soil_humidity =" + soilhumidity_value"
+            url = f'''http://"{ip_addr}:8081/post_data?temperature={temperature_value}&brightness={brightness_value}
+            &air_humidity={airhumidity_value}& soil_humidity={soilhumidity_value}'''
 
             post = requests.post(url)
 
