@@ -265,7 +265,7 @@ def admin():
             # select parameter values from selected programm
             cur.execute('''select pp.value from parameters p
 			join programm_parameter pp on p.id = pp.id_parameter
-			join programms pr on pr.id = pp.id_programm where pr.id = (%s)''', [p_id])
+			join programms pr on pr.id = pp.id_programm where pr.id = (%s)''', [programm_id])
 
             # close MySQL database cursor
             cur.close()
@@ -277,7 +277,7 @@ def admin():
             soilhumidity_value = programm_values[3]
 
             url = f'''http://"{ip_addr}:8081/post_data?temperature={temperature_value}&brightness={brightness_value}
-            &air_humidity={airhumidity_value}& soil_humidity={soilhumidity_value}'''
+            &air_humidity={airhumidity_value}&soil_humidity={soilhumidity_value}'''
 
             post = requests.post(url)
 
