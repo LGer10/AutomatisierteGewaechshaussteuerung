@@ -267,7 +267,7 @@ def admin():
 			join programm_parameter pp on p.id = pp.id_parameter
 			join programms pr on pr.id = pp.id_programm where pr.id = (%s)''', [programm_id])
 
-            programm_values = cur.fetchone()
+            programm_values = cur.fetchall()
             temperature_value = programm_values[0]
             brightness_value = programm_values[1]
             airhumidity_value = programm_values[2]
