@@ -21,7 +21,7 @@
                            <span>Satellit auswählen: </span>
                         </label>
                         </br>
-                        <SELECT name="s_id" id="satellit">
+                        <SELECT name="satellite_id" id="satellit">
                            {% for i in satellite_list %}
                            <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
                            {% endfor %}
@@ -34,7 +34,7 @@
                         </label>
                         </br>
 
-                        <SELECT name="p_id" id="programm">
+                        <SELECT name="programm_id" id="programm">
                            {% for i in programm_list %}
                            <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
                            {% endfor %}
