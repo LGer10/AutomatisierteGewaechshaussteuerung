@@ -267,19 +267,22 @@ def admin():
 			join programm_parameter pp on p.id = pp.id_parameter
 			join programms pr on pr.id = pp.id_programm where pr.id = (%s)''', [programm_id])
 
+            # declare parameters as variables
             programm_values = cur.fetchall()
-            temperature_value = programm_values[0]
-            brightness_value = programm_values[1]
-            airhumidity_value = programm_values[2]
-            soilhumidity_value = programm_values[3]
+            temperature_value = programm_values[0][0]
+            brightness_value = programm_values[1][0]
+            airhumidity_value = programm_values[2][0]
+            soilhumidity_value = programm_values[3][0]
 
             # close MySQL database cursor
             cur.close()
 
+            # post-request url to load programm
             url = f'''http://"{ip_addr}:8081/post_data?temperature={temperature_value}&brightness={brightness_value}
             &air_humidity={airhumidity_value}&soil_humidity={soilhumidity_value}'''
 
-            post = requests.post(url)
+            # send post request to url
+            post = request.post(url)
 
         if request.form['Button'] == 'Satellit hinzufügen':
             satellite_name = request.form['satellite_name']
