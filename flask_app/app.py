@@ -117,6 +117,7 @@ def dashboard():
     start_brightness = cur.fetchall()
 
     new_start_brightness = {}
+    new_value = 0
     for value in start_brightness:
         new_value = new_value + value
         new_start_brightness = new_start_brightness + new_value
