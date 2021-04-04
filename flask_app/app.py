@@ -116,11 +116,11 @@ def dashboard():
     and id_programm = 1)''', [start_dates[0][0]])
     start_brightness = cur.fetchall()
 
-    new_start_brightness = ()
-    new_value = ()
+    new_start_brightness = []
+    new_value = 0
     for value in start_brightness:
-        new_value = new_value + value
-        new_start_brightness = new_start_brightness + new_value
+        new_value = new_value + value[0]
+        new_start_brightness.append(new_value)
 
     # airhumidity where date = startdate
     cur.execute('''SELECT airhumidity FROM sensordata where date = (%s) and id_satellite_programm in 
