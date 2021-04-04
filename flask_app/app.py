@@ -212,7 +212,7 @@ def dashboard():
 
             new_value = 0
             for value in _brightness:
-                new_value = new_value + value
+                new_value = new_value + value[0]
                 brightness.append(new_value)
 
            
