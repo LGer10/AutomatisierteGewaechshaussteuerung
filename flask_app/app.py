@@ -217,7 +217,7 @@ def dashboard():
                 new_brightness.append(new_value)
 
             for x in new_brightness:
-                brightness = brightness.append(x)
+                brightness.append(x)
 
         # SQL statement to select airhumidity from selected values in dropdown fields
         cur.execute('''SELECT airhumidity FROM sensordata where date >= (SELECT date from sensordata WHERE 
