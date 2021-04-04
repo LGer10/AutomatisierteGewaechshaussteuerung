@@ -116,6 +116,11 @@ def dashboard():
     and id_programm = 1)''', [start_dates[0][0]])
     start_brightness = cur.fetchall()
 
+    new_start_brightness = {}
+    for value in start_brightness:
+        new_value = new_value + value
+        new_start_brightness = new_start_brightness + new_value
+
     # airhumidity where date = startdate
     cur.execute('''SELECT airhumidity FROM sensordata where date = (%s) and id_satellite_programm in 
     (SELECT id FROM satellite_programm where id_satellite = 1 
@@ -190,12 +195,25 @@ def dashboard():
         and id_programm = (%s))''', [selected_date_id, satellite_id, programm_id])
         temperature = cur.fetchall()
 
-        # SQL statement to select brightness from selected values in dropdown fields
-        cur.execute('''SELECT brightness FROM sensordata where date >= (SELECT date from sensordata WHERE 
-        id = (%s)) and id_satellite_programm in 
-        (select id from satellite_programm where id_satellite = (%s) 
+        cur.execute('''SELECT distinct date FROM sensordata where date >= (SELECT date FROM sensordata where id = (%s)) and id_satellite_programm in 
+        (SELECT id FROM satellite_programm where id_satellite = (%s) 
         and id_programm = (%s))''', [selected_date_id, satellite_id, programm_id])
-        brightness = cur.fetchall()
+        brightness_dates = cur.fetchall()
+
+        brightness = {}
+        for date in brightness_dates[0]:
+            # SQL statement to select brightness from selected values in dropdown fields
+            cur.execute('''SELECT brightness FROM sensordata where date = (%s) and id_satellite_programm in 
+            (select id from satellite_programm where id_satellite = (%s) 
+            and id_programm = (%s))''', [date, satellite_id, programm_id])
+            _brightness = cur.fetchall()
+
+            new_brightness = {}
+            for value in _brightness:
+                new_value = new_value + value
+                new_brightness = new_brightness + new_value
+            
+            brightness = brightness + new_brightness
 
         # SQL statement to select airhumidity from selected values in dropdown fields
         cur.execute('''SELECT airhumidity FROM sensordata where date >= (SELECT date from sensordata WHERE 
@@ -218,7 +236,7 @@ def dashboard():
         return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span, displayed_satellite=displayed_satellite, displayed_programm=displayed_programm, temperature_value=temperature_value, brightness_value=brightness_value, airhumidity_value=airhumidity_value, soilhumidity_value=soilhumidity_value, dates=dates, temperature=temperature, brightness=brightness, airhumidity=airhumidity, soilhumidity=soilhumidity)
 
     # return start-dashboard-template with data from satellite and programm with ID = 1 and from last inserted date in MySQL DB where satellite and programm ID = 1
-    return render_template('start_dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span, start_satellite=start_satellite, start_programm=start_programm, start_temperature_value=start_temperature_value, start_brightness_value=start_brightness_value, start_airhumidity_value=start_airhumidity_value, start_soilhumidity_value=start_soilhumidity_value, start_dates=start_dates, start_temperature=start_temperature, start_brightness=start_brightness, start_airhumidity=start_airhumidity, start_soilhumidity=start_soilhumidity)
+    return render_template('start_dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span, start_satellite=start_satellite, start_programm=start_programm, start_temperature_value=start_temperature_value, start_brightness_value=start_brightness_value, start_airhumidity_value=start_airhumidity_value, start_soilhumidity_value=start_soilhumidity_value, start_dates=start_dates, start_temperature=start_temperature, new_start_brightness=new_start_brightness, start_airhumidity=start_airhumidity, start_soilhumidity=start_soilhumidity)
 
 
 # admin
