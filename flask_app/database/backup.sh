@@ -1,4 +1,4 @@
 #!/usr/bin/bash
 
-mysqldump -u root –p AGdb AGdb > AGdb_backup.sql
+sudo mysqldump -u root –p AGdb AGdb > AGdb.sql
 
