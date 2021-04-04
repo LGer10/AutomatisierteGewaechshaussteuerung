@@ -1,3 +1,4 @@
 #!/usr/bin/bash
 
-mysqldump -u root -p'AGdb' AGdb < AGdb.sql
+#command line statement to restore mysql database
+mysqldump -u root -p'AGdb' AGdb < AGdb_backup.sql
