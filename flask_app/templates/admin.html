@@ -17,11 +17,11 @@
                   <hr>
                   <form method="POST" action="/admin">
                      <p>
-                        <label for="satellit">
+                        <label for="satellite">
                            <span>Satellit auswählen: </span>
                         </label>
                         </br>
-                        <SELECT name="satellite_id" id="satellit">
+                        <SELECT name="satellite_id" id="satellite">
                            {% for i in satellite_list %}
                            <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
                            {% endfor %}
@@ -50,18 +50,18 @@
                   <hr>
                   <form method="POST" action="/admin">
                      <p>
-                        <label for="s_name">
+                        <label for="satellite_name">
                            <span>Name: </span>
                         </label>
                         </br>
-                        <input type="text" id="s_name" name="satellite_name">
+                        <input type="text" id="satellite_name" name="satellite_name">
                      </p>
                      <p>
-                        <label for="ipadresse">
+                        <label for="ipadress">
                            <span>IP-Adresse: </span>
                         </label>
                         </br>
-                        <input type="text" id="ipadresse" name="ip_addr">
+                        <input type="text" id="ipadress" name="ip_addr">
                      </p>
                      <hr style="margin-top: 250px;">
                      <input type="submit" name="Button" value="Satellit hinzufügen"
@@ -74,43 +74,43 @@
                   <hr>
                   <form method="POST" action="/admin">
                      <p>
-                        <label for="p_name">
+                        <label for="programm_name">
                            <span>Name: </span>
                         </label>
                         </br>
-                        <input type="text" id="p_name" name="programm_name">
+                        <input type="text" id="programm_name" name="programm_name">
                      </p>
                      <p>
-                        <label for="temperatur">
+                        <label for="temperature">
                            <span>Temperatur: </span>
                         </label>
                         </br>
-                        <input type="number" id="temperatur" name="temperatur">
+                        <input type="number" id="temperature" name="temperature">
                      </p>
                      <p>
-                        <label for="helligkeit">
+                        <label for="brightness">
                            <span>Helligkeit: </span>
                         </label>
                         </br>
-                        <input type="number" id="helligkeit" name="helligkeit">
+                        <input type="number" id="brightness" name="brightness">
                      </p>
                      <p>
-                        <label for="luftfeuchtigkeit">
+                        <label for="airhumidity">
                            <span>Luftfeuchtigkeit: </span>
                         </label>
                         </br>
-                        <input type="number" id="luftfeuchtigkeit" name="luftfeuchtigkeit">
+                        <input type="number" id="airhumidity" name="airhumidity">
                      </p>
                      <p>
-                        <label for="bodenfeuchtigkeit">
+                        <label for="soilhumidity">
                            <span>Bodenfeuchtigkeit: </span>
                         </label>
                         </br>
-                        <input type="number" id="bodenfeuchtigkeit" name="bodenfeuchtigkeit">
+                        <input type="number" id="soilhumidity" name="soilhumidity">
                      </p>
                      <hr>
                      <div style="margin-bottom: 20px;">
-                        <input type="submit" id="hinzufügen" name="Button" value="Programm hinzufügen"
+                        <input type="submit" name="Button" value="Programm hinzufügen"
                            style="background-color: green; color: white;">
                   </form>
                </div>

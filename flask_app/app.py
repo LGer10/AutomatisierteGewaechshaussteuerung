@@ -1,10 +1,13 @@
+#!/usr/bin/python3
+
 # automatisiertes gewächshaus | main-script flask_app | version 0.1
 
-# Libraries
+# ibraries
 from flask import Flask, session, render_template, request, make_response, redirect, flash, Markup, url_for
 from flask_mysqldb import MySQL
+import requests
 
-# Flask instance for app
+# flask instance for app
 app = Flask(__name__)
 
 # MySQL instance for app
@@ -17,16 +20,14 @@ app.config['MYSQL_PASSWORD'] = 'AGdb'
 app.config['MYSQL_DB'] = 'AGdb'
 
 
-# Home
-
-
+# home
 @app.route('/')
 def home():
     # default method is GET, if nothing else is declared
     # returns home-template
     return render_template('home.html')
 
-# Dashboard
+# dashboard
 
 
 @app.route('/dashboard', methods=['GET', 'POST'])
@@ -220,9 +221,9 @@ def dashboard():
     return render_template('start_dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span, start_satellite=start_satellite, start_programm=start_programm, start_temperature_value=start_temperature_value, start_brightness_value=start_brightness_value, start_airhumidity_value=start_airhumidity_value, start_soilhumidity_value=start_soilhumidity_value, start_dates=start_dates, start_temperature=start_temperature, start_brightness=start_brightness, start_airhumidity=start_airhumidity, start_soilhumidity=start_soilhumidity)
 
 
-# Admin
+# admin
 # both methods GET and POST are allowed
-# Default method is GET, if nothing else is declared
+# default method is GET, if nothing else is declared
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
     # connection-cursor to MySQL database
@@ -278,57 +279,79 @@ def admin():
             cur.close()
 
             # post-request url to load programm
-            url = f'''http://"{ip_addr}:8081/post_data?temperature={temperature_value}&brightness={brightness_value}
+            url = f'''http://{ip_addr}:8081/post_data?temperature={temperature_value}&brightness={brightness_value}
             &air_humidity={airhumidity_value}&soil_humidity={soilhumidity_value}'''
 
             # send post request to url
-            post = request.post(url)
+            post = requests.post(url)
 
+        # if POST-method from the 'Satellit hinzufügen' button is requested
         if request.form['Button'] == 'Satellit hinzufügen':
+            # request.form gets user input from input fields
             satellite_name = request.form['satellite_name']
             ip_addr = request.form['ip_addr']
 
+            # connection-cursor to MySQL database
             cur = mysql.connection.cursor()
+
+            # insert satellite-name and ip-adress from input fields into table satellites
             cur.execute('insert into satellites (name, ip_addr) values (%s, %s)', [
                         satellite_name, ip_addr])
+
+            # select ID of added satellite
             cur.execute('select id from satellites where name = (%s)', [
                         satellite_name])
             satellite_id = cur.fetchone()
 
+            # select ID of all programms
             cur.execute('SELECT id FROM programms')
             programm_id_list = cur.fetchall()
 
+            # insert satellite-ID for every existing programm to generate the satellite-programm relations
             for programm_id in programm_id_list:
                 cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (%s, %s)', [
                             satellite_id, programm_id])
 
+            # commit insert statement
             mysql.connection.commit()
+
+            # close MySQL database cursor
             cur.close()
 
+            # redirect to admin route
             return redirect(url_for('admin'))
 
+        # if POST-method from the 'Programm hinzufügen' button is requested
         if request.form['Button'] == 'Programm hinzufügen':
+            # request.form gets user input from input fields
             programm_name = request.form['programm_name']
-            temperatur = request.form['temperatur']
-            helligkeit = request.form['helligkeit']
-            luftfeuchtigkeit = request.form['luftfeuchtigkeit']
-            bodenfeuchtigkeit = request.form['bodenfeuchtigkeit']
+            temperature = request.form['temperature']
+            brightness = request.form['brightness']
+            airhumidity = request.form['airhumidity']
+            soilhumidity = request.form['soilhumidity']
 
+            # connection-cursor to MySQL database
             cur = mysql.connection.cursor()
+
+            # insert programm name and date created into table programms
             cur.execute('insert into programms (name, date_created) values (%s, current_timestamp())', [
                         programm_name])
 
+            # select inserted programm id
             cur.execute('select id from programms where name = (%s)', [
                         programm_name])
             programm_id = cur.fetchone()
 
+            # select id of all satellites
             cur.execute('SELECT id FROM satellites')
             satellite_id_list = cur.fetchall()
 
+            # insert programm-ID for every existing satellite to generate the satellite-programm relations
             for satellite_id in satellite_id_list:
                 cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (%s, %s)', [
                             satellite_id, programm_id])
 
+            # insert all parameters from user input in input fields
             cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
                         VALUES (%s, (select id from parameters where name = "Temperatur"), %s)''', [programm_id, temperatur])
 
@@ -341,11 +364,15 @@ def admin():
             cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
                         VALUES (%s, (select id from parameters where name = "Bodenfeuchtigkeit"), %s)''', [programm_id, bodenfeuchtigkeit])
 
+            # commit insert statement
             mysql.connection.commit()
+
+            # close MySQL database cursor
             cur.close()
 
+            # redirect to admin route
             return redirect(url_for('admin'))
-
+    # return admin-template with satellites and programm lists
     return render_template('admin.html', satellite_list=satellite_list, programm_list=programm_list)
 
 
