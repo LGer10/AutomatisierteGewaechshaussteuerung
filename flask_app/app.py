@@ -202,6 +202,7 @@ def dashboard():
         brightness_dates = cur.fetchall()
 
         brightness = ()
+
         for date in brightness_dates[0]:
             # SQL statement to select brightness from selected values in dropdown fields
             cur.execute('''SELECT brightness FROM sensordata where date = (%s) and id_satellite_programm in 
@@ -215,7 +216,7 @@ def dashboard():
                 new_value = new_value + value
                 new_brightness = new_brightness + (new_value,)
             
-            brightness = brightness + new_brightness
+        brightness = brightness + new_brightness
 
         # SQL statement to select airhumidity from selected values in dropdown fields
         cur.execute('''SELECT airhumidity FROM sensordata where date >= (SELECT date from sensordata WHERE 
