@@ -164,7 +164,7 @@
                 <script>
                   //draw line chart with dates from selected datespan as x-labels 
                   //and temperature-values from selected satellite and programm 
-                  new Chart(document.getElementById("chart1"), {
+                  new Chart(document.getElementById("chart2"), {
                     type: 'line',
                     data: {
                       labels: [{% for row in dates %}'{{ row[0] }}, {{ row[1] }}', {% endfor %}],
