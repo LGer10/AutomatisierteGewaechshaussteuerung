@@ -3,13 +3,15 @@
 
 {% block content %}
 
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-{% for message in messages %}
-<h3 aligne="middle">{{ message }}</h3>
-{% endfor %}
-{% endif %}
-{% endwith %}
+<div class="container align-items-center" style="border: solid; border-color: lightgrey;" 
+{% with messages=get_flashed_messages() %} 
+{% if messages %} 
+{% for message in messages %} 
+<h3>{{ message }}</h3>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+</div>
 
 
 {% endblock %}
