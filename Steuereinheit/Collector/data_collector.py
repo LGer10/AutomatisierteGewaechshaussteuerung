@@ -25,7 +25,7 @@ except:
 cursor = db.cursor(buffered=True)
 
 # select ip-adress from all satellites
-cursor.execute("SELECT ip_addr FROM satellites where id = 7")
+cursor.execute("SELECT ip_addr FROM satellites where id = 23")
 satellite_ip = cursor.fetchall()
 
 # colect data
