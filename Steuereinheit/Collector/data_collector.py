@@ -53,7 +53,7 @@ def collector():
             air_humidity = json_file["air_humidity"]
 
             # convert brightness to hours
-            if brightness >= 1000:
+            if brightness >= 200:
                 brightness = 1/60
             else:
                 brightness = 0
@@ -72,9 +72,9 @@ def collector():
             # commit insert
             db.commit()
 
-        except:
-            print('data-collection failed')
-            time.sleep(5)
+    except:
+        print('data-collection failed')
+        time.sleep(5)
 
 
 # call collector method
