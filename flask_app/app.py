@@ -314,7 +314,7 @@ def admin():
                 satellite_name = request.form['satellite_name']
                 ip_addr = request.form['ip_addr']
 
-                if satellite_name = None or ip_addr = None:
+                if satellite_name == None or ip_addr == None:
                     flash('Eingaben unvollständig')
                     return render_template('flash.html')
 
@@ -365,7 +365,7 @@ def admin():
                 airhumidity = request.form['airhumidity']
                 soilhumidity = request.form['soilhumidity']
 
-                if programm_name = None:
+                if programm_name == None or temperature == None or brightness == None or airhumidity == None or soilhumidity == None:
                     flash('Eingaben unvollständig')
                     return render_template('flash.html')
 
