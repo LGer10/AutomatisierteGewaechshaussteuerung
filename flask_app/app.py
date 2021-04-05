@@ -269,55 +269,55 @@ def admin():
     # if POST-method from the 'Programm laden' button is requested
     if request.method == 'POST':
         if request.form['Button'] == 'Programm laden':
-            try:
-                # request.form gets seected values in dropdown fields
-                satellite_id = request.form['satellite_id']
-                programm_id = request.form['programm_id']
+            #try:
+            # request.form gets seected values in dropdown fields
+            satellite_id = request.form['satellite_id']
+            programm_id = request.form['programm_id']
 
-                # connection-cursor to MySQL database
-                cur = mysql.connection.cursor()
+            # connection-cursor to MySQL database
+            cur = mysql.connection.cursor()
 
-                # set current_programm from selected satellite to value from selected programm in dropdown field
-                cur.execute('UPDATE satellites set current_programm = (%s) where id = (%s)', [
-                            programm_id, satellite_id])
-                # commit updated table
-                mysql.connection.commit()
+            # set current_programm from selected satellite to value from selected programm in dropdown field
+            cur.execute('UPDATE satellites set current_programm = (%s) where id = (%s)', [
+                        programm_id, satellite_id])
+            # commit updated table
+            mysql.connection.commit()
 
-                # get ip-adress from selected satellite in dropdown field
-                cur.execute(
-                    'SELECT ip_addr from satellites WHERE id = (%s)', satellite_id)
-                ip_addr = cur.fetchone()
-                ip_addr = ip_addr[0]
+            # get ip-adress from selected satellite in dropdown field
+            cur.execute(
+                'SELECT ip_addr from satellites WHERE id = (%s)', satellite_id)
+            ip_addr = cur.fetchone()
+            ip_addr = ip_addr[0]
 
-                # select parameter values from selected programm
-                cur.execute('''select pp.value from parameters p
-                join programm_parameter pp on p.id = pp.id_parameter
-                join programms pr on pr.id = pp.id_programm where pr.id = (%s)''', [programm_id])
+            # select parameter values from selected programm
+            cur.execute('''select pp.value from parameters p
+            join programm_parameter pp on p.id = pp.id_parameter
+            join programms pr on pr.id = pp.id_programm where pr.id = (%s)''', [programm_id])
 
-                # declare parameters as variables
-                programm_values = cur.fetchall()
-                temperature_value = programm_values[0][0]
-                brightness_value = programm_values[1][0]
-                airhumidity_value = programm_values[2][0]
-                soilhumidity_value = programm_values[3][0]
+            # declare parameters as variables
+            programm_values = cur.fetchall()
+            temperature_value = programm_values[0][0]
+            brightness_value = programm_values[1][0]
+            airhumidity_value = programm_values[2][0]
+            soilhumidity_value = programm_values[3][0]
 
-                # close MySQL database cursor
-                cur.close()
+            # close MySQL database cursor
+            cur.close()
 
-                # post-request url to load programm
-                url = f'''http://{ip_addr}:8081/post_data?temperature={temperature_value}&brightness={brightness_value}
-                &air_humidity={airhumidity_value}&soil_humidity={soilhumidity_value}'''
+            # post-request url to load programm
+            url = f'''http://{ip_addr}:8081/post_data?temperature={temperature_value}&brightness={brightness_value}
+            &air_humidity={airhumidity_value}&soil_humidity={soilhumidity_value}'''
 
-                # send post request to url
-                post = requests.post(url)
+            # send post request to url
+            post = requests.post(url)
 
-                flash('Programm erfolgreich geladen')
-                return render_template('success.html')
+            flash('Programm erfolgreich geladen')
+            return render_template('success.html')
 
-            
-            except:
-                flash('Ein Fehler ist aufgetreten - Programm erneut laden')
-                return render_template('fail.html')
+        
+        #except:
+            flash('Ein Fehler ist aufgetreten - Programm erneut laden')
+            return render_template('fail.html')
 
 
         # if POST-method from the 'Satellit hinzufügen' button is requested
