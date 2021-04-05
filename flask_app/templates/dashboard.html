@@ -78,7 +78,7 @@
                     type: 'line',
                     data: {
                       // for-loop to get dates and time
-                      labels: [{% for row in dates %} '{{ row[0] }},\n{{ row[1] }}', {% endfor %}],
+                      labels: [{% for row in dates %} ['{{ row[0] }}','{{ row[1] }}'], {% endfor %}],
                     datasets: [{
                       data: [
                         // for-loop to get dates and time
