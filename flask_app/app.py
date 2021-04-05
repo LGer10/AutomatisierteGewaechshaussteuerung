@@ -313,7 +313,7 @@ def admin():
                 satellite_name = request.form['satellite_name']
                 ip_addr = request.form['ip_addr']
 
-                if not satellite_name >= 1 or ip_addr >= 8:
+                if satellite_name < 1 or ip_addr < 8:
                     flash('Eingaben unvollständig oder ungültig')
                     return render_template('flash.html')
 
@@ -364,8 +364,7 @@ def admin():
                 airhumidity = request.form['airhumidity']
                 soilhumidity = request.form['soilhumidity']
 
-                if not programm_name >= 1 or temperature >= 1 or brightness >= 1 or airhumidity >= 1 or soilhumidity >= 1:
-                    0
+                if programm_name < 1 or temperature < 1 or brightness < 1 or airhumidity < 1 or soilhumidity < 1:
                     flash('Eingaben unvollständig')
                     return render_template('flash.html')
 
@@ -412,7 +411,7 @@ def admin():
                 flash('Programm wurde erfolgreich erstellt')
                 return render_template('flash.html')
             except:
-                flash('Programm konnte nicht erstellt werden.')
+                flash('Programm konnte nicht erstellt werden. Erneut versuchen.')
                 return render_template('flash.html')
 
             # redirect to admin route
