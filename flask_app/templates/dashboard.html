@@ -1,452 +1,448 @@
-{% extends "base.html" %}
+<!Import of base-template>
+  {% extends "base.html" %}
 
-{% block content %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
-  integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
-  crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"
-  integrity="sha512-zO8oeHCxetPn1Hd9PdDleg5Tw1bAaP0YmNvPY8CwcRyUk7d7/+nyElmFrB6f7vg4f7Fv4sui1mcep8RIEShczg=="
-  crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"
-  integrity="sha512-SuxO9djzjML6b9w9/I07IWnLnQhgyYVSpHZx0JV97kGBfTIsUYlWflyuW4ypnvhBrslz1yJ3R+S14fdCWmSmSA=="
-  crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
-<script
-  src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.css"
-  integrity="sha512-C7hOmCgGzihKXzyPU/z4nv97W0d9bv4ALuuEbSf6hm93myico9qa0hv4dODThvCsqQUmKmLcJmlpRmCaApr83g=="
-  crossorigin="anonymous" />
+  {% block content %}
 
+  <!scripts for chart.js>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
+      integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
+      crossorigin="anonymous"></script>
 
-<body>
-  <div class="p-2" align="middle">
-    <h2 style="color:green">{% block title %} Dashboard {% endblock %}</h3>
-      <hr>
-      <form method="POST" action="/dashboard">
-        <p>
-          Satellit auswählen:
-          <SELECT name="satellite_id">
-            {% for i in satellite_list %}
-            <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
-            {% endfor %}
-          </SELECT>
-          &nbsp;&nbsp;
-          Programm auswählen:
-          <SELECT name="programm_id">
-            {% for i in programm_list %}
-            <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
-            {% endfor %}
-          </SELECT>
-          &nbsp;&nbsp;
-          Zeitraum auswählen:
-          <SELECT name="selected_date">
-            {% for i in date_span %}
-            <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
-            {% endfor %}
-          </SELECT>
-          &nbsp;&nbsp;
-          <input class="float right" type="submit" name="loadButton" value="Laden">
-        </p>
-      </form>
-      <hr>
-  </div>
-</body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"
+      integrity="sha512-zO8oeHCxetPn1Hd9PdDleg5Tw1bAaP0YmNvPY8CwcRyUk7d7/+nyElmFrB6f7vg4f7Fv4sui1mcep8RIEShczg=="
+      crossorigin="anonymous"></script>
 
-<body>
-  <h4 align="middle"> {{displayed_satellite}} - {{displayed_programm}} </h4>
-  <div class="container-fluid p-4 border" style="position: relative;">
-    <div class="row">
-      <div class="col-md-6 border">
-        <canvas id="chart" width="600" height="400"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"
+      integrity="sha512-SuxO9djzjML6b9w9/I07IWnLnQhgyYVSpHZx0JV97kGBfTIsUYlWflyuW4ypnvhBrslz1yJ3R+S14fdCWmSmSA=="
+      crossorigin="anonymous"></script>
 
-        <script>
-          // get bar chart canvas
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
 
-          let lab
-          // draw bar chart
-          new Chart(document.getElementById("chart"), {
-            type: 'line',
-            data: {
-              labels: [{% for item in dates_list %}'{{ item }}', {% endfor %}],
-            datasets: [{
-              data: [
-                {% for item in temperature_list %}{{ item }}, {% endfor %}],
-            label: 'Temperatur',
-            fill: false,
-            borderColor: "#c45850"
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js"></script>
 
-               }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.css"
+      integrity="sha512-C7hOmCgGzihKXzyPU/z4nv97W0d9bv4ALuuEbSf6hm93myico9qa0hv4dODThvCsqQUmKmLcJmlpRmCaApr83g=="
+      crossorigin="anonymous" />
+
+    <!body with title and dropdown fields>
+
+      <body>
+        <div class="p-2" align="middle">
+          <h3 style="color:green">{% block title %} Dashboard {% endblock %}</h3>
+            <hr>
+            <form method="POST" action="/dashboard">
+              <p>
+                Satellit auswählen:
+                <SELECT name="satellite_id">
+                  {% for i in satellite_list %}
+                  <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
+                  {% endfor %}
+                </SELECT>
+                &nbsp;&nbsp;
+                Programm auswählen:
+                <SELECT name="programm_id">
+                  {% for i in programm_list %}
+                  <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
+                  {% endfor %}
+                </SELECT>
+                &nbsp;&nbsp;
+                Zeitraum auswählen:
+                <SELECT name="selected_date_id">
+                  {% for i in date_span %}
+                  <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
+                  {% endfor %}
+                </SELECT>
+                &nbsp;&nbsp;
+                <input class="float right" type="submit" name="loadButton" value="Laden">
+              </p>
+            </form>
+            <hr>
+        </div>
+      </body>
+
+      <!body with charts from selected satellite, programm and datespan>
+
+        <body>
+          <h4 align="middle" style="background-color: lightgrey;"> {{displayed_satellite[0]}} -
+            {{displayed_programm[0]}}
+          </h4>
+          <div class="container-fluid p-4" style="position: relative;">
+            <div class="row">
+              <div class="col-md-6 " style="border-style: solid; border-color: lightgrey;">
+                <canvas id="chart1" width="600" height="400"></canvas>
+                <script>
+                  // draw line chart with dates from selected datespan as x-labels 
+                  // and temperature-values from selected satellite and programm 
+                  new Chart(document.getElementById("chart1"), {
+                    type: 'line',
+                    data: {
+                      // for-loop to get dates and time
+                      labels: [{% for row in dates %} '{{ row[0] }}, {{ row[1] }}', {% endfor %}],
+                    datasets: [{
+                      data: [
+                        // for-loop to get dates and time
+                        {% for item in temperature %}
+                          {{ item[0] }},
+                    {% endfor %}],
+
+                    label: 'Temperatur',
+                    fill: false,
+                    borderColor: "#c45850"
+          }
             ]
           },
-            options: {
-            title: {
-              display: true,
-              text: 'Temperatur',
-              position: 'top',
-              fontSize: 20,
-              fontStyle: 'bold'
-            }
-            ,
-            legend: {
-              display: true,
-              position: "bottom",
-              fontStyle: 'bold'
-            },
-            responsive: true,
-            scales: {
-              yAxes: [{
-                id: 'y1',
-                scaleLabel: {
-                  display: true,
-                  labelString: '°C',
-                  fontSize: 16,
-                  fontStyle: 'bold'
-                },
-                ticks: {
-                  beginAtZero: true,
-                  max: 40
+                    //options to style and format chart       
+                    options: {
+                    title: {
+                      display: true,
+                      text: 'Temperatur',
+                      position: 'top',
+                      fontSize: 20,
+                      fontStyle: 'bold'
+                    }
+                    ,
+                    legend: {
+                      display: true,
+                      position: "bottom",
+                      fontStyle: 'bold'
+                    },
+                    responsive: true,
+                    scales: {
+                      yAxes: [{
+                        id: 'y1',
+                        scaleLabel: {
+                          display: true,
+                          labelString: '°C',
+                          fontSize: 16,
+                          fontStyle: 'bold'
+                        },
+                        ticks: {
+                          beginAtZero: true,
+                          max: 40
+                        }
+                      }],
+                      xAxes: [{
+                        scaleLabel: {
+                          display: true,
+                          labelString: 'Zeitraum',
+                          fontSize: 16,
+                          fontStyle: 'bold'
+                        },
+                        ticks: {
+                          autoSkip: true,
+                          maxTicksLimit: 20
+                        }
 
-                }
-              }],
-              xAxes: [{
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Zeitraum',
-                  fontSize: 16,
-                  fontStyle: 'bold'
-                },
-                ticks: {
-                  autoSkip: true,
-                  maxTicksLimit: 14
-                }
-
-              }]
-            },
-            annotation: {
-              annotations: [{
-                type: 'line',
-                mode: 'horizontal',
-                scaleID: 'y1',
-                value: {{ temperature_value }},
-            borderColor: 'rgb(50, 153, 76)',
-            borderWidth: 2,
-            label: {
-              enabled: true,
-              content: 'Idealwert',
-              backgroundColor: 'rgb(50, 153, 76)',
-              position: 'end',
-              rotation: 45
-            }
-          }]
+                      }]
+                    },
+                    annotation: {
+                      annotations: [{
+                        type: 'line',
+                        mode: 'horizontal',
+                        scaleID: 'y1',
+                        value: {{ temperature_value[0] }},
+                    borderColor: 'rgb(50, 153, 76)',
+                    borderWidth: 2,
+                    borderDash: [10, 5],
+                    label: {
+                      enabled: true,
+                      content: 'Idealwert',
+                      backgroundColor: 'rgb(50, 153, 76)',
+                    }
+                  }]
     } 
    }
   }
-          );
+                  );
 
-        </script>
-      </div>
+                </script>
+              </div>
 
-      <div class="col-md-6 border">
-        <canvas id="chart1" width="600" height="400"></canvas>
+              <div class="col-md-6 " style="border-style: solid solid solid hidden; border-color: lightgrey;">
+                <canvas id="chart2" width="600" height="400"></canvas>
+                <script>
+                  //draw line chart with dates from selected datespan as x-labels 
+                  //and temperature-values from selected satellite and programm 
+                  new Chart(document.getElementById("chart2"), {
+                    type: 'line',
+                    data: {
+                      labels: [{% for row in dates %}'{{ row[0] }}, {{ row[1] }}', {% endfor %}],
 
-        <script>
-
-
-          new Chart(document.getElementById("chart1"), {
-            type: 'line',
-            data: {
-              labels: [
-                {% for item in dates_list %}
-                  '{{ item }}',
- {% endfor %}
-                ],
-
-            datasets : [{
-              data: [
-                {% for item in brightness_list %}
+                    datasets : [{
+                      data: [
+                        {% for item in brightness %}
             {{ item }},
 
-            {% endfor %}],
+                    {% endfor %}],
 
-            label: 'Helligkeit',
-            fill: false,
-            borderColor: "#e8d41e",
+                    label: 'Helligkeit',
+                    fill: false,
+                    borderColor: "#e8d41e",
                  }
      
             ]
 },
-            options: {
-            title: {
-              display: true,
-              text: 'Helligkeit',
-              position: 'top',
-              fontSize: 20,
-              fontStyle: 'bold'
-            }
-            ,
-            legend: {
-              display: true,
-              position: "bottom",
-              fontStyle: 'bold'
-            },
-            responsive: true,
-            scales: {
-              yAxes: [{
-                id: 'y1',
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Stunden hell',
-                  fontSize: 16,
-                  fontStyle: 'bold'
-                },
-                ticks: {
-                  beginAtZero: true,
-                  max: 12
-                }
-              }],
-              xAxes: [{
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Zeitraum',
-                  fontSize: 16,
-                  fontStyle: 'bold'
-                },
-                ticks: {
-                  autoSkip: true,
-                  maxTicksLimit: 14
-                }
-              }]
-            },
-            annotation: {
-              annotations: [{
-                type: 'line',
-                mode: 'horizontal',
-                scaleID: 'y1',
-                value: {{ brightness_value }},
-            borderColor: 'rgb(0, 153, 76)',
-            borderWidth: 2,
-            label: {
-              enabled: true,
-              content: 'Idealwert',
-              backgroundColor: 'rgb(50, 153, 76)',
-              position: 'end',
-              rotation: 45
-            }
-          }]
+                    options: {
+                    title: {
+                      display: true,
+                      text: 'Helligkeit',
+                      position: 'top',
+                      fontSize: 20,
+                      fontStyle: 'bold'
+                    }
+                    ,
+                    legend: {
+                      display: true,
+                      position: "bottom",
+                      fontStyle: 'bold'
+                    },
+                    responsive: true,
+                    scales: {
+                      yAxes: [{
+                        id: 'y1',
+                        scaleLabel: {
+                          display: true,
+                          labelString: 'Stunden hell',
+                          fontSize: 16,
+                          fontStyle: 'bold'
+                        },
+                        ticks: {
+                          beginAtZero: true,
+                        }
+                      }],
+                      xAxes: [{
+                        scaleLabel: {
+                          display: true,
+                          labelString: 'Zeitraum',
+                          fontSize: 16,
+                          fontStyle: 'bold'
+                        },
+                        ticks: {
+                          autoSkip: true,
+                          maxTicksLimit: 20
+                        }
+                      }]
+                    },
+                    annotation: {
+                      annotations: [{
+                        type: 'line',
+                        mode: 'horizontal',
+                        scaleID: 'y1',
+                        value: {{ brightness_value[0] }},
+                    borderColor: 'rgb(0, 153, 76)',
+                    borderWidth: 2,
+                    borderDash: [10, 5],
+
+                    label: {
+                      enabled: true,
+                      content: 'Idealwert',
+                      backgroundColor: 'rgb(50, 153, 76)',
+
+                    }
+                  }]
     } 
    }
   }
-          );
+                  );
 
 
 
-        </script>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6 border">
-        <canvas id="chart2" width="600" height="400"></canvas>
+                </script>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 " style="border-style: hidden solid solid solid; border-color: lightgrey;">
+                <canvas id="chart3" width="600" height="400"></canvas>
 
-        <script>
+                <script>
+                  // draw line chart with dates from selected datespan as x-labels 
+                  // and temperature-values from selected satellite and programm 
+                  new Chart(document.getElementById("chart3"), {
+                    type: 'line',
+                    data: {
+                      labels: [{% for row in dates %}'{{ row[0] }}, {{ row[1] }}', {% endfor %}],
+                    datasets : [{
 
-          new Chart(document.getElementById("chart2"), {
-            type: 'line',
-            data: {
-              labels: [
-                {% for item in dates_list %}
-                  '{{ item }}',
- {% endfor %}
-                ],
-
-            datasets : [{
-
-              data: [
-                {% for item in airhumidity_list %}
-            {{ item }},
+                      data: [
+                        {% for item in airhumidity %}
+            {{ item[0] }},
 
 
-            {% endfor %}],
-            label: 'Luftfeuchhtigkeit',
-            borderColor: "#3e95cd",
-            fill: false
+                    {% endfor %}],
+                    label: 'Luftfeuchhtigkeit',
+                    borderColor: "#3e95cd",
+                    fill: false
 
             
 
             }
             ]
 },
-            options: {
-            title: {
-              display: true,
-              text: 'Luftfeuchhtigkeit',
-              position: 'top',
-              fontSize: 20,
-              fontStyle: 'bold'
-            }
-            ,
-            legend: {
-              display: true,
-              position: "bottom",
-              fontStyle: 'bold'
-            },
-            responsive: true,
-            scales: {
-              yAxes: [{
-                id: 'y1',
-                scaleLabel: {
-                  display: true,
-                  labelString: '%',
-                  fontSize: 16,
-                  fontStyle: 'bold'
-                },
-                ticks: {
-                  beginAtZero: true,
-                  max: 100
-                }
-              }],
-              xAxes: [{
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Zeitraum',
-                  fontSize: 16,
-                  fontStyle: 'bold'
-                },
-                ticks: {
-                  autoSkip: true,
-                  maxTicksLimit: 14
-                }
-              }]
+                    options: {
+                    title: {
+                      display: true,
+                      text: 'Luftfeuchhtigkeit',
+                      position: 'top',
+                      fontSize: 20,
+                      fontStyle: 'bold'
+                    }
+                    ,
+                    legend: {
+                      display: true,
+                      position: "bottom",
+                      fontStyle: 'bold'
+                    },
+                    responsive: true,
+                    scales: {
+                      yAxes: [{
+                        id: 'y1',
+                        scaleLabel: {
+                          display: true,
+                          labelString: '%',
+                          fontSize: 16,
+                          fontStyle: 'bold'
+                        },
+                        ticks: {
+                          beginAtZero: true,
+                          max: 100
+                        }
+                      }],
+                      xAxes: [{
+                        scaleLabel: {
+                          display: true,
+                          labelString: 'Zeitraum',
+                          fontSize: 16,
+                          fontStyle: 'bold'
+                        },
+                        ticks: {
+                          autoSkip: true,
+                          maxTicksLimit: 20
+                        }
+                      }]
 
-            },
-            annotation: {
-              annotations: [{
-                type: 'line',
-                mode: 'horizontal',
-                scaleID: 'y1',
-                value: {{ airhumidity_value }},
-            borderColor: 'rgb(0, 153, 76)',
-            borderWidth: 2,
-            label: {
-              enabled: true,
-              content: 'Idealwert',
-              backgroundColor: 'rgb(50, 153, 76)',
-              position: 'end',
-              rotation: 45
-            }
-          }]
+                    },
+                    annotation: {
+                      annotations: [{
+                        type: 'line',
+                        mode: 'horizontal',
+                        scaleID: 'y1',
+                        value: {{ airhumidity_value[0] }},
+                    borderColor: 'rgb(0, 153, 76)',
+                    borderWidth: 2,
+                    borderDash: [10, 5],
+                    label: {
+                      enabled: true,
+                      content: 'Idealwert',
+                      backgroundColor: 'rgb(50, 153, 76)',
+
+                    }
+                  }]
     } 
    }
   }
-          );
+                  );
+
+                </script>
+              </div>
+
+              <div class="col-md-6" style="border-style: hidden solid solid hidden; border-color: lightgrey;">
+                <canvas id="chart4" width="600" height="400"></canvas>
+                <script>
+                  // draw line chart with dates from selected datespan as x-labels 
+                  // and temperature-values from selected satellite and programm 
+                  new Chart(document.getElementById("chart4"), {
+                    type: 'line',
+                    data: {
+                      labels: [{% for row in dates %}'{{ row[0] }}, {{ row[1] }}', {% endfor %}],
+
+                    datasets : [{
+
+                      data: [
+                        {% for item in soilhumidity %}
+            {{ item[0] }},
 
 
-        </script>
-      </div>
-      <div class="col-md-6 border">
-        <canvas id="chart3" width="600" height="400"></canvas>
-
-        <script>
-
-
-
-
-          new Chart(document.getElementById("chart3"), {
-            type: 'line',
-            data: {
-              labels: [
-                {% for item in dates_list %}
-                  '{{ item }}',
- {% endfor %}
-                ],
-
-            datasets : [{
-
-              data: [
-                {% for item in soilhumidity_list %}
-            {{ item }},
-
-
-            {% endfor %}],
-            label: 'Bodenfeuchtigkeit',
-            borderColor: "#3cba9f",
-            fill: false,        
+                    {% endfor %}],
+                    label: 'Bodenfeuchtigkeit',
+                    borderColor: "#3cba9f",
+                    fill: false,        
             }
           ]
 },
-            options: {
-            title: {
-              display: true,
-              text: 'Bodenfeuchtigkeit',
-              position: 'top',
-              fontSize: 20,
-              fontStyle: 'bold'
-            }
-            ,
-            legend: {
-              display: true,
-              position: "bottom",
-              fontStyle: 'bold'
+                    options: {
+                    title: {
+                      display: true,
+                      text: 'Bodenfeuchtigkeit',
+                      position: 'top',
+                      fontSize: 20,
+                      fontStyle: 'bold'
+                    }
+                    ,
+                    legend: {
+                      display: true,
+                      position: "bottom",
+                      fontStyle: 'bold'
 
-            },
-            responsive: true,
-            scales: {
-              yAxes: [{
-                id: 'y1',
-                scaleLabel: {
-                  display: true,
-                  labelString: '%',
-                  fontSize: 16,
-                  fontStyle: 'bold'
+                    },
+                    responsive: true,
+                    scales: {
+                      yAxes: [{
+                        id: 'y1',
+                        scaleLabel: {
+                          display: true,
+                          labelString: '%',
+                          fontSize: 16,
+                          fontStyle: 'bold'
 
-                },
-                ticks: {
-                  beginAtZero: true,
-                  max: 100
-                }
-              }],
-              xAxes: [{
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Zeitraum',
-                  fontSize: 16,
-                  fontStyle: 'bold'
+                        },
+                        ticks: {
+                          beginAtZero: true,
+                          max: 100
+                        }
+                      }],
+                      xAxes: [{
+                        scaleLabel: {
+                          display: true,
+                          labelString: 'Zeitraum',
+                          fontSize: 16,
+                          fontStyle: 'bold'
 
-                },
-                ticks: {
-                  autoSkip: true,
-                  maxTicksLimit: 14
-                }
-              }]
+                        },
+                        ticks: {
+                          autoSkip: true,
+                          maxTicksLimit: 20
+                        }
+                      }]
 
-            },
+                    },
 
-            annotation: {
-              annotations: [{
-                type: 'line',
-                mode: 'horizontal',
-                scaleID: 'y1',
-                value: {{ soilhumidity_value }},
-            borderColor: 'rgb(0, 153, 76)',
-            borderWidth: 2,
-            label: {
-              enabled: true,
-              content: 'Idealwert',
-              backgroundColor: 'rgb(50, 153, 76)',
-              position: 'end',
-              rotation: 45
-            }
-          }]
+                    annotation: {
+                      annotations: [{
+                        type: 'line',
+                        mode: 'horizontal',
+                        scaleID: 'y1',
+                        value: {{ soilhumidity_value[0] }},
+                    borderColor: 'rgb(0, 153, 76)',
+                    borderWidth: 2,
+                    borderDash: [10, 5],
+
+                    label: {
+                      enabled: true,
+                      content: 'Idealwert',
+                      backgroundColor: 'rgb(50, 153, 76)',
+
+                    }
+                  }]
     } 
    }
   }
-          );
+                  );
 
-
-
-        </script>
-      </div>
-    </div>
-  </div>
-  <hr>
-</body>
-{% endblock %}
+                </script>
+              </div>
+            </div>
+          </div>
+          <hr>
+        </body>
+        {% endblock %}

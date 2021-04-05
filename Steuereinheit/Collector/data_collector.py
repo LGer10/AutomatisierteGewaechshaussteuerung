@@ -1,85 +1,82 @@
-# data collector script | Automatisiertes Gewächshaus | mit lärsu
+#!/usr/bin/python3
 
-# Klassen laden
+# data collector script | Automatisiertes Gewächshaus | version 0.1
+
+# Libraires
 import mysql.connector
 import sys
 import requests
 import time
 import json
 from datetime import datetime
-# Variablen deklarieren
 
-# Prüfen ob Datenbank verfügbar
-
+# MySQL database connection
 try:
-    connection = mysql.connector.connect(
-        host="localhost", user="root", passwd="AGdb", db="AGdb")
-    #print("Verbunden mit SQL Server")
-
+    db = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="AGdb"
+    )
 except:
-    print("Keine Verbindung zum Server")
+    print("Connection failed")
     sys.exit(0)
 
-# Satelliten aus DB auslesen
-cursor = connection.cursor()
+# MySQL database cursor
+cursor = db.cursor(buffered=True)
 
-cursor.execute("SELECT ip_addr FROM satellites where id = 3")
-
-# Variablen in Array speichern
-
-#satellit_array = cursor.fetchone()
+# select ip-adress from all satellites
+cursor.execute("SELECT ip_addr FROM satellites where id = 7")
 satellite_ip = cursor.fetchall()
-satellite_ip_array = []
-for index in range(len(satellite_ip)):
-    satellite_ip_array.append(satellite_ip[index][0])
+
+# colect data
 
 
-# Daten Collecten
 def collector():
 
-    for satellite in satellite_ip_array:
+    # for-loop trough all satellites
+    try:
+        for satellite in satellite_ip_array:
 
-        print(satellite)
-        # Aktuelle geladenes Programm abfragen
-        cursor.execute(
-            'SELECT current_programm FROM satellites WHERE ip_addr = (%s)', [satellite])
-        current_programm = cursor.fetchone()
-    # REST-API anfragen
+            # select current programm of satellite
+            cursor.execute(
+                'SELECT current_programm FROM satellites WHERE ip_addr = (%s)', [satellite])
+            current_programm = cursor.fetchone()
+            current_programm = current_programm[0]
 
-        response = requests.get(
-            "http://" + satellite + ":8081/get_data")
-        json_file = json.loads(response.text)
-        print(json_file)
+            # request to REST-API
+            response = requests.get("http://" + satellite + ":8081/get_data")
+            json_file = json.loads(response.text)
 
-        temperature = json_file["temperature"]
-        brightness_hours = json_file["brightness_hours"]
-        soil_humidity = json_file["Soil Humidity"]
-        air_humidity = json_file["air_humidity"]
+            temperature = json_file["temperature"]
+            brightness = json_file["brightness"]
+            soil_humidity = json_file["soil_humidity"]
+            air_humidity = json_file["air_humidity"]
 
-        cursor.execute('''SELECT id from satellite_programm where id_satellite in 
-        (select id from satellites where ip_addr = (%s) and current_programm = (%s))''', [satellite, current_programm])
+            # convert brightness to hours
+            if brightness >= 1000:
+                brightness = 1/60
+            else:
+                brightness = 0
 
-        id_satellite_programm = cursor.fetchone()
+            # ID satellite_programm
+            cursor.execute('''SELECT id from satellite_programm where id_satellite in 
+            (select id from satellites where ip_addr = (%s) and current_programm = (%s))''', [satellite, current_programm])
+            id_satellite_p = cursor.fetchone()
+            id_satellite_programm = id_satellite_p[0]
 
-        cursor.execute('''INSERT INTO sensordata 
-        (id_satellite_programm, date, time, temperature, brightness, airhumidity, soilhumidity) 
-        VALUES ((%s), current_date(), current_time(), (%s), (%s), (%s), (%s))''', [id_satellite_programm, temperature, brightness, air_humidity, soil_humidity])
+            # insert parameters into table sensordata
+            cursor.execute('''INSERT INTO sensordata 
+            (id_satellite_programm, date, time, temperature, brightness, airhumidity, soilhumidity) 
+            VALUES ((%s), current_date(), current_time(), (%s), (%s), (%s), (%s))''', [id_satellite_programm, temperature, brightness, air_humidity, soil_humidity])
 
-        mysql.connection.commit()
-        cursor.close()
+            # commit insert
+            db.commit()
 
-    #cursor.execute("insert into sensordata (date, time, id_satellite_programm, temperature, airhumidity) values (%s, %s, '1', %s, %s), (current_date, current_time, temperature, air_humidity)")
-    #cursor.execute("INSERT INTO sensordata (date, time, id_satellite_programm, temperature, airhumidity) VALUES (%s, %s, 1, %s, %s)", current_date, current_time, temperature, air_humidity)
-    #cursor.execute("insert into sensordata (id_satellite_programm, temperature, airhumidity) values (1,23,56)")
-    # cursor.fetchall()
-    # cursor.commit()
-    # break
-    # except Exception as e:
-     #   print(e)
-      #  print('Error')
-       # print(satellite_ip_array)
-        # time.sleep(5)
+        except:
+            print('data-collection failed')
+            time.sleep(5)
 
 
+# call collector method
 collector()
-connection.close()
+cursor.close()

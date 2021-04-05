@@ -10,109 +10,111 @@
                {% endblock %}</h2>
             <hr>
          </div>
-         <div class="container-fluid p-4" style="position: relative;"">
+         <div class="container-fluid p-4" style="position: relative; margin-bottom: 5rem">
             <div class=" row" style="background-color: whitesmoke; ">
-            <div class="col-md-4 border border-secondary" align="middle">
-               <h3 style="margin-top:10px;"> Programm Laden </h3>
-               <hr>
-               <form method="POST" action="/admin">
-                  <p>
-                     <label for="satellit">
-                        <span>Satellit auswählen: </span>
-                     </label>
-                     </br>
-                     <SELECT name="s_id" id="satellit">
-                        {% for i in satellite_list %}
-                        <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
-                        {% endfor %}
-                     </SELECT>
-                  </p>
-
-                  <p>
-                     <label for="programm">
-                        <span>Programm auswählen: </span>
-                     </label>
-                     </br>
-
-                     <SELECT name="p_id" id="programm">
-                        {% for i in programm_list %}
-                        <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
-                        {% endfor %}
-                     </SELECT>
-                  </p>
-                  <hr style="margin-top: 260px;">
-                  <input type="submit" name="Button" value="Programm laden" style="background-color: lightgreen;">
-               </form>
-            </div>
-            <div class="col-md-4 border border-secondary" align="middle">
-               <h3 style="margin-top:10px;">Satellit hinzufügen</h3>
-               <hr>
-               <form method="POST" action="/admin">
-                  <p>
-                     <label for="s_name">
-                        <span>Name: </span>
-                     </label>
-                     </br>
-                     <input type="text" id="s_name" name="satellite_name">
-                  </p>
-                  <p>
-                     <label for="ipadresse">
-                        <span>IP-Adresse: </span>
-                     </label>
-                     </br>
-                     <input type="text" id="ipadresse" name="ip_addr">
-                  </p>
-                  <hr style="margin-top: 250px;">
-                  <input type="submit" name="Button" value="Satellit hinzufügen" style="background-color: lightgreen;">
-               </form>
-            </div>
-
-            <div class="col-md-4 border border-secondary" align="middle">
-               <h3 style="margin-top:10px;">Programm hinzufügen</h3>
-               <hr>
-               <form method="POST" action="/admin">
-                  <p>
-                     <label for="p_name">
-                        <span>Name: </span>
-                     </label>
-                     </br>
-                     <input type="text" id="p_name" name="programm_name">
-                  </p>
-                  <p>
-                     <label for="temperatur">
-                        <span>Temperatur: </span>
-                     </label>
-                     </br>
-                     <input type="number" id="temperatur" name="temperatur">
-                  </p>
-                  <p>
-                     <label for="helligkeit">
-                        <span>Helligkeit: </span>
-                     </label>
-                     </br>
-                     <input type="number" id="helligkeit" name="helligkeit">
-                  </p>
-                  <p>
-                     <label for="luftfeuchtigkeit">
-                        <span>Luftfeuchtigkeit: </span>
-                     </label>
-                     </br>
-                     <input type="number" id="luftfeuchtigkeit" name="luftfeuchtigkeit">
-                  </p>
-                  <p>
-                     <label for="bodenfeuchtigkeit">
-                        <span>Bodenfeuchtigkeit: </span>
-                     </label>
-                     </br>
-                     <input type="number" id="bodenfeuchtigkeit" name="bodenfeuchtigkeit">
-                  </p>
+               <div class="col-md-4 border border-secondary" align="middle">
+                  <h4 style="margin-top:10px;"> Programm Laden </h4>
                   <hr>
-                  <div style="margin-bottom: 20px;">
-                     <input type="submit" id="hinzufügen" name="Button" value="Programm hinzufügen"
-                        style="background-color: lightgreen;">
-               </form>
+                  <form method="POST" action="/admin">
+                     <p>
+                        <label for="satellite">
+                           <span>Satellit auswählen: </span>
+                        </label>
+                        </br>
+                        <SELECT name="satellite_id" id="satellite">
+                           {% for i in satellite_list %}
+                           <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
+                           {% endfor %}
+                        </SELECT>
+                     </p>
+
+                     <p>
+                        <label for="programm">
+                           <span>Programm auswählen: </span>
+                        </label>
+                        </br>
+
+                        <SELECT name="programm_id" id="programm">
+                           {% for i in programm_list %}
+                           <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
+                           {% endfor %}
+                        </SELECT>
+                     </p>
+                     <hr style="margin-top: 260px;">
+                     <input type="submit" name="Button" value="Programm laden"
+                        style="background-color: green; color: white;">
+                  </form>
+               </div>
+               <div class="col-md-4 border border-secondary" align="middle">
+                  <h4 style="margin-top:10px;">Satellit hinzufügen</h4>
+                  <hr>
+                  <form method="POST" action="/admin">
+                     <p>
+                        <label for="satellite_name">
+                           <span>Name: </span>
+                        </label>
+                        </br>
+                        <input type="text" id="satellite_name" name="satellite_name">
+                     </p>
+                     <p>
+                        <label for="ipadress">
+                           <span>IP-Adresse: </span>
+                        </label>
+                        </br>
+                        <input type="text" id="ipadress" name="ip_addr">
+                     </p>
+                     <hr style="margin-top: 250px;">
+                     <input type="submit" name="Button" value="Satellit hinzufügen"
+                        style="background-color: green; color: white;">
+                  </form>
+               </div>
+
+               <div class="col-md-4 border border-secondary" align="middle">
+                  <h4 style="margin-top:10px;">Programm hinzufügen</h4>
+                  <hr>
+                  <form method="POST" action="/admin">
+                     <p>
+                        <label for="programm_name">
+                           <span>Name: </span>
+                        </label>
+                        </br>
+                        <input type="text" id="programm_name" name="programm_name">
+                     </p>
+                     <p>
+                        <label for="temperature">
+                           <span>Temperatur: </span>
+                        </label>
+                        </br>
+                        <input type="number" id="temperature" name="temperature">
+                     </p>
+                     <p>
+                        <label for="brightness">
+                           <span>Helligkeit: </span>
+                        </label>
+                        </br>
+                        <input type="number" id="brightness" name="brightness">
+                     </p>
+                     <p>
+                        <label for="airhumidity">
+                           <span>Luftfeuchtigkeit: </span>
+                        </label>
+                        </br>
+                        <input type="number" id="airhumidity" name="airhumidity">
+                     </p>
+                     <p>
+                        <label for="soilhumidity">
+                           <span>Bodenfeuchtigkeit: </span>
+                        </label>
+                        </br>
+                        <input type="number" id="soilhumidity" name="soilhumidity">
+                     </p>
+                     <hr>
+                     <div style="margin-bottom: 20px;">
+                        <input type="submit" name="Button" value="Programm hinzufügen"
+                           style="background-color: green; color: white;">
+                  </form>
+               </div>
             </div>
-         </div>
          </div>
          </div>
       </body>

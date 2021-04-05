@@ -1,19 +1,22 @@
+#!/usr/bin/python3
+
 # automatisiertes gewächshaus | script - create database | version 0.1
 
-
-#Library für MySQL Verbindung
+# Library für MySQL Verbindung
 import mysql.connector
 
-#Übergabe der Credentials für den MySQL Server 
-mydb = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  password="AGdb"
+# MySQL database connection
+db = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="AGdb"
 )
 
-#Cursor zum Ausführen von SQL Befehlen
-mycursor = mydb.cursor()
+# MySQL database cursor
+cursor = db.cursor()
 
-#SQL Befehl
-#Datenbank erstellen
-mycursor.execute("CREATE DATABASE AGdb")
+# create database
+cursor.execute("CREATE DATABASE AGdb")
+
+# MySQL database cursor close
+cursor.close()
