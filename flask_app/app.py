@@ -352,61 +352,62 @@ def admin():
 
         # if POST-method from the 'Programm hinzufügen' button is requested
         if request.form['Button'] == 'Programm hinzufügen':
-            # request.form gets user input from input fields
-            programm_name = request.form['programm_name']
-            temperature = request.form['temperature']
-            brightness = request.form['brightness']
-            airhumidity = request.form['airhumidity']
-            soilhumidity = request.form['soilhumidity']
+            try:
+                # request.form gets user input from input fields
+                programm_name = request.form['programm_name']
+                temperature = request.form['temperature']
+                brightness = request.form['brightness']
+                airhumidity = request.form['airhumidity']
+                soilhumidity = request.form['soilhumidity']
 
-            # connection-cursor to MySQL database
-            cur = mysql.connection.cursor()
+                # connection-cursor to MySQL database
+                cur = mysql.connection.cursor()
 
-            # insert programm name and date created into table programms
-            cur.execute('insert into programms (name, date_created) values (%s, current_timestamp())', [
-                        programm_name])
+                # insert programm name and date created into table programms
+                cur.execute('insert into programms (name, date_created) values (%s, current_timestamp())', [
+                            programm_name])
 
-            # select inserted programm id
-            cur.execute('select id from programms where name = (%s)', [
-                        programm_name])
-            programm_id = cur.fetchone()
+                # select inserted programm id
+                cur.execute('select id from programms where name = (%s)', [
+                            programm_name])
+                programm_id = cur.fetchone()
 
-            # select id of all satellites
-            cur.execute('SELECT id FROM satellites')
-            satellite_id_list = cur.fetchall()
+                # select id of all satellites
+                cur.execute('SELECT id FROM satellites')
+                satellite_id_list = cur.fetchall()
 
-            # insert programm-ID for every existing satellite to generate the satellite-programm relations
-            for satellite_id in satellite_id_list:
-                cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (%s, %s)', [
-                            satellite_id, programm_id])
+                # insert programm-ID for every existing satellite to generate the satellite-programm relations
+                for satellite_id in satellite_id_list:
+                    cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (%s, %s)', [
+                                satellite_id, programm_id])
 
-            # insert all parameters from user input in input fields
-            cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
-                        VALUES (%s, (select id from parameters where name = "Temperatur"), %s)''', [programm_id, temperature])
+                # insert all parameters from user input in input fields
+                cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
+                            VALUES (%s, (select id from parameters where name = "Temperatur"), %s)''', [programm_id, temperature])
 
-            cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
-                        VALUES (%s, (select id from parameters where name = "Helligkeit"), %s)''', [programm_id, brightness])
+                cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
+                            VALUES (%s, (select id from parameters where name = "Helligkeit"), %s)''', [programm_id, brightness])
 
-            cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
-                        VALUES (%s, (select id from parameters where name = "Luftfeuchtigkeit"), %s)''', [programm_id, airhumidity])
+                cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
+                            VALUES (%s, (select id from parameters where name = "Luftfeuchtigkeit"), %s)''', [programm_id, airhumidity])
 
-            cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
-                        VALUES (%s, (select id from parameters where name = "Bodenfeuchtigkeit"), %s)''', [programm_id, soilhumidity])
+                cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
+                            VALUES (%s, (select id from parameters where name = "Bodenfeuchtigkeit"), %s)''', [programm_id, soilhumidity])
 
-            # commit insert statement
-            mysql.connection.commit()
+                # commit insert statement
+                mysql.connection.commit()
 
-            # close MySQL database cursor
-            cur.close()
+                # close MySQL database cursor
+                cur.close()
 
-            flash('Programm wurde erfolgreich erstellt')
-            return render_template('flash.html')
+                flash('Programm wurde erfolgreich erstellt')
+                return render_template('flash.html')
             except:
                 flash('Programm konnte nicht erstellt werden.')
                 return render_template('flash.html')
 
             # redirect to admin route
-            return redirect(url_for('admin'))
+        return redirect(url_for('admin'))
 
     # return admin-template with satellites and programm lists
     return render_template('admin.html', satellite_list=satellite_list, programm_list=programm_list)
