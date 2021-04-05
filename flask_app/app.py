@@ -285,7 +285,7 @@ def admin():
 
             # get ip-adress from selected satellite in dropdown field
             cur.execute(
-                'SELECT ip_addr from satellites WHERE id = (%s)', satellite_id)
+                'SELECT ip_addr from satellites WHERE id = (%s)', [satellite_id])
             ip_addr = cur.fetchone()
             ip_addr = ip_addr[0]
 
