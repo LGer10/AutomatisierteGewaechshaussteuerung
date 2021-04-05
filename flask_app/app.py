@@ -340,7 +340,7 @@ def admin():
 
             flash('Satellit wurde erstellt')
             # redirect to admin route
-            return redirect(url_for('admin'))
+            return render_template('created_satellite.html')
 
         # if POST-method from the 'Programm hinzufügen' button is requested
         if request.form['Button'] == 'Programm hinzufügen':

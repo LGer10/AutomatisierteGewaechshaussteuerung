@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+{{ message }}
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<h3> Name:       {{satellite_name}} </h3>
+<h3>IP-Adresse: {{ip_addr}}</h3>
+
+{% endblock %}
