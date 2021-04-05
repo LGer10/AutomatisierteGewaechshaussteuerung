@@ -1,41 +1,30 @@
-def get_soil_humidity():
+import time
+#from threading import Threa
+import threading
+from functions import get_temperature, get_air_humidity,get_soil_humidity, get_brightness
+
+results = {}
+def collect(results):
+    while True:  
+        
+        results[0]= ("temperature",get_temperature())
+        results[1]= ("humidity", get_air_humidity())
+        results[2]= ("brightness", get_brightness())
+        results[3]= ("soil_humidity", get_soil_humidity())
+        time.sleep(300)
     
-    # load libraries
-    from machine import Pin, ADC
-    from time import sleep
-    import statistics
-
-    # define pin
-    pot = ADC(Pin(36))
-    pot.atten(ADC.ATTN_11DB)       #Full range: 3.3v
-
-    i = 0
-
-    while i < 10:
-        
-        moisture = pot.read()
-        list = []
-        list.append(moisture)
-
-        i += 1
-        sleep(0.5)
-        
-        # measure soil_humidity
-
-    # voll nass = 1449.0
-    # voll trocken = 4095
 
 
-    # Example to find average of list
-    number_list = list
-    avg = sum(number_list)/len(number_list)
-    wert = (round(avg,2))
 
-    print(wert)
-
-    if wert > 4000:
-        print(0)
-    else:
-        percent = ((4095 - wert) / 2646 ) * 100
-
-        print(percent)
+thread = threading.Thread(target=collect, args=[results])
+thread.start()
+time.sleep(20)
+print(results[0])
+print(results[1])
+print(results[2])
+print(results[3])
+time.sleep(40)
+print(results[0])
+print(results[1])
+print(results[2])
+print(results[3])

@@ -3,7 +3,7 @@ from time import sleep
 import dht 
 
 #sensor = dht.DHT22(Pin(14))
-sensor = dht.DHT11(Pin(18))
+sensor = dht.DHT11(Pin(21))
 
 while True:
   try:
