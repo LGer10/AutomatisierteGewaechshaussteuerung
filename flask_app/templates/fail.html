@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+</br>
+</br>
+</br>
+<div class="container align-items-center" style="border: solid; border-color: lightgrey;" >
+
+{% with messages=get_flashed_messages() %} 
+{% if messages %} 
+{% for message in messages %} 
+ <h3 style="color: red;" align="middle">{{ message }}</h3>
+ {% endfor %}
+{% endif %}
+{% endwith %}
+
+</div>
+
+
+{% endblock %}
