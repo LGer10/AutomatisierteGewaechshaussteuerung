@@ -309,7 +309,6 @@ def admin():
         # if POST-method from the 'Satellit hinzufügen' button is requested
         if request.form['Button'] == 'Satellit hinzufügen':
             try:
-                
                 # request.form gets user input from input fields
                 satellite_name = request.form['satellite_name']
                 ip_addr = request.form['ip_addr']
