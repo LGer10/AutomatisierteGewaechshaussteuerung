@@ -338,6 +338,7 @@ def admin():
             # close MySQL database cursor
             cur.close()
 
+            flash('Satellit wurde erstellt')
             # redirect to admin route
             return redirect(url_for('admin'))
 
