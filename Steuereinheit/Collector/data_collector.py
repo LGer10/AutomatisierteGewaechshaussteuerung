@@ -14,6 +14,7 @@ from datetime import datetime
 try:
     db = mysql.connector.connect(
         host="localhost",
+        database="AGdb",
         user="root",
         password="AGdb"
     )
