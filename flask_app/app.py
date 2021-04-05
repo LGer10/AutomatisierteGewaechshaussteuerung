@@ -309,9 +309,14 @@ def admin():
         # if POST-method from the 'Satellit hinzufügen' button is requested
         if request.form['Button'] == 'Satellit hinzufügen':
             try:
+                
                 # request.form gets user input from input fields
                 satellite_name = request.form['satellite_name']
                 ip_addr = request.form['ip_addr']
+
+                if satellite_name = None or ip_addr = None:
+                    flash('Eingaben unvollständig')
+                    return render_template('flash.html')
 
                 # connection-cursor to MySQL database
                 cur = mysql.connection.cursor()
@@ -359,6 +364,10 @@ def admin():
                 brightness = request.form['brightness']
                 airhumidity = request.form['airhumidity']
                 soilhumidity = request.form['soilhumidity']
+
+                if programm_name = None:
+                    flash('Eingaben unvollständig')
+                    return render_template('flash.html')
 
                 # connection-cursor to MySQL database
                 cur = mysql.connection.cursor()
