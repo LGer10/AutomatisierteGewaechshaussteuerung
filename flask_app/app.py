@@ -9,6 +9,7 @@ import requests
 
 # flask instance for app
 app = Flask(__name__)
+app.secret_key = 'huelsenschlaepper'
 
 # MySQL instance for app
 mysql = MySQL(app)
