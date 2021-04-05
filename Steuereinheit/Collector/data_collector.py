@@ -36,7 +36,7 @@ def collector():
 
     # for-loop trough all satellites
     #try:
-    for satellite in satellite_ip:
+    for satellite in satellite_ip[0]:
 
         # select current programm of satellite
         cursor.execute(
