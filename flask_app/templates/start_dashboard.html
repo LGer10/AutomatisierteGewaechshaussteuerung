@@ -67,7 +67,7 @@
           new Chart(document.getElementById("chart"), {
             type: 'line',
             data: {
-              labels: [{% for row in start_dates %} '{{ row[0] }}, {{ row[1] }}',  {% endfor %}],
+              labels: [{% for row in start_dates %} ['{{ row[0] }}', '{{ row[1] }}'],  {% endfor %}],
             datasets: [{
               data: [
                 {% for item in start_temperature %} {{ item[0] }}, {% endfor %}],
@@ -116,7 +116,7 @@
                 },
                 ticks: {
                   autoSkip: true,
-                  maxTicksLimit: 20
+                  maxTicksLimit: 14
                 }
 
               }]
@@ -152,7 +152,7 @@
           new Chart(document.getElementById("chart1"), {
             type: 'line',
             data: {
-              labels: [{% for row in start_dates %} '{{ row[0] }}, {{ row[1] }}',  {% endfor %}],
+              labels: [{% for row in start_dates %} ['{{ row[0] }}', '{{ row[1] }}'],  {% endfor %}],
 
 
             datasets : [{
@@ -203,7 +203,7 @@
                 },
                 ticks: {
                   autoSkip: true,
-                  maxTicksLimit: 20
+                  maxTicksLimit: 14
                 }
               }]
             },
@@ -241,7 +241,7 @@
           new Chart(document.getElementById("chart2"), {
             type: 'line',
             data: {
-              labels: [{% for row in start_dates %} '{{ row[0] }}, {{ row[1] }}',  {% endfor %}],
+              labels: [{% for row in start_dates %} ['{{ row[0] }}', '{{ row[1] }}'],  {% endfor %}],
 
 
             datasets : [{
@@ -297,7 +297,7 @@
                 },
                 ticks: {
                   autoSkip: true,
-                  maxTicksLimit: 20
+                  maxTicksLimit: 14
                 }
               }]
 
@@ -332,7 +332,7 @@
           new Chart(document.getElementById("chart3"), {
             type: 'line',
             data: {
-              labels: [{% for row in start_dates %} '{{ row[0] }}, {{ row[1] }}',  {% endfor %}],
+              labels: [{% for row in start_dates %}['{{ row[0] }}', '{{ row[1] }}'], {% endfor %}],
 
 
             datasets : [{
@@ -391,7 +391,7 @@
                 },
                 ticks: {
                   autoSkip: true,
-                  maxTicksLimit: 20
+                  maxTicksLimit: 14
                 }
               }]
 

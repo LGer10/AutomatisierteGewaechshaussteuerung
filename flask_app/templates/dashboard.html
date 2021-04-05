@@ -131,7 +131,7 @@
                         },
                         ticks: {
                           autoSkip: true,
-                          maxTicksLimit: 20
+                          maxTicksLimit: 14
                         }
 
                       }]
@@ -167,7 +167,7 @@
                   new Chart(document.getElementById("chart2"), {
                     type: 'line',
                     data: {
-                      labels: [{% for row in dates %}'{{ row[0] }}, {{ row[1] }}', {% endfor %}],
+                      labels: [{% for row in dates %}['{{ row[0] }}', '{{ row[1] }}'],{% endfor %}],
 
                     datasets : [{
                       data: [
@@ -220,7 +220,7 @@
                         },
                         ticks: {
                           autoSkip: true,
-                          maxTicksLimit: 20
+                          maxTicksLimit: 14
                         }
                       }]
                     },
@@ -261,7 +261,7 @@
                   new Chart(document.getElementById("chart3"), {
                     type: 'line',
                     data: {
-                      labels: [{% for row in dates %}'{{ row[0] }}, {{ row[1] }}', {% endfor %}],
+                      labels: [{% for row in dates %}['{{ row[0] }}', '{{ row[1] }}'],{% endfor %}],
                     datasets : [{
 
                       data: [
@@ -317,7 +317,7 @@
                         },
                         ticks: {
                           autoSkip: true,
-                          maxTicksLimit: 20
+                          maxTicksLimit: 14
                         }
                       }]
 
@@ -354,7 +354,7 @@
                   new Chart(document.getElementById("chart4"), {
                     type: 'line',
                     data: {
-                      labels: [{% for row in dates %}'{{ row[0] }}, {{ row[1] }}', {% endfor %}],
+                      labels: [{% for row in dates %} ['{{ row[0] }}', '{{ row[1] }}'], {% endfor %}],
 
                     datasets : [{
 
@@ -411,7 +411,7 @@
                         },
                         ticks: {
                           autoSkip: true,
-                          maxTicksLimit: 20
+                          maxTicksLimit: 14
                         }
                       }]
 
