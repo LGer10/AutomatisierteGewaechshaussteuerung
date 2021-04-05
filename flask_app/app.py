@@ -308,40 +308,48 @@ def admin():
 
         # if POST-method from the 'Satellit hinzufügen' button is requested
         if request.form['Button'] == 'Satellit hinzufügen':
-            # request.form gets user input from input fields
-            satellite_name = request.form['satellite_name']
-            ip_addr = request.form['ip_addr']
+            try:
+                # request.form gets user input from input fields
+                satellite_name = request.form['satellite_name']
+                ip_addr = request.form['ip_addr']
 
-            # connection-cursor to MySQL database
-            cur = mysql.connection.cursor()
+                # connection-cursor to MySQL database
+                cur = mysql.connection.cursor()
 
-            # insert satellite-name and ip-adress from input fields into table satellites
-            cur.execute('insert into satellites (name, ip_addr) values (%s, %s)', [
-                        satellite_name, ip_addr])
+                # insert satellite-name and ip-adress from input fields into table satellites
+                cur.execute('insert into satellites (name, ip_addr) values (%s, %s)', [
+                            satellite_name, ip_addr])
 
-            # select ID of added satellite
-            cur.execute('select id from satellites where name = (%s)', [
-                        satellite_name])
-            satellite_id = cur.fetchone()
+                # select ID of added satellite
+                cur.execute('select id from satellites where name = (%s)', [
+                            satellite_name])
+                satellite_id = cur.fetchone()
 
-            # select ID of all programms
-            cur.execute('SELECT id FROM programms')
-            programm_id_list = cur.fetchall()
+                # select ID of all programms
+                cur.execute('SELECT id FROM programms')
+                programm_id_list = cur.fetchall()
 
-            # insert satellite-ID for every existing programm to generate the satellite-programm relations
-            for programm_id in programm_id_list:
-                cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (%s, %s)', [
-                            satellite_id, programm_id])
+                # insert satellite-ID for every existing programm to generate the satellite-programm relations
+                for programm_id in programm_id_list:
+                    cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (%s, %s)', [
+                                satellite_id, programm_id])
 
-            # commit insert statement
-            mysql.connection.commit()
+                # commit insert statement
+                mysql.connection.commit()
 
-            # close MySQL database cursor
-            cur.close()
+                # close MySQL database cursor
+                cur.close()
 
-            flash('Satellit wurde erstellt')
+                flash('Satellit wurde erfolgreich erstellt')
+                return render_template('flash.html')
+            except:
+                flash('Satellit konnte nicht erstellt werden.')
+                flash('Satellit konnte nicht erstellt werden.')
+                return render_template('flash.html')
+
+
             # redirect to admin route
-            return render_template('created_satellite.html')
+            return redirect(url_for('admin'))
 
         # if POST-method from the 'Programm hinzufügen' button is requested
         if request.form['Button'] == 'Programm hinzufügen':
