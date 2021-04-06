@@ -26,7 +26,7 @@
                         </label>
                         </br>
                         <!-- lists all satellites from mysql database -->
-                        <!-- with {% %} variables from the python app can be called in html -->
+                        <!-- with { and %, variables from the python app can be called in html -->
                         <SELECT name="satellite_id" id="satellite">
                            {% for i in satellite_list %}
                            <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
