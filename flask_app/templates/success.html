@@ -1,21 +1,24 @@
+<!-- Import of base-template -->
 {% extends "base.html" %}
 
-
+<!-- block content for base-template -->
 {% block content %}
 </br>
 </br>
 </br>
-<div class="container align-items-center" style="border: solid; border-color: lightgrey;" >
 
+<!-- container to display flash messages for successfully created programms/satellites and successfully loaded programms-->
+<div class="container align-items-center" style="border: solid; border-color: lightgrey;" >
+<!-- for every message display message -->
+<!-- with {% %} variables from the python app can be called in html -->
 {% with messages=get_flashed_messages() %} 
 {% if messages %} 
 {% for message in messages %} 
+<!-- display message in color green to show successfully done app task  -->
  <h3 style="color: green;" align="middle">{{ message }}</h3>
  {% endfor %}
 {% endif %}
 {% endwith %}
-
 </div>
-
 
 {% endblock %}

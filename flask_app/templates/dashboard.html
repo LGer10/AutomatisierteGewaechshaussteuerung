@@ -1,9 +1,10 @@
-<!Import of base-template>
+<!-- Import of base-template -->
   {% extends "base.html" %}
 
+  <!-- block content for base-template -->
   {% block content %}
 
-  <!scripts for chart.js>
+<!-- scripts to use chart.js in html -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
       integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
       crossorigin="anonymous"></script>
@@ -21,17 +22,20 @@
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js"></script>
 
+      <!-- stylesheet to use chart.js -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.css"
       integrity="sha512-C7hOmCgGzihKXzyPU/z4nv97W0d9bv4ALuuEbSf6hm93myico9qa0hv4dODThvCsqQUmKmLcJmlpRmCaApr83g=="
       crossorigin="anonymous" />
 
-    <!body with title and dropdown fields>
-
+<!-- body to display available satellites, programms and dates -->
       <body>
         <div class="p-2" align="middle">
           <h3 style="color:green">{% block title %} Dashboard {% endblock %}</h3>
             <hr>
+            <!-- html-form to get user input from dropdown-fields and submit via POST method to display charts -->
             <form method="POST" action="/dashboard">
+              <!-- lists all satellites, programms and dates from mysql database -->
+              <!-- with {% %} variables from the python app can be called in html -->
               <p>
                 Satellit auswählen:
                 <SELECT name="satellite_id">
@@ -54,6 +58,7 @@
                   {% endfor %}
                 </SELECT>
                 &nbsp;&nbsp;
+                <!-- submit button which triggers POST method to submit user input -->
                 <input class="float right" type="submit" name="loadButton" value="Laden">
               </p>
             </form>
@@ -61,19 +66,21 @@
         </div>
       </body>
 
-      <!body with charts from selected satellite, programm and datespan>
-
+<!-- body to display charts from selected values in dropdown fields on dashboard site -->
         <body>
+  <!-- displays loaded satellite and programm -->
           <h4 align="middle" style="background-color: lightgrey;"> {{displayed_satellite[0]}} -
             {{displayed_programm[0]}}
           </h4>
+            <!-- container with two rows and 2 columns per row to display all four charts -->
           <div class="container-fluid p-4" style="position: relative;">
             <div class="row">
               <div class="col-md-6 " style="border-style: solid; border-color: lightgrey;">
+              <!-- temperature chart -->
+              <!-- canvas is needed to display chart -->
                 <canvas id="chart1" width="600" height="400"></canvas>
                 <script>
-                  // draw line chart with dates from selected datespan as x-labels 
-                  // and temperature-values from selected satellite and programm 
+                  // create line chart with temperature values, dates as labels and the ideal temperature value as horizontal line
                   new Chart(document.getElementById("chart1"), {
                     type: 'line',
                     data: {
@@ -81,11 +88,10 @@
                       labels: [{% for row in dates %} ['{{ row[0] }}','{{ row[1] }}'], {% endfor %}],
                     datasets: [{
                       data: [
-                        // for-loop to get dates and time
+                // for-loop to get temperature values
                         {% for item in temperature %}
                           {{ item[0] }},
                     {% endfor %}],
-
                     label: 'Temperatur',
                     fill: false,
                     borderColor: "#c45850"
@@ -155,22 +161,22 @@
    }
   }
                   );
-
                 </script>
               </div>
 
               <div class="col-md-6 " style="border-style: solid solid solid hidden; border-color: lightgrey;">
                 <canvas id="chart2" width="600" height="400"></canvas>
                 <script>
-                  //draw line chart with dates from selected datespan as x-labels 
-                  //and temperature-values from selected satellite and programm 
+                  // create line chart with brightness values, dates as labels and the ideal brightness value as horizontal line
                   new Chart(document.getElementById("chart2"), {
                     type: 'line',
                     data: {
+                    // for-loop to get dates and time
                       labels: [{% for row in dates %}['{{ row[0] }}', '{{ row[1] }}'],{% endfor %}],
 
                     datasets : [{
                       data: [
+                        // for-loop to get brightness values
                         {% for item in brightness %}
             {{ item }},
 
@@ -238,44 +244,35 @@
                       enabled: true,
                       content: 'Idealwert',
                       backgroundColor: 'rgb(50, 153, 76)',
-
                     }
                   }]
     } 
    }
   }
                   );
-
-
-
                 </script>
               </div>
             </div>
+
             <div class="row">
               <div class="col-md-6 " style="border-style: hidden solid solid solid; border-color: lightgrey;">
                 <canvas id="chart3" width="600" height="400"></canvas>
-
                 <script>
-                  // draw line chart with dates from selected datespan as x-labels 
-                  // and temperature-values from selected satellite and programm 
+                // create line chart with airhumidity values, dates as labels and the ideal airhumidity value as horizontal line
                   new Chart(document.getElementById("chart3"), {
                     type: 'line',
                     data: {
+                      // for-loop to get dates and time
                       labels: [{% for row in dates %}['{{ row[0] }}', '{{ row[1] }}'],{% endfor %}],
                     datasets : [{
-
                       data: [
+                         // for-loop to get airhumidity values
                         {% for item in airhumidity %}
             {{ item[0] }},
-
-
                     {% endfor %}],
                     label: 'Luftfeuchhtigkeit',
                     borderColor: "#3e95cd",
                     fill: false
-
-            
-
             }
             ]
 },
@@ -320,7 +317,6 @@
                           maxTicksLimit: 14
                         }
                       }]
-
                     },
                     annotation: {
                       annotations: [{
@@ -342,27 +338,23 @@
    }
   }
                   );
-
                 </script>
               </div>
 
               <div class="col-md-6" style="border-style: hidden solid solid hidden; border-color: lightgrey;">
                 <canvas id="chart4" width="600" height="400"></canvas>
                 <script>
-                  // draw line chart with dates from selected datespan as x-labels 
-                  // and temperature-values from selected satellite and programm 
+                  // create line chart with soilhumidity values, dates as labels and the ideal soilhumidity value as horizontal line
                   new Chart(document.getElementById("chart4"), {
                     type: 'line',
                     data: {
+                        // for-loop to get dates and time
                       labels: [{% for row in dates %} ['{{ row[0] }}', '{{ row[1] }}'], {% endfor %}],
-
                     datasets : [{
-
                       data: [
+                          // for-loop to get soilhumidity values
                         {% for item in soilhumidity %}
-            {{ item[0] }},
-
-
+                      {{ item[0] }},
                     {% endfor %}],
                     label: 'Bodenfeuchtigkeit',
                     borderColor: "#3cba9f",
@@ -414,9 +406,7 @@
                           maxTicksLimit: 14
                         }
                       }]
-
                     },
-
                     annotation: {
                       annotations: [{
                         type: 'line',
@@ -426,19 +416,16 @@
                     borderColor: 'rgb(0, 153, 76)',
                     borderWidth: 2,
                     borderDash: [10, 5],
-
                     label: {
                       enabled: true,
                       content: 'Idealwert',
                       backgroundColor: 'rgb(50, 153, 76)',
-
                     }
                   }]
     } 
    }
   }
                   );
-
                 </script>
               </div>
             </div>

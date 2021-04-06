@@ -1,27 +1,33 @@
 <!doctype html>
+    <!-- html language english -->
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
+    <!-- required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
 
-    <!-- Bootstrap CSS -->
+    <!-- bootstrap CSS stylesheets -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    
+    <!-- self created CSS stylesheet -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
-    <title style="color:green">{% block title %} Automatisiertes Gewächshaus {% endblock %}</title>
+    <!-- title for all sites -->
+    <title style="color:green">{% block title %} {% endblock %}</title>
 </head>
 
+<!-- body for bootstrap navbar with links to routes -->
 <body class="min-vh-100">
+     <!-- expanding navbar in dark color-->
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="navbar-collapse">
             <ul class="navbar-nav mr-auto">
+                 <!-- links to routes -->
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Home</a>
                 </li>
-
                 <li class="nav-item active">
                     <a class="nav-link" href="dashboard">Dashboard</a>
                 </li>
@@ -30,19 +36,20 @@
                 </li>
             </ul>
         </div>
+        <!-- project logo in navbar -->
         <img src="/static/logo.jpg" width="50" height="50" class="d-inline-block align-top" alt="symbol"
             align="right" />
-
     </nav>
 </body>
 
+<!--content from other templates -->
 {% block content %}
 
 
 {% endblock %}
-
-
+<!-- body for footer -->
 <body>
+     <!-- footer class in style.css defined -->
     <div class="footer bg-dark">
         <p1>Automatisiertes Gewächshaut by Lars & Kilian</p1>
         </br>
@@ -53,5 +60,4 @@
         </small>
     </div>
 </body>
-
 </html>

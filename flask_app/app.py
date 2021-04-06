@@ -7,7 +7,7 @@ from flask import Flask, session, render_template, request, make_response, redir
 from flask_mysqldb import MySQL
 import requests
 
-# flask instance for app
+# flask instance for app and secret key for session
 app = Flask(__name__)
 app.secret_key = 'huelsenschlaepper'
 
@@ -15,10 +15,14 @@ app.secret_key = 'huelsenschlaepper'
 mysql = MySQL(app)
 
 # MySQL connection
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'AGdb'
-app.config['MYSQL_DB'] = 'AGdb'
+try:
+    app.config['MYSQL_HOST'] = 'localhost'
+    app.config['MYSQL_USER'] = 'root'
+    app.config['MYSQL_PASSWORD'] = 'AGdb'
+    app.config['MYSQL_DB'] = 'AGdb'
+    print(MySQL Datenbank-Verbindung erfolgreich)
+except:
+    print(Datenbank-Verbindung konnte nicht hergestellt werden)
 
 
 # home
@@ -29,216 +33,224 @@ def home():
     return render_template('home.html')
 
 # dashboard
-
-
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     # both methods GET and POST are allowed
     # default method is GET, if nothing else is declared
 
-    # connection-cursor to MySQL database
-    cur = mysql.connection.cursor()
+    try:
+        # connection-cursor to MySQL database
+        cur = mysql.connection.cursor()
 
-    # SQL statement to fetch all available satellites in MySQL database orderd by ID
-    # cur.fetchall() generates a tupel with all selected rows from MySQl database
-    cur.execute('SELECT id, name FROM satellites')
-    satellite_list = cur.fetchall()
+        # SQL statement to fetch all available satellites in MySQL database orderd by ID
+        # cur.fetchall() generates a tupel with all selected rows from MySQl database
+        cur.execute('SELECT id, name FROM satellites')
+        satellite_list = cur.fetchall()
 
-    # SQL statement to fetch all available programms in MySQL database orderd by ID
-    cur.execute('SELECT id, name FROM programms')
-    programm_list = cur.fetchall()
+        # SQL statement to fetch all available programms in MySQL database orderd by ID
+        cur.execute('SELECT id, name FROM programms')
+        programm_list = cur.fetchall()
 
-    # SQL statement to fetch dates of the last 7 days in MySQL database orderd by ID and group by date to only show distinct dates
-    cur.execute(
-        'SELECT id, date from sensordata where date >= (select  max(date) - 7) group by date')
-    date_span = cur.fetchall()
+        # SQL statement to fetch dates of the last 7 days in MySQL database orderd by ID and group by date to only show distinct dates
+        cur.execute('''SELECT id, date FROM sensordata WHERE date > 
+        (SELECT  max(date) - interval 7 day FROM sensordata) group by date''')
+        date_span = cur.fetchall()
 
-    # By entering the dashboard via GET-request, data from the last day inserted into the MySQL database
-    # and from the satellite with ID = 1 and programm with ID = 1 should automatically be displayed
+        # By entering the dashboard via GET-request, data from the last day inserted into the MySQL database
+        # and from the satellite with ID = 1 and programm with ID = 1 should automatically be displayed
 
-    # SQL statement to select satellite and programm with ID = 1
-    # cur-fetchone() generates a tupel of all data in one MySQL row, as only one satellite ad one programm is selected
-    # the object can be called as [0] object of the tupel
+        # SQL statement to select satellite and programm with ID = 1
+        # cur-fetchone() generates a tupel of all data in one MySQL row, as only one satellite ad one programm is selected
+        # the object can be called as [0] object of the tupel
 
-    # start satellite
-    cur.execute('SELECT name from satellites where id = 1')
-    start_satellite = cur.fetchone()
+        # start satellite
+        cur.execute('SELECT name FROM satellites WHERE id = 1')
+        start_satellite = cur.fetchone()
 
-    # start programm
-    cur.execute('SELECT name from programms where id = 1')
-    start_programm = cur.fetchone()
+        # start programm
+        cur.execute('SELECT name FROM programms WHERE id = 1')
+        start_programm = cur.fetchone()
 
-    # SQL statement to select the ideal value of the parameters from programm with ID = 1
-    # This value is needed to dispaly the ideal value in the charts of the dashboard
+        # SQL statement to select the ideal value of the parameters from programm with ID = 1
+        # This value is needed to dispaly the ideal value in the charts of the dashboard
 
-    # ideal value temperature
-    cur.execute('''SELECT value from programm_parameter where id_programm = 1 and id_parameter in
-    (select id from parameters where name = 'Temperatur')''')
-    start_temperature_value = cur.fetchone()
+        # ideal value temperature
+        cur.execute('''SELECT value FROM programm_parameter WHERE id_programm = 1 AND id_parameter in
+        (SELECT id FROM parameters WHERE name = 'Temperatur')''')
+        start_temperature_value = cur.fetchone()
 
-    # ideal value brighteness
-    cur.execute('''SELECT value from programm_parameter where id_programm = 1 and id_parameter in
-        (select id from parameters where name = 'Helligkeit')''')
-    start_brightness_value = cur.fetchone()
+        # ideal value brighteness
+        cur.execute('''SELECT value from programm_parameter WHERE id_programm = 1 AND id_parameter in
+            (SELECT id FROM parameters WHERE name = 'Helligkeit')''')
+        start_brightness_value = cur.fetchone()
 
-    # ideal value airhumidity
-    cur.execute('''SELECT value from programm_parameter where id_programm = 1 and id_parameter in
-        (select id from parameters where name = 'Luftfeuchtigkeit')''')
-    start_airhumidity_value = cur.fetchone()
+        # ideal value airhumidity
+        cur.execute('''SELECT value FROM programm_parameter WHERE id_programm = 1 AND id_parameter in
+            (SELECT id FROM parameters WHERE name = 'Luftfeuchtigkeit')''')
+        start_airhumidity_value = cur.fetchone()
 
-    # ideal value soilhumidity
-    cur.execute('''SELECT value from programm_parameter where id_programm = 1 and id_parameter in
-        (select id from parameters where name = 'Bodenfeuchtigkeit')''')
-    start_soilhumidity_value = cur.fetchone()
+        # ideal value soilhumidity
+        cur.execute('''SELECT value FROM programm_parameter WHERE id_programm = 1 AND id_parameter in
+            (SELECT id FROM parameters WHERE name = 'Bodenfeuchtigkeit')''')
+        start_soilhumidity_value = cur.fetchone()
 
-    # To only display datapoints from the last inserted day into MySQL database with satellite and programm ID = 1,
-    # date and time are selected where date is the highest date available with satellite and programm ID = 1
-    # and where satellite and programm ID = 1
-    # cur-fetchall()) generates a tupel of all data in one or more MySQL rows, as date and time is selected
-    # the objects of both rows can be called as [0][0] object of the tupel
+        # To only display datapoints from the last inserted day into MySQL database with satellite and programm ID = 1,
+        # date and time are selected where date is the highest date available with satellite and programm ID = 1
+        # and where satellite and programm ID = 1
+        # cur-fetchall()) generates a tupel of all data in one or more MySQL rows, as date and time is selected
+        # the objects of both rows can be called as [0][0] object of the tupel
 
-    # date and time
-    cur.execute('''SELECT date, time FROM sensordata where date = (SELECT max(date) FROM sensordata where id_satellite_programm in
-        (SELECT id FROM satellite_programm where id_satellite = 1
-        and id_programm = 1)) and id_satellite_programm in
-        (SELECT id FROM satellite_programm where id_satellite = 1
-        and id_programm = 1)''')
-    start_dates = cur.fetchall()
+        # date and time
+        cur.execute('''SELECT date, time FROM sensordata WHERE date = (SELECT max(date) FROM sensordata WHERE id_satellite_programm in
+            (SELECT id FROM satellite_programm WHERE id_satellite = 1
+            AND id_programm = 1)) AND id_satellite_programm in
+            (SELECT id FROM satellite_programm WHERE id_satellite = 1
+            AND id_programm = 1)''')
+        start_dates = cur.fetchall()
 
-    # temperature where date = startdate
-    cur.execute('''SELECT temperature FROM sensordata where date = (%s) and id_satellite_programm in 
-    (SELECT id FROM satellite_programm where id_satellite = 1 
-    and id_programm = 1)''', [start_dates[0][0]])
-    start_temperature = cur.fetchall()
+        # temperature where date = startdate
+        cur.execute('''SELECT temperature FROM sensordata WHERE date = (%s) AND id_satellite_programm in 
+        (SELECT id FROM satellite_programm WHERE id_satellite = 1 
+        AND id_programm = 1)''', [start_dates[0][0]])
+        start_temperature = cur.fetchall()
 
-    # brightness where date = startdate
-    cur.execute('''SELECT brightness FROM sensordata where date = (%s) and id_satellite_programm in 
-    (SELECT id FROM satellite_programm where id_satellite = 1 
-    and id_programm = 1)''', [start_dates[0][0]])
-    start_brightness = cur.fetchall()
+        # brightness where date = startdate
+        cur.execute('''SELECT brightness FROM sensordata WHERE date = (%s) AND id_satellite_programm in 
+        (SELECT id FROM satellite_programm WHERE id_satellite = 1 
+        AND id_programm = 1)''', [start_dates[0][0]])
+        start_brightness = cur.fetchall()
 
-    new_start_brightness = []
-    new_value = 0
-    for value in start_brightness:
-        new_value = new_value + value[0]
-        new_start_brightness.append(new_value)
+        # brightness-values were added up where date = startdate to display the brightness hours for a day
+        new_start_brightness = []
+        new_value = 0
+        for value in start_brightness:
+            new_value = new_value + value[0]
+            new_start_brightness.append(new_value)
 
-    # airhumidity where date = startdate
-    cur.execute('''SELECT airhumidity FROM sensordata where date = (%s) and id_satellite_programm in 
-    (SELECT id FROM satellite_programm where id_satellite = 1 
-    and id_programm = 1)''', [start_dates[0][0]])
-    start_airhumidity = cur.fetchall()
+        # airhumidity where date = startdate
+        cur.execute('''SELECT airhumidity FROM sensordata WHERE date = (%s) AND id_satellite_programm in 
+        (SELECT id FROM satellite_programm WHERE id_satellite = 1 
+        AND id_programm = 1)''', [start_dates[0][0]])
+        start_airhumidity = cur.fetchall()
 
-    # soilhumidity where date = startdate
-    cur.execute('''SELECT soilhumidity FROM sensordata where date = (%s) and id_satellite_programm in 
-    (SELECT id FROM satellite_programm where id_satellite = 1 
-    and id_programm = 1)''', [start_dates[0][0]])
-    start_soilhumidity = cur.fetchall()
+        # soilhumidity where date = startdate
+        cur.execute('''SELECT soilhumidity FROM sensordata WHERE date = (%s) AND id_satellite_programm in 
+        (SELECT id FROM satellite_programm WHERE id_satellite = 1 
+        AND id_programm = 1)''', [start_dates[0][0]])
+        start_soilhumidity = cur.fetchall()
 
-    # close MySQL database cursor
-    cur.close()
+        # close MySQL database cursor
+        cur.close()
+    except:
+        flash('Daten konnten nicht geladen werden - Seite erneut laden')
+        return render_template('fail.html')
 
     # if POST-method from the load Button is requested
     # display data from selected values
     if request.method == 'POST' and request.form['loadButton'] == 'Laden':
+        try:
+            # request.form gets values selected in dropdown fields
+            # dropdown shows names but values = ID
+            satellite_id = request.form['satellite_id']
+            programm_id = request.form['programm_id']
+            selected_date_id = request.form['selected_date_id']
 
-        # request.form gets values selected in dropdown fields
-        # dropdown shows names but values = ID
-        satellite_id = request.form['satellite_id']
-        programm_id = request.form['programm_id']
-        selected_date_id = request.form['selected_date_id']
+            # connection-cursor to MySQL database
+            cur = mysql.connection.cursor()
 
-        # connection-cursor to MySQL database
-        cur = mysql.connection.cursor()
+            # SQL statement to display selected satellite in dropdown field
+            cur.execute('SELECT name FROM satellites WHERE id = (%s)',
+                        [satellite_id])
+            displayed_satellite = cur.fetchone()
 
-        # SQL statement to display selected satellite in dropdown field
-        cur.execute('SELECT name from satellites where id = (%s)',
-                    [satellite_id])
-        displayed_satellite = cur.fetchone()
+            # SQL statement to display selected programm in dropdown field
+            cur.execute('SELECT name FROM programms WHERE id = (%s)',
+                        [programm_id])
+            displayed_programm = cur.fetchone()
 
-        # SQL statement to display selected programm in dropdown field
-        cur.execute('SELECT name from programms where id = (%s)',
-                    [programm_id])
-        displayed_programm = cur.fetchone()
+            # SQL statement to select the ideal value of the parameters from selected programm id dropdown field
+            # This value is needed to dispaly the ideal value in the charts of the dashboard
 
-        # SQL statement to select the ideal value of the parameters from selected programm id dropdown field
-        # This value is needed to dispaly the ideal value in the charts of the dashboard
+            # ideal value temperature
+            cur.execute('''SELECT value FROM programm_parameter WHERE id_programm = (%s) AND id_parameter in
+            (SELECT id FROM parameters WHERE name = 'Temperatur')''', [programm_id])
+            temperature_value = cur.fetchone()
 
-        # ideal value temperature
-        cur.execute('''SELECT value from programm_parameter where id_programm = (%s) and id_parameter in
-        (select id from parameters where name = 'Temperatur')''', [programm_id])
-        temperature_value = cur.fetchone()
+            # ideal value brightness
+            cur.execute('''SELECT value FROM programm_parameter WHERE id_programm = (%s) AND id_parameter in 
+            (SELECT id FROM parameters WHERE name = 'Helligkeit')''', [programm_id])
+            brightness_value = cur.fetchone()
 
-        # ideal value brightness
-        cur.execute('''SELECT value from programm_parameter where id_programm = (%s) and id_parameter in 
-        (select id from parameters where name = 'Helligkeit')''', [programm_id])
-        brightness_value = cur.fetchone()
+            # ideal value airhumidity
+            cur.execute('''SELECT value FROM programm_parameter WHERE id_programm = (%s) AND id_parameter in 
+            (SELECT id FROM parameters WHERE name = 'Luftfeuchtigkeit')''', [programm_id])
+            airhumidity_value = cur.fetchone()
 
-        # ideal value airhumidity
-        cur.execute('''SELECT value from programm_parameter where id_programm = (%s) and id_parameter in 
-        (select id from parameters where name = 'Luftfeuchtigkeit')''', [programm_id])
-        airhumidity_value = cur.fetchone()
+            # ideal value soilhumidity
+            cur.execute('''SELECT value FROM programm_parameter WHERE id_programm = (%s) AND id_parameter in 
+            (SELECT id FROM parameters WHERE name = 'Bodenfeuchtigkeit')''', [programm_id])
+            soilhumidity_value = cur.fetchone()
 
-        # ideal value soilhumidity
-        cur.execute('''SELECT value from programm_parameter where id_programm = (%s) and id_parameter in 
-        (select id from parameters where name = 'Bodenfeuchtigkeit')''', [programm_id])
-        soilhumidity_value = cur.fetchone()
+            # SQL statement to select date and time from selected values in dropdown fields
+            cur.execute('''SELECT date, time FROM sensordata WHERE date >= (SELECT date FROM sensordata WHERE id = (%s)) AND id_satellite_programm in 
+            (SELECT id FROM satellite_programm WHERE id_satellite = (%s) 
+            AND id_programm = (%s))''', [selected_date_id, satellite_id, programm_id])
+            dates = cur.fetchall()
 
-        # SQL statement to select date and time from selected values in dropdown fields
-        cur.execute('''SELECT date, time FROM sensordata where date >= (SELECT date FROM sensordata where id = (%s)) and id_satellite_programm in 
-        (SELECT id FROM satellite_programm where id_satellite = (%s) 
-        and id_programm = (%s))''', [selected_date_id, satellite_id, programm_id])
-        dates = cur.fetchall()
+            # SQL statement to select temperature from selected values in dropdown fields
+            cur.execute('''SELECT temperature FROM sensordata WHERE date >= (SELECT date FROM sensordata WHERE 
+            id = (%s)) AND id_satellite_programm in 
+            (SELECT id FROM satellite_programm WHERE id_satellite = (%s) 
+            AND id_programm = (%s))''', [selected_date_id, satellite_id, programm_id])
+            temperature = cur.fetchall()
 
-        # SQL statement to select temperature from selected values in dropdown fields
-        cur.execute('''SELECT temperature FROM sensordata where date >= (SELECT date from sensordata WHERE 
-        id = (%s)) and id_satellite_programm in 
-        (SELECT id FROM satellite_programm where id_satellite = (%s) 
-        and id_programm = (%s))''', [selected_date_id, satellite_id, programm_id])
-        temperature = cur.fetchall()
+            # select distinct dates for get brightness hours per day
+            cur.execute('''SELECT distinct date FROM sensordata WHERE date >= (SELECT date FROM sensordata WHERE id = (%s)) AND id_satellite_programm in 
+            (SELECT id FROM satellite_programm WHERE id_satellite = (%s) 
+            AND id_programm = (%s))''', [selected_date_id, satellite_id, programm_id])
+            brightness_dates = cur.fetchall()
 
-        cur.execute('''SELECT distinct date FROM sensordata where date >= (SELECT date FROM sensordata where id = (%s)) and id_satellite_programm in 
-        (SELECT id FROM satellite_programm where id_satellite = (%s) 
-        and id_programm = (%s))''', [selected_date_id, satellite_id, programm_id])
-        brightness_dates = cur.fetchall()
+            # define list for brightness
+            brightness = []
 
-        brightness = []
+            # for each date add up all brightess values to display brigthness hours per day
+            for date in brightness_dates:
+                # SQL statement to select brightness from selected values in dropdown fields
+                cur.execute('''SELECT brightness FROM sensordata WHERE date = (%s) AND id_satellite_programm in 
+                (SELECT id FROM satellite_programm WHERE id_satellite = (%s) 
+                AND id_programm = (%s))''', [date, satellite_id, programm_id])
+                _brightness = cur.fetchall()
 
-        for date in brightness_dates:
-            # SQL statement to select brightness from selected values in dropdown fields
-            cur.execute('''SELECT brightness FROM sensordata where date = (%s) and id_satellite_programm in 
-            (select id from satellite_programm where id_satellite = (%s) 
-            and id_programm = (%s))''', [date, satellite_id, programm_id])
-            _brightness = cur.fetchall()
+                # for each value in brightness add up the new value and add new value to brightness list
+                new_value = 0
+                for value in _brightness:
+                    new_value = new_value + value[0]
+                    brightness.append(new_value)
 
-            new_value = 0
-            for value in _brightness:
-                new_value = new_value + value[0]
-                brightness.append(new_value)
+            # SQL statement to select airhumidity from selected values in dropdown fields
+            cur.execute('''SELECT airhumidity FROM sensordata WHERE date >= (SELECT date FROM sensordata WHERE 
+            id = (%s)) AND id_satellite_programm in 
+            (SELECT id FROM satellite_programm WHERE id_satellite = (%s) 
+            AND id_programm = (%s))''', [selected_date_id, satellite_id, programm_id])
+            airhumidity = cur.fetchall()
 
-           
+            # SQL statement to select soilhumidity from selected values in dropdown fields
+            cur.execute('''SELECT soilhumidity FROM sensordata WHERE date >= (SELECT date FROM sensordata WHERE 
+            id = (%s)) AND id_satellite_programm in 
+            (SELECT id FROM satellite_programm WHERE id_satellite = (%s) 
+            AND id_programm = (%s))''', [selected_date_id, satellite_id, programm_id])
+            soilhumidity = cur.fetchall()
 
-        # SQL statement to select airhumidity from selected values in dropdown fields
-        cur.execute('''SELECT airhumidity FROM sensordata where date >= (SELECT date from sensordata WHERE 
-        id = (%s)) and id_satellite_programm in 
-        (select id from satellite_programm where id_satellite = (%s) 
-        and id_programm = (%s))''', [selected_date_id, satellite_id, programm_id])
-        airhumidity = cur.fetchall()
-
-        # SQL statement to select soilhumidity from selected values in dropdown fields
-        cur.execute('''SELECT soilhumidity FROM sensordata where date >= (SELECT date from sensordata WHERE 
-        id = (%s)) and id_satellite_programm in 
-        (select id from satellite_programm where id_satellite = (%s) 
-        and id_programm = (%s))''', [selected_date_id, satellite_id, programm_id])
-        soilhumidity = cur.fetchall()
-
-        # close MySQL database cursor
-        cur.close()
+            # close MySQL database cursor
+            cur.close()
+        except:
+            flash('Daten konnten nicht geladen werden - Seite und Daten erneut laden')
+            return render_template('fail.html')
 
         # return dashboard-template with selected values in dropdown fields
         return render_template('dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span, displayed_satellite=displayed_satellite, displayed_programm=displayed_programm, temperature_value=temperature_value, brightness_value=brightness_value, airhumidity_value=airhumidity_value, soilhumidity_value=soilhumidity_value, dates=dates, temperature=temperature, brightness=brightness, airhumidity=airhumidity, soilhumidity=soilhumidity)
 
-    # return start-dashboard-template with data from satellite and programm with ID = 1 and from last inserted date in MySQL DB where satellite and programm ID = 1
+    # return start-dashboard-template with data FROM satellite and programm with ID = 1 and from last inserted date in MySQL DB where satellite and programm ID = 1
     return render_template('start_dashboard.html', satellite_list=satellite_list, programm_list=programm_list, date_span=date_span, start_satellite=start_satellite, start_programm=start_programm, start_temperature_value=start_temperature_value, start_brightness_value=start_brightness_value, start_airhumidity_value=start_airhumidity_value, start_soilhumidity_value=start_soilhumidity_value, start_dates=start_dates, start_temperature=start_temperature, new_start_brightness=new_start_brightness, start_airhumidity=start_airhumidity, start_soilhumidity=start_soilhumidity)
 
 
@@ -262,62 +274,65 @@ def admin():
 
         # close MySQL database cursor
         cur.close()
+
+    # exception if load data failed
     except:
-        flash('Ein Fehler ist aufgetreten. Seite erneut Laden.')
-        return render_template('flash.html')
+        flash('Ein Fehler ist aufgetreten. Bitte Seite erneut laden.')
+        return render_template('fail.html')
 
     # if POST-method from the 'Programm laden' button is requested
     if request.method == 'POST':
         if request.form['Button'] == 'Programm laden':
-            #try:
-            # request.form gets seected values in dropdown fields
-            satellite_id = request.form['satellite_id']
-            programm_id = request.form['programm_id']
+            try:
+                # request.form gets selected values in dropdown fields
+                satellite_id = request.form['satellite_id']
+                programm_id = request.form['programm_id']
 
-            # connection-cursor to MySQL database
-            cur = mysql.connection.cursor()
+                # connection-cursor to MySQL database
+                cur = mysql.connection.cursor()
 
-            # set current_programm from selected satellite to value from selected programm in dropdown field
-            cur.execute('UPDATE satellites set current_programm = (%s) where id = (%s)', [
-                        programm_id, satellite_id])
-            # commit updated table
-            mysql.connection.commit()
+                # set current_programm from selected satellite to value from selected programm in dropdown field
+                cur.execute('UPDATE satellites set current_programm = (%s) WHERE id = (%s)', [
+                            programm_id, satellite_id])
+                # commit updated table
+                mysql.connection.commit()
 
-            # get ip-adress from selected satellite in dropdown field
-            cur.execute(
-                'SELECT ip_addr from satellites WHERE id = (%s)', [satellite_id])
-            ip_addr = cur.fetchone()
-            ip_addr = ip_addr[0]
+                # get ip-adress from selected satellite in dropdown field
+                cur.execute(
+                    'SELECT ip_addr FROM satellites WHERE id = (%s)', [satellite_id])
+                ip_addr = cur.fetchone()
+                ip_addr = ip_addr[0]
 
-            # select parameter values from selected programm
-            cur.execute('''select pp.value from parameters p
-            join programm_parameter pp on p.id = pp.id_parameter
-            join programms pr on pr.id = pp.id_programm where pr.id = (%s)''', [programm_id])
+                # select parameter values from selected programm
+                cur.execute('''SELECT pp.value FROM parameters p
+                join programm_parameter pp on p.id = pp.id_parameter
+                join programms pr on pr.id = pp.id_programm WHERE pr.id = (%s)''', [programm_id])
 
-            # declare parameters as variables
-            programm_values = cur.fetchall()
-            temperature_value = programm_values[0][0]
-            brightness_value = programm_values[1][0]
-            airhumidity_value = programm_values[2][0]
-            soilhumidity_value = programm_values[3][0]
+                # declare parameters as variables
+                programm_values = cur.fetchall()
+                temperature_value = programm_values[0][0]
+                brightness_value = programm_values[1][0]
+                airhumidity_value = programm_values[2][0]
+                soilhumidity_value = programm_values[3][0]
 
-            # close MySQL database cursor
-            cur.close()
+                # close MySQL database cursor
+                cur.close()
 
-            # post-request url to load programm
-            url = f'''http://{ip_addr}:8081/post_data?temperature={temperature_value}&brightness={brightness_value}
-            &air_humidity={airhumidity_value}&soil_humidity={soilhumidity_value}'''
+                # post-request url to load programm
+                url = f'''http://{ip_addr}:8081/post_data?temperature={temperature_value}&brightness={brightness_value}
+                &air_humidity={airhumidity_value}&soil_humidity={soilhumidity_value}'''
 
-            # send post request to url
-            post = requests.post(url)
+                # send post request to url
+                post = requests.post(url)
 
-            flash('Programm erfolgreich geladen')
-            return render_template('success.html')
+                # flash message by success
+                flash('Programm erfolgreich geladen')
+                return render_template('success.html')
 
-        
-        #except:
-            flash('Ein Fehler ist aufgetreten - Programm erneut laden')
-            return render_template('fail.html')
+            # exception if load programm failed
+            except:
+                flash('Ein Fehler ist aufgetreten - Programm erneut laden')
+                return render_template('fail.html')
 
 
         # if POST-method from the 'Satellit hinzufügen' button is requested
@@ -327,6 +342,7 @@ def admin():
                 satellite_name = request.form['satellite_name']
                 ip_addr = request.form['ip_addr']
 
+                # validation of user input
                 if len(satellite_name) < 1  or len(ip_addr) < 8:
                     flash('Eingaben unvollständig oder ungültig')
                     return render_template('fail.html')
@@ -335,12 +351,12 @@ def admin():
                     # connection-cursor to MySQL database
                     cur = mysql.connection.cursor()
 
-                    # insert satellite-name and ip-adress from input fields into table satellites
+                    # insert satellite-name and ip-adress FROM input fields into table satellites
                     cur.execute('insert into satellites (name, ip_addr) values (%s, %s)', [
                                 satellite_name, ip_addr])
 
                     # select ID of added satellite
-                    cur.execute('select id from satellites where name = (%s)', [
+                    cur.execute('SELECT id FROM satellites WHERE name = (%s)', [
                                 satellite_name])
                     satellite_id = cur.fetchone()
 
@@ -359,11 +375,13 @@ def admin():
                     # close MySQL database cursor
                     cur.close()
 
+                    # flash message by success
                     flash('Satellit erfolgreich erstellt')
                     return render_template('success.html')
-
+                    
+            # exception if add satellite failed
             except:
-                flash('Ein Probelm ist aufgetreten - Admin erneut laden')
+                flash('Satellit konnte nicht geladen werden - Satellit erneut hinzufügen')
                 return render_template('fail.html')
 
 
@@ -377,12 +395,12 @@ def admin():
                 airhumidity = request.form['airhumidity']
                 soilhumidity = request.form['soilhumidity']
 
+                # validation of user input
                 if len(programm_name) < 1 or temperature < 1 or brightness < 1 or airhumidity < 1 or soilhumidity < 1:
                     flash('Eingaben unvollständig oder ungültig')
                     return render_template('fail.html')
                 
                 else:
-
                     # connection-cursor to MySQL database
                     cur = mysql.connection.cursor()
 
@@ -391,7 +409,7 @@ def admin():
                                 programm_name])
 
                     # select inserted programm id
-                    cur.execute('select id from programms where name = (%s)', [
+                    cur.execute('SELECT id FROM programms WHERE name = (%s)', [
                                 programm_name])
                     programm_id = cur.fetchone()
 
@@ -406,33 +424,34 @@ def admin():
 
                     # insert all parameters from user input in input fields
                     cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
-                                VALUES (%s, (select id from parameters where name = "Temperatur"), %s)''', [programm_id, temperature])
+                                VALUES (%s, (SELECT id FROM parameters WHERE name = "Temperatur"), %s)''', [programm_id, temperature])
 
                     cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
-                                VALUES (%s, (select id from parameters where name = "Helligkeit"), %s)''', [programm_id, brightness])
+                                VALUES (%s, (SELECT id FROM parameters WHERE name = "Helligkeit"), %s)''', [programm_id, brightness])
 
                     cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
-                                VALUES (%s, (select id from parameters where name = "Luftfeuchtigkeit"), %s)''', [programm_id, airhumidity])
+                                VALUES (%s, (SELECT id FROM parameters WHERE name = "Luftfeuchtigkeit"), %s)''', [programm_id, airhumidity])
 
                     cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
-                                VALUES (%s, (select id from parameters where name = "Bodenfeuchtigkeit"), %s)''', [programm_id, soilhumidity])
+                                VALUES (%s, (SELECT id FROM parameters WHERE name = "Bodenfeuchtigkeit"), %s)''', [programm_id, soilhumidity])
 
                     # commit insert statement
                     mysql.connection.commit()
 
                     # close MySQL database cursor
                     cur.close()
-
+                    # flash message by success
                     flash('Programm erfolgreich erstellt')
                     return render_template('sucess.html')
-
+            # exception if add satellite failed
             except:
-                flash('Ein Probelm ist aufgetreten - Admin erneut laden')
+                flash('Programm konnte nicht hinzugefügt werden - Programm neu hinzufügen')
                 return render_template('fail.html')
 
     # return admin-template with satellites and programm lists
     return render_template('admin.html', satellite_list=satellite_list, programm_list=programm_list)
 
-
+# to run app as standalone instance
 if __name__ == '__main__':
+    # app is available for all users in LAN and debug mode is on
     app.run(host="0.0.0.0", debug=True)

@@ -1,21 +1,23 @@
+<!-- Import of base-template -->
 {% extends "base.html" %}
 
-
+<!-- block content for base-template -->
 {% block content %}
 </br>
 </br>
 </br>
+<!-- container to display error flash messages-->
 <div class="container align-items-center" style="border: solid; border-color: lightgrey;" >
-
+<!-- for every message display message -->
+<!-- with {% %} variables from the python app can be called in html -->
 {% with messages=get_flashed_messages() %} 
 {% if messages %} 
 {% for message in messages %} 
+<!-- display message in color red to signalize error  -->
  <h3 style="color: red;" align="middle">{{ message }}</h3>
  {% endfor %}
 {% endif %}
 {% endwith %}
-
 </div>
-
 
 {% endblock %}

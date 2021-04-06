@@ -30,8 +30,8 @@ cursor.execute('''CREATE TABLE satellite_programm (id int NOT NULL AUTO_INCREMEN
 REFERENCES satellites(id), FOREIGN KEY (id_programm) REFERENCES programms(id))''')
 
 # sensordata
-cursor.execute('''CREATE TABLE sensordata (id int NOT NULL AUTO_INCREMENT PRIMARY KEY, id_satellite_programm int, date date, time time, temperature float(3),
-brightness float(4), airhumidity float(3), soilhumidity float(4), FOREIGN KEY (id_satellite_programm) REFERENCES satellite_programm(id))''')
+cursor.execute('''CREATE TABLE sensordata (id int NOT NULL AUTO_INCREMENT PRIMARY KEY, id_satellite_programm int, date date, time time, temperature float(4),
+brightness float(4), airhumidity float(4), soilhumidity float(4), FOREIGN KEY (id_satellite_programm) REFERENCES satellite_programm(id))''')
 
 # parameters
 cursor.execute(

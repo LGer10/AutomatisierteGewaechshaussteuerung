@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-# automatisiertes gewächshaus | script - data fro standar programms | version 0.1
+# automatisiertes gewächshaus | script - data for standard programms | version 0.1
 
 # Libraries
 import mysql.connector

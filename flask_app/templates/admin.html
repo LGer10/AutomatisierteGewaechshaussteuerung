@@ -1,39 +1,44 @@
-<!Import of base-template>
+<!-- Import of base-template -->
    {% extends "base.html" %}
 
-   <!Bereich wird in Basis html-Template eingefügt>
+<!-- block content for base-template -->
       {% block content %}
-
+<!-- body with admin functions -->
       <body>
+         <!-- title of admin site -->
          <div class="p-2">
             <h2 style="color:green" align="middle">{% block title %} Admin-Bereich
                {% endblock %}</h2>
             <hr>
          </div>
+         <!-- container with three columns each containing an admin function -->
          <div class="container-fluid p-4" style="position: relative; margin-bottom: 5rem">
             <div class=" row" style="background-color: whitesmoke; ">
                <div class="col-md-4 border border-secondary" align="middle">
+                  <!-- "Programm laden" -->
                   <h4 style="margin-top:10px;"> Programm Laden </h4>
                   <hr>
+                  <!-- html-form tag with POST method -->
                   <form method="POST" action="/admin">
                      <p>
                         <label for="satellite">
                            <span>Satellit auswählen: </span>
                         </label>
                         </br>
+                        <!-- lists all satellites from mysql database -->
+                        <!-- with {% %} variables from the python app can be called in html -->
                         <SELECT name="satellite_id" id="satellite">
                            {% for i in satellite_list %}
                            <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
                            {% endfor %}
                         </SELECT>
                      </p>
-
                      <p>
                         <label for="programm">
                            <span>Programm auswählen: </span>
                         </label>
                         </br>
-
+                        <!-- lists all satellites from mysql database -->
                         <SELECT name="programm_id" id="programm">
                            {% for i in programm_list %}
                            <OPTION value={{i[0]}}>{{i[1]}}</OPTION>
@@ -41,19 +46,24 @@
                         </SELECT>
                      </p>
                      <hr style="margin-top: 260px;">
+                     <!-- submit button which triggers POST method to submit user input load programm -->
                      <input type="submit" name="Button" value="Programm laden"
                         style="background-color: green; color: white;">
                   </form>
                </div>
+
                <div class="col-md-4 border border-secondary" align="middle">
+                  <!-- add satellite -->
                   <h4 style="margin-top:10px;">Satellit hinzufügen</h4>
                   <hr>
+                  <!-- html-form tag with POST method -->
                   <form method="POST" action="/admin">
                      <p>
                         <label for="satellite_name">
                            <span>Name: </span>
                         </label>
                         </br>
+                         <!-- input tag type text for user text input satellite name -->
                         <input type="text" id="satellite_name" name="satellite_name">
                      </p>
                      <p>
@@ -61,23 +71,28 @@
                            <span>IP-Adresse: </span>
                         </label>
                         </br>
+                        <!-- input tag type text for user text input ip-adderss -->
                         <input type="text" id="ipadress" name="ip_addr">
                      </p>
                      <hr style="margin-top: 250px;">
+                     <!-- submit button which triggers POST method to submit user input and adds satellite -->
                      <input type="submit" name="Button" value="Satellit hinzufügen"
                         style="background-color: green; color: white;">
                   </form>
                </div>
 
                <div class="col-md-4 border border-secondary" align="middle">
+                  <!-- add programm -->
                   <h4 style="margin-top:10px;">Programm hinzufügen</h4>
                   <hr>
+                  <!-- html-form tag with POST method -->
                   <form method="POST" action="/admin">
                      <p>
                         <label for="programm_name">
                            <span>Name: </span>
                         </label>
                         </br>
+                        <!-- input tag type text for user text input programm name -->
                         <input type="text" id="programm_name" name="programm_name">
                      </p>
                      <p>
@@ -85,6 +100,7 @@
                            <span>Temperatur: </span>
                         </label>
                         </br>
+                        <!-- input tag type number for user number input temperature -->
                         <input type="number" id="temperature" name="temperature">
                      </p>
                      <p>
@@ -92,6 +108,7 @@
                            <span>Helligkeit: </span>
                         </label>
                         </br>
+                         <!-- user input brightness -->
                         <input type="number" id="brightness" name="brightness">
                      </p>
                      <p>
@@ -99,6 +116,7 @@
                            <span>Luftfeuchtigkeit: </span>
                         </label>
                         </br>
+                        <!-- user input airhumidity -->
                         <input type="number" id="airhumidity" name="airhumidity">
                      </p>
                      <p>
@@ -106,10 +124,12 @@
                            <span>Bodenfeuchtigkeit: </span>
                         </label>
                         </br>
+                        <!-- user input soilhumidity -->
                         <input type="number" id="soilhumidity" name="soilhumidity">
                      </p>
                      <hr>
                      <div style="margin-bottom: 20px;">
+                        <!-- submit button which triggers POST method to submit user inputs and adds programm -->
                         <input type="submit" name="Button" value="Programm hinzufügen"
                            style="background-color: green; color: white;">
                   </form>
