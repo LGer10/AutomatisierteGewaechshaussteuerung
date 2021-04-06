@@ -347,40 +347,40 @@ def admin():
                 ip_addr = request.form['ip_addr']
 
                 # validation of user input
-                if len(satellite_name) < 1  or len(ip_addr) < 8:
+                if len(satellite_name) < 1 or len(ip_addr) < 8:
                     flash('Eingaben unvollständig oder ungültig')
                     return render_template('fail.html')
 
-                
-                # connection-cursor to MySQL database
-                cur = mysql.connection.cursor()
+                else:
+                    # connection-cursor to MySQL database
+                    cur = mysql.connection.cursor()
 
-                # insert satellite-name and ip-adress FROM input fields into table satellites
-                cur.execute('insert into satellites (name, ip_addr) values (%s, %s)', [
-                            satellite_name, ip_addr])
+                    # insert satellite-name and ip-adress FROM input fields into table satellites
+                    cur.execute('insert into satellites (name, ip_addr) values (%s, %s)', [
+                                satellite_name, ip_addr])
 
-                # select ID of added satellite
-                cur.execute('SELECT id FROM satellites WHERE name = (%s)', [
-                            satellite_name])
-                satellite_id = cur.fetchone()
+                    # select ID of added satellite
+                    cur.execute('SELECT id FROM satellites WHERE name = (%s)', [
+                                satellite_name])
+                    satellite_id = cur.fetchone()
 
-                # select ID of all programms
-                cur.execute('SELECT id FROM programms')
-                programm_id_list = cur.fetchall()
+                    # select ID of all programms
+                    cur.execute('SELECT id FROM programms')
+                    programm_id_list = cur.fetchall()
 
-                # insert satellite-ID for every existing programm to generate the satellite-programm relations
-                for programm_id in programm_id_list:
-                    cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (%s, %s)', [satellite_id, programm_id])
+                    # insert satellite-ID for every existing programm to generate the satellite-programm relations
+                    for programm_id in programm_id_list:
+                        cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (%s, %s)', [satellite_id, programm_id])
 
-                # commit insert statement
-                mysql.connection.commit()
+                    # commit insert statement
+                    mysql.connection.commit()
 
-                # close MySQL database cursor
-                cur.close()
+                    # close MySQL database cursor
+                    cur.close()
 
-                # flash message by success
-                flash('Satellit erfolgreich erstellt')
-                return render_template('success.html')
+                    # flash message by success
+                    flash('Satellit erfolgreich erstellt')
+                    return render_template('success.html')
                     
             # exception if add satellite failed
             except:
@@ -404,49 +404,49 @@ def admin():
                     flash('Eingaben unvollständig oder ungültig')
                     return render_template('fail.html')
                 
-            
-                # connection-cursor to MySQL database
-                cur = mysql.connection.cursor()
+                else:
+                    # connection-cursor to MySQL database
+                    cur = mysql.connection.cursor()
 
-                # insert programm name and date created into table programms
-                cur.execute('insert into programms (name, date_created) values (%s, current_timestamp())', [
-                            programm_name])
+                    # insert programm name and date created into table programms
+                    cur.execute('insert into programms (name, date_created) values (%s, current_timestamp())', [
+                                programm_name])
 
-                # select inserted programm id
-                cur.execute('SELECT id FROM programms WHERE name = (%s)', [
-                            programm_name])
-                programm_id = cur.fetchone()
+                    # select inserted programm id
+                    cur.execute('SELECT id FROM programms WHERE name = (%s)', [
+                                programm_name])
+                    programm_id = cur.fetchone()
 
-                # select id of all satellites
-                cur.execute('SELECT id FROM satellites')
-                satellite_id_list = cur.fetchall()
+                    # select id of all satellites
+                    cur.execute('SELECT id FROM satellites')
+                    satellite_id_list = cur.fetchall()
 
-                # insert programm-ID for every existing satellite to generate the satellite-programm relations
-                for satellite_id in satellite_id_list:
-                    cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (%s, %s)', [satellite_id, programm_id])
+                    # insert programm-ID for every existing satellite to generate the satellite-programm relations
+                    for satellite_id in satellite_id_list:
+                        cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (%s, %s)', [satellite_id, programm_id])
 
-                # insert all parameters from user input in input fields
-                cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
-                            VALUES (%s, (SELECT id FROM parameters WHERE name = "Temperatur"), %s)''', [programm_id, temperature])
+                    # insert all parameters from user input in input fields
+                    cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
+                                VALUES (%s, (SELECT id FROM parameters WHERE name = "Temperatur"), %s)''', [programm_id, temperature])
 
-                cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
-                            VALUES (%s, (SELECT id FROM parameters WHERE name = "Helligkeit"), %s)''', [programm_id, brightness])
+                    cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
+                                VALUES (%s, (SELECT id FROM parameters WHERE name = "Helligkeit"), %s)''', [programm_id, brightness])
 
-                cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
-                            VALUES (%s, (SELECT id FROM parameters WHERE name = "Luftfeuchtigkeit"), %s)''', [programm_id, airhumidity])
+                    cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
+                                VALUES (%s, (SELECT id FROM parameters WHERE name = "Luftfeuchtigkeit"), %s)''', [programm_id, airhumidity])
 
-                cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
-                            VALUES (%s, (SELECT id FROM parameters WHERE name = "Bodenfeuchtigkeit"), %s)''', [programm_id, soilhumidity])
+                    cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
+                                VALUES (%s, (SELECT id FROM parameters WHERE name = "Bodenfeuchtigkeit"), %s)''', [programm_id, soilhumidity])
 
-                # commit insert statement
-                mysql.connection.commit()
+                    # commit insert statement
+                    mysql.connection.commit()
 
-                # close MySQL database cursor
-                cur.close()
+                    # close MySQL database cursor
+                    cur.close()
 
-                # flash message by success
-                flash('Programm erfolgreich erstellt')
-                return render_template('sucess.html')
+                    # flash message by success
+                    flash('Programm erfolgreich erstellt')
+                    return render_template('success.html')
 
             # exception if add programm failed
             except:
