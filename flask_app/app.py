@@ -424,8 +424,7 @@ def admin():
 
                     # insert programm-ID for every existing satellite to generate the satellite-programm relations
                     for satellite_id in satellite_id_list:
-                        cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (%s, %s)', [
-                                    satellite_id, programm_id])
+                        cur.execute('insert into satellite_programm (id_satellite, id_programm) VALUES (%s, %s)', [satellite_id, programm_id])
 
                     # insert all parameters from user input in input fields
                     cur.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
@@ -445,10 +444,12 @@ def admin():
 
                     # close MySQL database cursor
                     cur.close()
+
                     # flash message by success
                     flash('Programm erfolgreich erstellt')
                     return render_template('sucess.html')
-            # exception if add satellite failed
+
+            # exception if add programm failed
             except:
                 flash('Programm konnte nicht erstellt werden - Programm erneut erstellen')
                 return render_template('fail.html')
