@@ -20,9 +20,9 @@ try:
     app.config['MYSQL_USER'] = 'root'
     app.config['MYSQL_PASSWORD'] = 'AGdb'
     app.config['MYSQL_DB'] = 'AGdb'
-    print(MySQL Datenbank-Verbindung erfolgreich)
+    print('MySQL Datenbank-Verbindung erfolgreich')
 except:
-    print(Datenbank-Verbindung konnte nicht hergestellt werden)
+    print('Datenbank-Verbindung konnte nicht hergestellt werden')
 
 
 # home
