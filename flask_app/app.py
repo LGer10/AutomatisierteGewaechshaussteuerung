@@ -142,6 +142,7 @@ def dashboard():
         # close MySQL database cursor
         cur.close()
     except:
+        flash('Error')
         flash('Daten konnten nicht geladen werden - Seite erneut laden')
         return render_template('fail.html')
 
@@ -244,6 +245,7 @@ def dashboard():
             # close MySQL database cursor
             cur.close()
         except:
+            flash('Error')
             flash('Daten konnten nicht geladen werden - Seite und Daten erneut laden')
             return render_template('fail.html')
 
@@ -277,6 +279,7 @@ def admin():
 
     # exception if load data failed
     except:
+        flash('Error')
         flash('Ein Fehler ist aufgetreten. Bitte Seite erneut laden.')
         return render_template('fail.html')
 
@@ -331,6 +334,7 @@ def admin():
 
             # exception if load programm failed
             except:
+                flash('Error')
                 flash('Ein Fehler ist aufgetreten - Programm erneut laden')
                 return render_template('fail.html')
 
@@ -381,7 +385,8 @@ def admin():
                     
             # exception if add satellite failed
             except:
-                flash('Satellit konnte nicht geladen werden - Satellit erneut hinzufügen')
+                flash('Error')
+                flash('Satellit konnte nicht erstellt werden - Satellit erneut erstellen')
                 return render_template('fail.html')
 
 
@@ -396,7 +401,7 @@ def admin():
                 soilhumidity = request.form['soilhumidity']
 
                 # validation of user input
-                if len(programm_name) < 1 or temperature < 1 or brightness < 1 or airhumidity < 1 or soilhumidity < 1:
+                if len(programm_name) < 1 or len(temperature) < 1 or len(brightness) < 1 or len(airhumidity) < 1 or len(soilhumidity) < 1:
                     flash('Eingaben unvollständig oder ungültig')
                     return render_template('fail.html')
                 
@@ -445,7 +450,7 @@ def admin():
                     return render_template('sucess.html')
             # exception if add satellite failed
             except:
-                flash('Programm konnte nicht hinzugefügt werden - Programm neu hinzufügen')
+                flash('Programm konnte nicht erstellt werden - Programm erneut erstellen')
                 return render_template('fail.html')
 
     # return admin-template with satellites and programm lists
