@@ -311,7 +311,7 @@ def admin():
                 pw=credentials[0][1]
 
                 if user_name == user and password == pw:
-                    return render_template('admin.html', password = password, user_name = user_name, satellite_list = satellite_list, programm_list = programm_list)
+                    return redirect(url_for('admin'))
 
             except:
                 flash('Login nicht erfolgreich')
