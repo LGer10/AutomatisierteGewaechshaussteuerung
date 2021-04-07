@@ -312,9 +312,9 @@ def admin():
                 if user_name == user and password == pw:
                     return render_template('admin.html', password = password, user_name = user_name, satellite_list = satellite_list, programm_list = programm_list)
 
-        except:
-            flash('Login nicht erfolgreich')
-            return render_template('fail.html')
+            except:
+                flash('Login nicht erfolgreich')
+                return render_template('fail.html')
 
         if request.form['Button'] == 'Programm laden':
             try:
