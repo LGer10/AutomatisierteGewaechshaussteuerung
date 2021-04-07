@@ -14,7 +14,9 @@
          <!-- container with three columns each containing an admin function -->
          <div class="container-fluid p-4" style="position: relative; margin-bottom: 5rem">
             <p align="right">Eingeloggt als: </br> {{user_name}}</p>
+            <form method="POST" action="/admin">
             <input align="right" type="submit" name="Button" value="Logout" style="background-color: green; color: white;">
+            </form>
             <div class=" row" style="background-color: whitesmoke; ">
                <div class="col-md-4 border border-secondary" align="middle">
                   <!-- "Programm laden" -->
