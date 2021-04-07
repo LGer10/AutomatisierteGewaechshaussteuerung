@@ -474,7 +474,7 @@ def admin():
                 return render_template('fail.html')
 
     # return admin-template with satellites and programm lists
-    return render_template('admin_login.html', user_name=user_name, password=password)
+    return render_template('admin_login.html')
 
 # to run app as standalone instance
 if __name__ == '__main__':
