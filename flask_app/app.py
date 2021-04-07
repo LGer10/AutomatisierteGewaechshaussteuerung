@@ -118,7 +118,7 @@ def dashboard():
         # temperature where date = startdate
         cur.execute('''SELECT temperature FROM sensordata WHERE date = (%s) AND id_satellite_programm in
         (SELECT id FROM satellite_programm WHERE id_satellite = 1
-        AND id_programm = (%s))''', [start_dates[0][0]], c_programm[0]])
+        AND id_programm = (%s))''', [start_dates[0][0], c_programm[0]])
         start_temperature = cur.fetchall()
 
         # brightness where date = startdate
