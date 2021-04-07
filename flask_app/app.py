@@ -317,6 +317,10 @@ def admin():
                 flash('Login nicht erfolgreich')
                 return render_template('fail.html')
 
+            if request.form['Button'] == 'Logout':
+                    session.pop('user_name', None)
+                    return redirect(url_for('admin'))
+                
         if request.form['Button'] == 'Programm laden':
             try:
                 # request.form gets selected values in dropdown fields
