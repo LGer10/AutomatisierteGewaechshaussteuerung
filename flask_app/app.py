@@ -287,6 +287,8 @@ def admin():
         if 'user_name' in session:
             user_name=session['user_name']
             return render_template('admin.html', user_name = user_name, satellite_list = satellite_list, programm_list = programm_list)
+        else:
+            return render_template('admin_login.html')
 
     # exception if load data failed
     except:
