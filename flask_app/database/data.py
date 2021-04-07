@@ -6,7 +6,7 @@
 import mysql.connector
 
 
-# MySQL database connection
+# mysql database connection
 db = mysql.connector.connect(
     host="localhost",
     database="AGdb",
@@ -14,7 +14,7 @@ db = mysql.connector.connect(
     password="AGdb"
 )
 
-# MySQL database cursor
+# mysql database cursor
 cursor = db.cursor()
 
 # create parameters
@@ -31,6 +31,10 @@ cursor.execute(
 # chilis
 cursor.execute('INSERT INTO programms (name) VALUES ("Chillis")')
 
+# strawberries
+cursor.execute('INSERT INTO programms (name) VALUES ("Erdbeeren")')
+
+# insert parameters
 # chilis-parameter
 cursor.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
 VALUES ((select id from programms where name = "Chillis"), (select id from parameters where name = "Temperatur"), 24)''')
@@ -41,9 +45,6 @@ VALUES ((select id from programms where name = "Chillis"), (select id from param
 cursor.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
 VALUES ((select id from programms where name = "Chillis"), (select id from parameters where name = "Bodenfeuchtigkeit"), 50)''')
 
-# strawberries
-cursor.execute('INSERT INTO programms (name) VALUES ("Erdbeeren")')
-
 # strawberries-parameter
 cursor.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
 VALUES ((select id from programms where name = "Erdbeeren"), (select id from parameters where name = "Temperatur"), 20)''')
@@ -53,15 +54,6 @@ cursor.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, valu
 VALUES ((select id from programms where name = "Erdbeeren"), (select id from parameters where name = "Luftfeuchtigkeit"), 70)''')
 cursor.execute('''INSERT INTO programm_parameter(id_programm, id_parameter, value) 
 VALUES ((select id from programms where name = "Erdbeeren"), (select id from parameters where name = "Bodenfeuchtigkeit"), 50)''')
-
-# create satellite
-# prototyp
-cursor.execute(
-    'INSERT INTO satellites (name, ip_addr) VALUES ("PrototypX", "192.168.1.100")')
-cursor.execute('''INSERT INTO satellite_programm(id_programm, id_satellite) 
-VALUES ((select id from programms where name = "Chillis"), (select id from satellites where name = "PrototypX"))''')
-cursor.execute('''INSERT INTO satellite_programm(id_programm, id_satellite) 
-VALUES ((select id from programms where name = "Erdbeeren"), (select id from satellites where name = "PrototypX"))''')
 
 # commit inserts
 db.commit()
