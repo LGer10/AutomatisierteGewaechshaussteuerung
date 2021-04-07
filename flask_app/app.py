@@ -300,7 +300,6 @@ def admin():
     if request.method == 'POST':
         if request.form['Button'] == 'Login':
             try:
-                session['user_name']=request.form['user_name']
                 user_name = request.form['user_name']
                 password=request.form['password']
 
@@ -313,6 +312,7 @@ def admin():
                 pw=credentials[0][1]
 
                 if user_name == user and password == pw:
+                    session['user_name'] = user_name
                     return redirect(url_for('admin'))
 
             except:
