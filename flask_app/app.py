@@ -58,9 +58,9 @@ def dashboard():
         date_span = cur.fetchall()
 
         # By entering the dashboard via GET-request, data from the last day inserted into the MySQL database
-        # and from the satellite with ID = 1 and programm with ID = 1 should automatically be displayed
+        # and from the satellite with ID = 1 and current loaded programm should automatically be displayed
 
-        # SQL statement to select satellite and programm with ID = 1
+        # SQL statement to select satellite with ID = 1 and current loaded programm
         # cur-fetchone() generates a tupel of all data in one MySQL row, as only one satellite ad one programm is selected
         # the object can be called as [0] object of the tupel
 
@@ -73,7 +73,7 @@ def dashboard():
         cur.execute('SELECT current_programm FROM satellites WHERE id = 1')
         c_programm = cur.fetchone()
 
-        cur.execute('SELECT name FROM programms WHERE id = (%s)', [c_programm[0])
+        cur.execute('SELECT name FROM programms WHERE id = (%s)', [c_programm[0]])
         start_programm = cur.fetchone()
 
         # SQL statement to select the ideal value of the parameters from programm with ID = 1
@@ -81,27 +81,27 @@ def dashboard():
 
         # ideal value temperature
         cur.execute('''SELECT value FROM programm_parameter WHERE id_programm = (%s) AND id_parameter in
-        (SELECT id FROM parameters WHERE name = 'Temperatur')''', [c_programm[0])
+        (SELECT id FROM parameters WHERE name = 'Temperatur')''', [c_programm[0]])
         start_temperature_value = cur.fetchone()
 
         # ideal value brighteness
                     cur.execute('''SELECT value from programm_parameter WHERE id_programm = (%s) AND id_parameter in
-            (SELECT id FROM parameters WHERE name = 'Helligkeit')''', [c_programm[0])
+            (SELECT id FROM parameters WHERE name = 'Helligkeit')''', [c_programm[0]])
         start_brightness_value = cur.fetchone()
 
         # ideal value airhumidity
                                 cur.execute('''SELECT value FROM programm_parameter WHERE id_programm = (%s) AND id_parameter in
-            (SELECT id FROM parameters WHERE name = 'Luftfeuchtigkeit')''', [c_programm[0])
+            (SELECT id FROM parameters WHERE name = 'Luftfeuchtigkeit')''', [c_programm[0]])
         start_airhumidity_value = cur.fetchone()
 
         # ideal value soilhumidity
                                 cur.execute('''SELECT value FROM programm_parameter WHERE id_programm = (%s) AND id_parameter in
-            (SELECT id FROM parameters WHERE name = 'Bodenfeuchtigkeit')''', [c_programm[0])
+            (SELECT id FROM parameters WHERE name = 'Bodenfeuchtigkeit')''', [c_programm[0]])
         start_soilhumidity_value = cur.fetchone()
 
         # To only display datapoints from the last inserted day into MySQL database with satellite and programm ID = 1,
-        # date and time are selected where date is the highest date available with satellite and programm ID = 1
-        # and where satellite and programm ID = 1
+        # date and time are selected where date is the highest date available with satellite ID = 1 and programm id from current loaded programm
+        # and where satellite ID = 1 and programm id from current loaded programm
         # cur-fetchall() generates a tupel of all data in one or more MySQL rows, as date and time is selected
         # the objects of both rows can be called as [0][0] object of the tupel
 
