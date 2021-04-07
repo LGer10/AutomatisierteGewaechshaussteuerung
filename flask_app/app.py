@@ -295,7 +295,7 @@ def admin():
             cur.execute('SELECT name, password from users where name = (%s) and password = (%s)', [user_name, password])
             credentials = cur.fetchall()
             user = credentials[0][0]
-            pw = credentials[1][0]
+            pw = credentials[0][1]
 
             if user_name == user and password == pw:
                 return render_template('admin.html', password=password, user_name=user_name, satellite_list=satellite_list, programm_list=programm_list)
