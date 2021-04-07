@@ -312,7 +312,7 @@ def admin():
                 pw=credentials[0][1]
 
                 if user_name == user and password == pw:
-                    session['user_name'] = user_name
+                    session['user_name'] = request.form['user_name']
                     return redirect(url_for('admin'))
 
             except:
