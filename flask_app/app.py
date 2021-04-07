@@ -2,8 +2,8 @@
 
 # automatisiertes gewächshaus | main-script flask_app | version 0.1
 
-# ibraries
-from flask import Flask, session, render_template, request, make_response, redirect, flash, Markup, url_for
+# libraries
+from flask import Flask, session, render_template, request, make_response, redirect, flash, url_for
 from flask_mysqldb import MySQL
 import requests
 
@@ -20,6 +20,7 @@ try:
     app.config['MYSQL_USER'] = 'root'
     app.config['MYSQL_PASSWORD'] = 'AGdb'
     app.config['MYSQL_DB'] = 'AGdb'
+
     print('MySQL Datenbank-Verbindung erfolgreich')
 except:
     print('Datenbank-Verbindung konnte nicht hergestellt werden')
@@ -285,6 +286,24 @@ def admin():
 
     # if POST-method from the 'Programm laden' button is requested
     if request.method == 'POST':
+        if request.form['Button'] == 'Login':
+            user_name = request.form['user_name']
+            password = request.form['password']
+
+            cur = mysql.connection.cursor()
+
+            cur.execute('SELECT name, password from users where name = (%s) and password = (%s)', [user_name, password])
+            credentials = cur.fetchall()
+            user = credentials[0][0]
+            pw = credentials[1][0]
+
+            if user_name = user and password = pw:
+                return render_template('admin.html', password=password, user_name=user_name, satellite_list=satellite_list, programm_list=programm_list)
+                                       
+            else:
+                flash('Login nicht erfolgreich')
+                return render_template('fail.html')
+
         if request.form['Button'] == 'Programm laden':
             try:
                 # request.form gets selected values in dropdown fields
@@ -455,7 +474,7 @@ def admin():
                 return render_template('fail.html')
 
     # return admin-template with satellites and programm lists
-    return render_template('admin.html', satellite_list=satellite_list, programm_list=programm_list)
+    return render_template('admin_login.html', user_name=user_name, password=password)
 
 # to run app as standalone instance
 if __name__ == '__main__':
