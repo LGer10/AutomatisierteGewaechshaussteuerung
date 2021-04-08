@@ -313,7 +313,7 @@ def admin():
                 pw=credentials[0][1]
 
                 if user_name == user and password == pw:
-                    session['user_name'] = username
+                    session['user_name'] = user_name
                     return redirect(url_for('admin'))
 
             except:
@@ -321,6 +321,7 @@ def admin():
                 return render_template('fail.html')
 
         if request.form['Button'] == 'Logout':
+            session.pop('user_name', None)
             flash('Erfolgreich ausgeloggt')
             return redirect(url_for('success.html'))
 
