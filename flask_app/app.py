@@ -356,8 +356,7 @@ def admin():
                 cur.close()
 
                 # post-request url to load programm
-                url = f'''http://{ip_addr}:8081/post_data?temperature={temperature_value}&brightness={brightness_value}
-                &air_humidity={airhumidity_value}&soil_humidity={soilhumidity_value}'''
+                url = f'http://{ip_addr}:8081/post_data?temperature={temperature_value}&brightness={brightness_value}&air_humidity={airhumidity_value}&soil_humidity={soilhumidity_value}'
 		        
                 print(url)
                 
