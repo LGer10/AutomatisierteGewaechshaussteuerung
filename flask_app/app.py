@@ -325,7 +325,7 @@ def admin():
                 flash('Login nicht erfolgreich')
                 return render_template('fail.html')
 
-        if request.form['Button'] == 'Logout':
+        if request.form['logout'] == 'Logout':
             session.pop('user_name', None)
             user_name = None
             flash('Erfolgreich ausgeloggt')
