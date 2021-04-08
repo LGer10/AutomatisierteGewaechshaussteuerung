@@ -289,10 +289,6 @@ def admin():
         flash('Error')
         flash('Ein Fehler ist aufgetreten. Bitte Seite erneut laden.')
         return render_template('fail.html')
-
-    if 'user_name' in session:
-        user_name = session['user_name']
-        return render_template('admin.html', user_name=user_name, satellite_list=satellite_list, programm_list=programm_list)
  
     # if POST-method from the 'Programm laden' button is requested
     if request.method == 'POST':
@@ -312,24 +308,12 @@ def admin():
                 user=credentials[0][0]
                 pw=credentials[0][1]
 
-                if session['user_name'] == user and password == pw:
-                    session['user_name'] = user_name
-                    print(user_name)
-                    print(password)
+                if user_name == user and password == pw:
                     return render_template('admin.html', user_name=user_name, satellite_list=satellite_list, programm_list=programm_list)
-                
-                else:
-                    print(fail)
 
             except:
                 flash('Login nicht erfolgreich')
                 return render_template('fail.html')
-
-        if request.form['logout'] == 'Logout':
-            session.pop('user_name', None)
-            user_name = None
-            flash('Erfolgreich ausgeloggt')
-            return render_template('success.html')
 
         if request.form['Button'] == 'Programm laden':
             try:
