@@ -325,7 +325,7 @@ def admin():
             session.pop('user_name', None)
             user_name = None
             flash('Erfolgreich ausgeloggt')
-            return redirect(url_for('success.html'))
+            return render_template('success.html')
 
         if request.form['Button'] == 'Programm laden':
             try:
