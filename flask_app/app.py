@@ -291,7 +291,7 @@ def admin():
         return render_template('fail.html')
 
     if 'user_name' in session:
-        user_name = session.['user_name']
+        user_name = session['user_name']
     else:
         return render_template('admin_login.html')
 
