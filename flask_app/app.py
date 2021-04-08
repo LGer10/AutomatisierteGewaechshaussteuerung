@@ -292,7 +292,8 @@ def admin():
 
     if 'user_name' in session:
         user_name = session['user_name']
-
+        return render_template('admin.html', user_name=user_name, satellite_list=satellite_list, programm_list=programm_list)
+ 
     # if POST-method from the 'Programm laden' button is requested
     if request.method == 'POST':
         if request.form['Button'] == 'Login':
@@ -500,7 +501,7 @@ def admin():
                 return render_template('fail.html')
 
     # return admin-template with satellites and programm lists
-    return render_template('admin.html', user_name=user_name, satellite_list=satellite_list, programm_list=programm_list)
+    return render_template('admin_login.html')
 
 # to run app as standalone instance
 if __name__ == '__main__':
