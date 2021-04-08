@@ -501,4 +501,4 @@ def admin():
 # to run app as standalone instance
 if __name__ == '__main__':
     # app is available for all users in LAN and debug mode is on
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host="0.0.0.0", debug=True, threaded=True)
