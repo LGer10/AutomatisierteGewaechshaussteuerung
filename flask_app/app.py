@@ -290,7 +290,7 @@ def admin():
         flash('Ein Fehler ist aufgetreten. Bitte Seite erneut laden.')
         return render_template('fail.html')
 
-   if 'user_name' in session:
+    if 'user_name' in session:
         user_name = session['user_name']
         return render_template('admin.html', user_name=user_name, satellite_list=satellite_list, programm_list=programm_list)
 
