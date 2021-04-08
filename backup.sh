@@ -1,7 +1,7 @@
 #!/bin/bash
 
-BACKUP_PFAD="/pfad/zum_backup_order"
-BACKUP_ANZAHL="5"
+BACKUP_PFAD="/media/usbstick"
+BACKUP_ANZAHL="2"
 BACKUP_NAME="RaspberryPiBackup"
 DIENSTE_START_STOP="service mysql"
 
