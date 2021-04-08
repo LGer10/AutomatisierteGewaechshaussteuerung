@@ -292,8 +292,6 @@ def admin():
 
     if 'user_name' in session:
         user_name = session['user_name']
-    else:
-        return render_template('admin_login.html')
 
     # if POST-method from the 'Programm laden' button is requested
     if request.method == 'POST':
