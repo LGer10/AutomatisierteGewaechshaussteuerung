@@ -299,7 +299,7 @@ def admin():
     if request.method == 'POST':
         if request.form['Button'] == 'Login':
             try:
-                user_name = request.form['user_name']
+                session['user_name'] = request.form['user_name']
                 password=request.form['password']
 
                 cur=mysql.connection.cursor()
@@ -313,11 +313,14 @@ def admin():
                 user=credentials[0][0]
                 pw=credentials[0][1]
 
-                if user_name == user and password == pw:
+                if session['user_name'] == user and password == pw:
                     session['user_name'] = user_name
                     print(user_name)
                     print(password)
                     return render_template('admin.html', user_name=user_name, satellite_list=satellite_list, programm_list=programm_list)
+                
+                else:
+                    print(fail)
 
             except:
                 flash('Login nicht erfolgreich')
