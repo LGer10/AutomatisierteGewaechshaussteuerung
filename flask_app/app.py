@@ -290,15 +290,16 @@ def admin():
         flash('Ein Fehler ist aufgetreten. Bitte Seite erneut laden.')
         return render_template('fail.html')
  
-    # if POST-method from the 'Programm laden' button is requested
+    # if POST-method from the 'Login' button is requested
     if request.method == 'POST':
         if request.form['Button'] == 'Login':
             try:
+                #get user input
                 user_name = request.form['user_name']
                 password=request.form['password']
 
                 cur=mysql.connection.cursor()
-
+                # get name and password from database
                 cur.execute('SELECT name, password from users where name = (%s) and password = (%s)', [
                             user_name, password])
                 credentials=cur.fetchall()
@@ -308,13 +309,16 @@ def admin():
                 user=credentials[0][0]
                 pw=credentials[0][1]
 
+                # check credentials from user-input with entries in user table
+                # if true return admin site
                 if user_name == user and password == pw:
                     return render_template('admin.html', user_name=user_name, satellite_list=satellite_list, programm_list=programm_list)
-
+                    
             except:
                 flash('Login nicht erfolgreich')
                 return render_template('fail.html')
 
+    # if POST-method from the 'Programm laden' button is requested
         if request.form['Button'] == 'Programm laden':
             try:
                 # request.form gets selected values in dropdown fields
