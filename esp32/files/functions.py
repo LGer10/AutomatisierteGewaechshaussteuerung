@@ -162,3 +162,4 @@ def servo(status):
     if(status is "close" and servo.duty() is not 115):
         servo.duty(115)
 
+
