@@ -3,7 +3,7 @@
 # automatisiertes gewächshaus | main-script flask_app | version 0.1
 
 # libraries
-from flask import Flask, render_template, request, make_response, redirect, flash, url_for
+from flask import Flask, session, render_template, request, make_response, redirect, flash, url_for
 from flask_mysqldb import MySQL
 import requests
 
@@ -290,6 +290,10 @@ def admin():
         flash('Ein Fehler ist aufgetreten. Bitte Seite erneut laden.')
         return render_template('fail.html')
 
+   if 'user_name' in session:
+        user_name = session['user_name']
+        return render_template('admin.html', user_name=user_name, satellite_list=satellite_list, programm_list=programm_list)
+
     # if POST-method from the 'Programm laden' button is requested
     if request.method == 'POST':
         if request.form['Button'] == 'Login':
@@ -309,11 +313,18 @@ def admin():
                 pw=credentials[0][1]
 
                 if user_name == user and password == pw:
-                    return render_template('admin.html', user_name=user_name, satellite_list=satellite_list, programm_list=programm_list)
+                    session['user_name'] = username
+                    return redirect(url_for('admin'))
 
             except:
                 flash('Login nicht erfolgreich')
                 return render_template('fail.html')
+
+        if request.form['Button'] == 'Logout':
+            flash('Erfolgreich ausgeloggt')
+            return redirect(url_for('success.html'))
+
+
 
         if request.form['Button'] == 'Programm laden':
             try:
