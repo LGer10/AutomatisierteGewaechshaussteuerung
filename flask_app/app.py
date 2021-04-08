@@ -294,7 +294,7 @@ def admin():
     if request.method == 'POST':
         if request.form['Button'] == 'Login':
             try:
-                session['user_name'] = request.form['user_name']
+                user_name = request.form['user_name']
                 password=request.form['password']
 
                 cur=mysql.connection.cursor()
