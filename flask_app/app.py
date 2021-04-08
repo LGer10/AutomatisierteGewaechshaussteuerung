@@ -3,7 +3,7 @@
 # automatisiertes gewächshaus | main-script flask_app | version 0.1
 
 # libraries
-from flask import Flask, session, render_template, request, make_response, redirect, flash, url_for
+from flask import Flask, render_template, request, make_response, redirect, flash, url_for
 from flask_mysqldb import MySQL
 import requests
 
@@ -313,7 +313,7 @@ def admin():
                 # if true return admin site
                 if user_name == user and password == pw:
                     return render_template('admin.html', user_name=user_name, satellite_list=satellite_list, programm_list=programm_list)
-                    
+
             except:
                 flash('Login nicht erfolgreich')
                 return render_template('fail.html')
