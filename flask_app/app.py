@@ -322,10 +322,9 @@ def admin():
 
         if request.form['Button'] == 'Logout':
             session.pop('user_name', None)
+            user_name = None
             flash('Erfolgreich ausgeloggt')
             return redirect(url_for('success.html'))
-
-
 
         if request.form['Button'] == 'Programm laden':
             try:
