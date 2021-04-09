@@ -1,20 +1,20 @@
 #!/bin/bash
 
-# 
+# variables
 BACKUP_PATH="/media/usbstick"
 BACKUP_NUMBER="2"
 BACKUP_NAME="RaspberryPiBackup"
 SERVICES_STOP="systemctl stop mysql"
 SERVICES_START="systemctl start mysql"
 
-# Stoppe Dienste vor Backup
+# stop services (mysql)
 ${SERVICES_STOP}
 
-# Backup mit Hilfe von dd erstellen und im angegebenen Pfad speichern
-dd if=/dev/mmcblk0 of=${BACKUP_PFAD}/${BACKUP_NAME}-$(date +%Y%m%d).img bs=1MB
+# save zip-file of backup in path avriable
+sudo dd if=/dev/mmcblk0 bs=1MB | gzip > ${BACKUP_PATH}/${BACKUP_NAME}-$(date +%Y%m%d).img
 
-# Starte Dienste nach Backup
+# start services (mysql)
 ${SERVICES_START}
 
-# Alte Sicherungen die nach X neuen Sicherungen entfernen
+# remove old backups
 pushd ${BACKUP_PATH}; ls -tr ${BACKUP_PATH}/${BACKUP_NAME}* | head -n -${BACKUP_NUMBER} | xargs rm; popd
