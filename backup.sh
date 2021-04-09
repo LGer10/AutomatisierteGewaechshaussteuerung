@@ -4,14 +4,14 @@
 BACKUP_PATH="/media/usbstick"
 BACKUP_NUMBER="2"
 BACKUP_NAME="RaspberryPiBackup"
-SERVICES_STOP="systemctl stop mysql"
-SERVICES_START="systemctl start mysql"
+SERVICES_STOP="sudo systemctl stop mysql"
+SERVICES_START="sudo systemctl start mysql"
 
 # stop services (mysql)
 ${SERVICES_STOP}
 
 # save zip-file of backup in path avriable
-sudo dd if=/dev/mmcblk0p1 bs=1MB | gzip -c -9 > ${BACKUP_PATH}/${BACKUP_NAME}-$(date +%Y%m%d).img.gz
+sudo dd if=/dev/mmcblk0 bs=1MB | gzip -c -9 > ${BACKUP_PATH}/${BACKUP_NAME}-$(date +%Y%m%d).img.gz
 # start services (mysql)
 ${SERVICES_START}
 
