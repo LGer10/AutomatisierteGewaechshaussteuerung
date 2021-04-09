@@ -11,8 +11,7 @@ SERVICES_START="systemctl start mysql"
 ${SERVICES_STOP}
 
 # save zip-file of backup in path avriable
-sudo dd if=/dev/mmcblk0 bs=1MB | gzip > ${BACKUP_PATH}/${BACKUP_NAME}-$(date +%Y%m%d).img
-
+sudo dd if=/dev/mmcblk0 bs=1MB | gzip -c -9> ${BACKUP_PATH}/${BACKUP_NAME}-$(date +%Y%m%d).img.gz
 # start services (mysql)
 ${SERVICES_START}
 
