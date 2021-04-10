@@ -56,7 +56,7 @@ def collector():
             # convert brightness to hours
             # brightness treshhold is 200
             if brightness >= 200:
-                brightness = 1/60
+                brightness = 0.5/60
             # if brightness below treshhold insert 0 for brightness in database
             else:
                 brightness = 0
