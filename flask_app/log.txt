@@ -1,4 +1,0 @@
-<<<<<<< HEAD
-=======
-data-collection failed
->>>>>>> 7267c8b414a6332890db92d038dbaf12f3918164
