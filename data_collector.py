@@ -34,7 +34,7 @@ satellite_ip = cursor.fetchall()
 def collector():
     # for-loop trough all satellites
     try:
-        for satellite in satellite_ip[0]:
+        for satellite in satellite_ip:
             # select current programm of satellite for later insert statement
             cursor.execute(
                 'SELECT current_programm FROM satellites WHERE ip_addr = (%s)', [satellite])
