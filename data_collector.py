@@ -29,7 +29,8 @@ cursor = db.cursor(buffered=True)
 # select ip-adress from all satellites
 cursor.execute("SELECT ip_addr FROM satellites")
 satellite_ip = cursor.fetchall()
-
+print(satellite_ip)
+print(satellite_ip[0])
 # colect data
 def collector():
     # for-loop trough all satellites
