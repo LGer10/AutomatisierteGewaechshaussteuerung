@@ -1,6 +1,9 @@
+<<<<<<< HEAD
 MySQL Datenbank-Verbindung erfolgreich
  * Serving Flask app "app" (lazy loading)
  * Environment: production
    WARNING: This is a development server. Do not use it in a production deployment.
    Use a production WSGI server instead.
  * Debug mode: on
+=======
+>>>>>>> 8f6c00aabfb1be0f8196e7595891a60d6a7bab90
