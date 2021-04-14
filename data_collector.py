@@ -40,8 +40,6 @@ def collector():
                 'SELECT current_programm FROM satellites WHERE ip_addr = (%s)', [satellite[0]])
             current_programm = cursor.fetchone()
             current_programm = current_programm[0]
-            print(satellite[0])
-            print(current_programm)
 
             # request to REST-API
             # insert ip-address to url
@@ -68,8 +66,7 @@ def collector():
             (select id from satellites where ip_addr = (%s)) and id_programm = (%s)''', [satellite[0], current_programm])
             id_satellite_p = cursor.fetchone()
             id_satellite_programm = id_satellite_p[0]
-            print(id_satellite_programm)
-            print(satellite)
+           
             # insert parameters into table sensordata
             cursor.execute('''INSERT INTO sensordata 
             (id_satellite_programm, date, time, temperature, brightness, airhumidity, soilhumidity) 
