@@ -28,20 +28,19 @@ cursor = db.cursor(buffered=True)
 
 # select ip-adress from all satellites
 cursor.execute("SELECT ip_addr FROM satellites")
-satellite_ip = cursor.fetchone()
-print(satellite_ip)
-print(satellite_ip[0])
+satellite_ip = cursor.fetchall()
+
 # colect data
 def collector():
     # for-loop trough all satellites
     try:
-        for satellite in satellite_ip:
+        for satellite[0] in satellite_ip:
             # select current programm of satellite for later insert statement
             cursor.execute(
                 'SELECT current_programm FROM satellites WHERE ip_addr = (%s)', [satellite])
             current_programm = cursor.fetchone()
             current_programm = current_programm[0]
-
+            print(satellite)
             print(current_programm)
 
             # request to REST-API
