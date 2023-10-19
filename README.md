@@ -1,3 +1,3 @@
-# automatisiertes_gewaechshaus
+# TSBE HF Informatik Diplomarbeit 2021
 
 
